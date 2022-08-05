@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 
 const LogoBox = styled.span`
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
     display: inline-flex;
     align-items: center;
     height: 30px;
@@ -13,8 +13,16 @@ const LogoBox = styled.span`
     padding: 10px;
 
     &:hover img{
-        transform: rotate(180deg);
+        animation: rotation 5s infinite linear;
     }
+    @keyframes rotation {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-359deg);
+        }
+      }
 `
 const Logo = ()=>{
     const footPrintImg = `/images/footprint${useColorModeValue('','-dark')}.png`
@@ -28,7 +36,7 @@ const Logo = ()=>{
                     fontFamily = 'M PLUS Rounded 1c'
                     fontWeight = "bold"
                     ml={3}>
-                        Fengyi Chen
+                        Rei Utsuho
                     </Text>
                 </LogoBox>
             </a>
