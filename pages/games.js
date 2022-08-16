@@ -19,7 +19,7 @@ const Games = () => (
     <Container>
     <Section delay={0.1}>
     <Heading as="h3" variant="section-title">
-     单机游戏清单 - Game Checklist
+     单机游戏清单(叙事性方向) - Game Checklist
     </Heading>
     <UnorderedList my={4}>
           <ListItem>十三机兵防卫圈 <Badge>2022 √</Badge></ListItem>
