@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import { forwardRef } from 'react'
 import { Box, Spinner } from '@chakra-ui/react'
 
@@ -27,7 +29,6 @@ export const ModelContainer = forwardRef(({ children }, ref) => (
   </Box>
 ))
 
-// eslint-disable-next-line react/display-name
 const Loader = () => {
   return (
     <ModelContainer>
@@ -35,5 +36,6 @@ const Loader = () => {
     </ModelContainer>
   )
 }
-Loader.displayName = "Loader";
+
+Loader.displayName = 'Loader'
 export default Loader
