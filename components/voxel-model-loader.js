@@ -34,5 +34,5 @@ const Loader = () => {
     </ModelContainer>
   )
 }
-
+Loader.displayName = "Loader";
 export default Loader

@@ -62,7 +62,7 @@ const Works = () => (
         </Section>
         <Section delay={0.3}>
           <WorkGridItem id="dustJacket" title="&#34;1984&#34; Dust Jacket Design" thumbnail={thumbDustJacket}>
-            A dust jacket design for "1984", New Media Design course final project
+            A dust jacket design for &quot;1984&quot;, New Media Design course final project
           </WorkGridItem>
         </Section>
       </SimpleGrid>
