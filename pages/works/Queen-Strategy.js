@@ -7,6 +7,7 @@ import {
     ListItem,
     SimpleGrid,
     UnorderedList,
+    Heading,
     Image
   } from '@chakra-ui/react'
   import Layout from '../../components/layouts/article'
@@ -18,21 +19,26 @@ import {
     <Layout title="Mead of Poetry">
       <Container>
         <Title>
-          诗之蜜酒 <Badge>2022-Present</Badge>
+          代号σ <Badge>2022-Present</Badge>
         </Title>
         <P>
-          一个中策桌游，取材灵感来自于神话与史诗。玩家将扮演吟游诗人，编织传说与故事，以赢得巨人(苏图恩)的蜜酒。
+          一款日式SLG战棋游戏，单机，预定2025年发售。锐意制作中!
         </P>
         <br/>
-
+        <Heading as="h3" fontSize={20} mb={4}>
+            目前可以公开的情报：
+        </Heading>
         <P>
-          具体包含的机制
+          游戏开发进度：Initial Phase -&gt; Plan Phase
+        </P>
+        <P>
+            开发组成员：10人（11人，一人请长假）
         </P>
         <UnorderedList my={4}>
-          <ListItem>手牌控制</ListItem>
-          <ListItem>牌组构建</ListItem>
-          <ListItem>工人摆放</ListItem>
-          <ListItem>组合收集</ListItem>
+          <ListItem>游戏性管线：战斗系统细化</ListItem>
+          <ListItem>叙事性管线：背景设定细化</ListItem>
+          <ListItem>开发管线：开发脚手架搭建</ListItem>
+          <ListItem>设计管线：概念设计</ListItem>
         </UnorderedList>
   
         <List ml={4} my={4}>
@@ -42,7 +48,7 @@ import {
           </ListItem>
           <ListItem>
             <Meta>Tags</Meta>
-            <span>Design, Boardgame, Mythology</span>
+            <span>Design, SLG, Mythology</span>
           </ListItem>
         </List>
   

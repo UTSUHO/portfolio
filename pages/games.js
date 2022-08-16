@@ -1,18 +1,41 @@
-import { Container, Heading, SimpleGrid } from '@chakra-ui/react'
+import { 
+  Container, 
+  Heading, 
+  SimpleGrid, 
+  UnorderedList, 
+  Badge,
+  List,
+  ListItem} from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { GridItem } from '../components/grid-item'
+import P from '../components/paragraph'
+
 
 import thumbHumankind from '../public/images/contents/humankind.jpg'
 
 const Games = () => (
   <Layout title="Games">
     <Container>
-      <Heading as="h3" fontSize={20} mb={4}>
-        Games Related here
-      </Heading>
+    <Section delay={0.1}>
+    <Heading as="h3" variant="section-title">
+     单机游戏清单 - Game Checklist
+    </Heading>
+    <UnorderedList my={4}>
+          <ListItem>十三机兵防卫圈 <Badge>2022 √</Badge></ListItem>
+          <ListItem>三角战略<Badge>2022 √</Badge></ListItem>
+          <ListItem>装甲恶鬼村正<Badge>2021 √</Badge></ListItem>
+          <ListItem>混沌之子<Badge>2020 √</Badge></ListItem>
+          <ListItem>混沌之脑<Badge>2020 √</Badge></ListItem>
+          <ListItem>Ever17<Badge>2020 √</Badge></ListItem>
+          <ListItem>Katana Zero<Badge>2019 √</Badge></ListItem>
+        </UnorderedList>
+    </Section>
 
       <Section delay={0.1}>
+      <Heading as="h3" variant="section-title">
+      游戏相关的随笔 - Game Related Essay
+      </Heading>
         <SimpleGrid columns={[1, 2, 2]} gap={6}>
           <GridItem
             title="Humankind™ 测评与分析报告"
