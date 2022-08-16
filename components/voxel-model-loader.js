@@ -27,6 +27,7 @@ export const ModelContainer = forwardRef(({ children }, ref) => (
   </Box>
 ))
 
+// eslint-disable-next-line react/display-name
 const Loader = () => {
   return (
     <ModelContainer>
