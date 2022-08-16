@@ -6,7 +6,8 @@ const Footer = () => {
       &copy; {new Date().getFullYear()} Rei Utsuho. All Rights Reserved.
       <br/>
       Inspired by <a href='https://www.craftz.dog/' rel="noreferrer" target='_blank'>Takuya Matsuyama&apos;s website</a>.
-
+      <br/>
+      Voxel Model created by phil_xg@sketchfab.
     </Box>
   )
 }

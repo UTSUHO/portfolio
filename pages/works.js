@@ -22,14 +22,14 @@ const Works = () => (
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
 
       <Section>
-            <WorkGridItem id="Mead-of-Poetry" title="诗之蜜酒" thumbnail={thumbVegvisir}>
-              	一款中策桌游，预计2023年完成制作。
+            <WorkGridItem id="Mead-of-Poetry" title="Mead-of-Poetry 诗之蜜酒" thumbnail={thumbVegvisir}>
+              	A mid-weight boardgame, mythology theme. ETR2023 一款中策桌游，预计2023年完成制作。
             </WorkGridItem>
         </Section>
 
         <Section>
-            <WorkGridItem id="Queen-Strategy" title="代号σ" thumbnail={thumbQueen}>
-              	一款中等体量的SLG独立游戏，锐意制作中，预计2025年发售。
+            <WorkGridItem id="Queen-Strategy" title="CODE:QUEEN 代号σ" thumbnail={thumbQueen}>
+              	A SRPG indie game, fantasy based. ETR 2025. 一款中等体量的SLG独立游戏，锐意制作中，预计2025年发售。
             </WorkGridItem>
         </Section>
 
@@ -50,7 +50,7 @@ const Works = () => (
         <Divider my={6} />
 
         <Heading as="h3" fontSize={20} mb={4}>
-          Design
+          Design & Game Design
         </Heading>
       </Section>
 
@@ -77,7 +77,7 @@ const Works = () => (
 
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
         <Section delay={0.5}>
-        <WorkGridItem id="madarazakura" title="Touhou Madarazakura Translation" thumbnail={thumbIkaruga}>
+        <WorkGridItem id="madarazakura" title="东方斑樱汉化" thumbnail={thumbIkaruga}>
             东方斑樱是一款致敬斑鸠&#34;ikaruga&#34;的同人纵版STG游戏。笔者曾与同好协同工作，破解并汉化了此佳作。
           </WorkGridItem>
         </Section>

@@ -78,7 +78,7 @@ const Home = () => (
           About Me
         </Heading>
         <Paragraph>ReiUtsuho is a indie game designer & full-stack developer with a passion for designing  & building digital tools or games he wants. Love video & board game designing and got some snack on handling real life problem by forging digital tools. When he is offline, books, board games, and classical music is his best friend. Currently, he is running an indie game project {''} 
-        <NextLink href="/works/Queen">
+        <NextLink href="/works/Queen-Strategy">
             <Link>Queen</Link>
             </NextLink> and it would be released year 2025 ETR.
             </Paragraph>

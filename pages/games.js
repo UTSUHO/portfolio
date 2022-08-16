@@ -22,12 +22,13 @@ const Games = () => (
      单机游戏清单(叙事性方向) - Game Checklist
     </Heading>
     <UnorderedList my={4}>
-          <ListItem>十三机兵防卫圈 <Badge>2022 √</Badge></ListItem>
-          <ListItem>三角战略<Badge>2022 √</Badge></ListItem>
-          <ListItem>装甲恶鬼村正<Badge>2021 √</Badge></ListItem>
-          <ListItem>混沌之子<Badge>2020 √</Badge></ListItem>
-          <ListItem>混沌之脑<Badge>2020 √</Badge></ListItem>
+          <ListItem>十三机兵防卫圈 13 Sentinel: Aegis rim <Badge>2022 √</Badge></ListItem>
+          <ListItem>三角战略 Triangle Strategy <Badge>2022 √</Badge></ListItem>
+          <ListItem>装甲恶鬼村正 Full Metal Daemon: Muramasa <Badge>2021 √</Badge></ListItem>
+          <ListItem>混沌之子 CHAOS;CHILD <Badge>2020 √</Badge></ListItem>
+          <ListItem>混沌之脑 CHAOS;HEAD <Badge>2020 √</Badge></ListItem>
           <ListItem>Ever17<Badge>2020 √</Badge></ListItem>
+          <ListItem>极限脱出999 999:Nine Hours, Nine Persons, Nine Doors<Badge>2020 √</Badge></ListItem>
           <ListItem>Katana Zero<Badge>2019 √</Badge></ListItem>
         </UnorderedList>
     </Section>
