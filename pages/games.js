@@ -33,6 +33,7 @@ const Games = () => (
           <ListItem>Stellaris <Badge>2016 √</Badge></ListItem>
           <ListItem>我的世界 Minecraft <Badge>2012 √</Badge><Badge>Server Hosting</Badge></ListItem>
           <ListItem>席德梅尔的文明5 神佑君王 CIV5 G&K <Badge>2012 √</Badge></ListItem>
+          <ListItem>魔兽争霸III 冰封王座 WarcraftIII IoF <Badge>2006 √</Badge></ListItem>
           <ListItem>席德梅尔的文明2 <Badge>2005 √</Badge><Badge>First Game</Badge></ListItem>
         </UnorderedList>
     </Section>
@@ -51,8 +52,19 @@ const Games = () => (
           <ListItem>Katana Zero<Badge>2019 √</Badge></ListItem>
         </UnorderedList>
     </Section>
+    <Section delay={0.1}>
+    <Heading as="h3" variant="section-title">
+     单机游戏清单(FTG) - Game Checklist
+    </Heading>
+    <UnorderedList my={4}>
+          <ListItem>月姬格斗TL MBTL<Badge>2021 √</Badge></ListItem>
+          <ListItem>夜下降生 UNI <Badge>2016 √</Badge></ListItem>
+          <ListItem>街霸5 SFV <Badge>2017 √</Badge></ListItem>
+          <ListItem>东方非想天则 <Badge>2012 √</Badge></ListItem>
+        </UnorderedList>
+    </Section>
 
-      <Section delay={0.1}>
+      <Section delay={0.3}>
       <Heading as="h3" variant="section-title">
       游戏相关的随笔 - Game Related Essay
       </Heading>
