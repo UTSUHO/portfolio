@@ -19,12 +19,31 @@ const Games = () => (
     <Container>
     <Section delay={0.1}>
     <Heading as="h3" variant="section-title">
+     单机游戏清单(游戏性方向) - Game Checklist
+    </Heading>
+    <UnorderedList my={4}>
+          <ListItem>三角战略 Triangle Strategy <Badge>2022 √</Badge></ListItem>
+          <ListItem>Humankind™ 人类™ <Badge>2021 √</Badge></ListItem>
+          <ListItem>死亡搁浅 Death Stranding <Badge>2019 →</Badge></ListItem>
+          <ListItem>Katana Zero<Badge>2019 √</Badge></ListItem>
+          <ListItem>只狼 Sekiro <Badge>2019 √</Badge></ListItem>
+          <ListItem>战神4 God of War <Badge>2018 √</Badge></ListItem>
+          <ListItem>荒野之息 Legend of Zelda:BOTW <Badge>2018 √</Badge></ListItem>
+          <ListItem>席德梅尔的文明6 Sid Meier's civ 6 <Badge>2016 √</Badge></ListItem>
+          <ListItem>Stellaris <Badge>2016 √</Badge></ListItem>
+          <ListItem>我的世界 Minecraft <Badge>2012 √</Badge><Badge>Server Hosting</Badge></ListItem>
+          <ListItem>席德梅尔的文明5 神佑君王 CIV5 G&K <Badge>2012 √</Badge></ListItem>
+          <ListItem>席德梅尔的文明2 <Badge>2005 √</Badge><Badge>First Game</Badge></ListItem>
+        </UnorderedList>
+    </Section>
+    <Section delay={0.1}>
+    <Heading as="h3" variant="section-title">
      单机游戏清单(叙事性方向) - Game Checklist
     </Heading>
     <UnorderedList my={4}>
           <ListItem>十三机兵防卫圈 13 Sentinel: Aegis rim <Badge>2022 √</Badge></ListItem>
           <ListItem>三角战略 Triangle Strategy <Badge>2022 √</Badge></ListItem>
-          <ListItem>装甲恶鬼村正 Full Metal Daemon: Muramasa <Badge>2021 √</Badge></ListItem>
+          <ListItem>装甲恶鬼村正 Full Metal Daemon: Muramasa <Badge>2020 √</Badge></ListItem>
           <ListItem>混沌之子 CHAOS;CHILD <Badge>2020 √</Badge></ListItem>
           <ListItem>混沌之脑 CHAOS;HEAD <Badge>2020 √</Badge></ListItem>
           <ListItem>Ever17<Badge>2020 √</Badge></ListItem>
