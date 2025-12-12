@@ -29,7 +29,7 @@ const Games = () => (
           <ListItem>只狼 Sekiro <Badge>2019 √</Badge></ListItem>
           <ListItem>战神4 God of War <Badge>2018 √</Badge></ListItem>
           <ListItem>荒野之息 Legend of Zelda:BOTW <Badge>2018 √</Badge></ListItem>
-          <ListItem>席德梅尔的文明6 Sid Meier's civ 6 <Badge>2016 √</Badge></ListItem>
+          <ListItem>席德梅尔的文明6 Sid Meier&apos;s civ 6 <Badge>2016 √</Badge></ListItem>
           <ListItem>Stellaris <Badge>2016 √</Badge></ListItem>
           <ListItem>我的世界 Minecraft <Badge>2012 √</Badge><Badge>Server Hosting</Badge></ListItem>
           <ListItem>席德梅尔的文明5 神佑君王 CIV5 G&K <Badge>2012 √</Badge></ListItem>
