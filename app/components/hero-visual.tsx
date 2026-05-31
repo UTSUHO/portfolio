@@ -127,7 +127,7 @@ export default function HeroVisual() {
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center"
         >
-          <div className="text-xs uppercase tracking-widest text-[#6B6B6B]"
+          <div className="text-xs uppercase tracking-widest text-text-secondary"
           >
             Loading model...
           </div>

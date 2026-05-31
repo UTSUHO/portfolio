@@ -10,18 +10,17 @@ export function TopStatusBar() {
 
   return (
     <div
-      className="flex items-center justify-between px-6 h-8 text-xs font-mono uppercase tracking-wider"
-      style={{ backgroundColor: '#0A0A0A', color: '#6B6B6B', borderBottom: '1px solid #333333' }}
+      className="flex items-center justify-between px-6 h-24 text-xs font-mono uppercase tracking-wider bg-bg-invert text-text-secondary border-b border-subtle"
     >
       <div className="flex items-center gap-4">
-        <span style={{ color: '#FFFFFF' }}>REI_UTSUHO_SYS</span>
+        <span className="text-text-invert">REI_UTSUHO_SYS</span>
         <span className="hidden sm:inline">x:0 y:0</span>
       </div>
       <div className="flex items-center gap-4">
         <span>v.2.0.1</span>
         <span>{dateStr}</span>
         <span className="flex items-center gap-1">
-          <span className="inline-block w-1.5 h-1.5" style={{ backgroundColor: '#FF4D3A' }} />
+          <span className="inline-block w-1.5 h-1.5 bg-accent" />
           ONLINE
         </span>
       </div>
@@ -32,8 +31,7 @@ export function TopStatusBar() {
 export function BottomStatusBar() {
   return (
     <div
-      className="flex items-center justify-between px-6 h-8 text-xs font-mono uppercase tracking-wider"
-      style={{ backgroundColor: '#0A0A0A', color: '#6B6B6B', borderTop: '1px solid #333333' }}
+      className="flex items-center justify-between px-6 h-8 text-xs font-mono uppercase tracking-wider bg-bg-invert text-text-secondary border-t border-subtle"
     >
       <div className="flex items-center gap-4">
         <span>SYS:STABLE</span>

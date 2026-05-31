@@ -1,28 +1,65 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #F5F5F3;
-  --color-surface-light: #FFFFFF;
-  --color-surface-dark: #0A0A0A;
-  --color-text: #0A0A0A;
-  --color-text-invert: #FFFFFF;
-  --color-muted: #6B6B6B;
-  --color-line: #DCDCDC;
-  --color-accent: #FF4D3A;
+/* ============================================================
+   Design Tokens — Semantic Color System
+   ============================================================
+   原则：
+   1. 组件只引用语义层（如 bg-primary, text-secondary）
+   2. 具体色值仅在 @theme 中定义一次
+   3. 如需换肤/暗色模式，只需修改 @theme 中的映射
+   ============================================================ */
 
-  --font-sans: "Inter", system-ui, sans-serif;
+@theme {
+  /* ---------- Primitive Colors（原始色值，不直接使用） ---------- */
+  --color-primitive-cream:      #F5F5F3;
+  --color-primitive-white:      #FFFFFF;
+  --color-primitive-black:      #0A0A0A;
+  --color-primitive-gray:       #6B6B6B;
+  --color-primitive-border:     #DCDCDC;
+  --color-primitive-red:        #FF4D3A;
+  --color-primitive-dark-grid:  #1A1A1A;
+  --color-primitive-dark-line:  #333333;
+
+  /* ---------- Semantic Colors（语义层，组件唯一入口） ---------- */
+  /* Background */
+  --color-bg:              var(--color-primitive-cream);
+  --color-bg-primary:      var(--color-primitive-white);
+  --color-bg-invert:       var(--color-primitive-black);
+
+  /* Text */
+  --color-text:            var(--color-primitive-black);
+  --color-text-invert:     var(--color-primitive-white);
+  --color-text-secondary:  var(--color-primitive-gray);
+
+  /* Accent */
+  --color-accent:          var(--color-primitive-red);
+
+  /* Border / Divider */
+  --color-border:          var(--color-primitive-border);
+  --color-border-invert:   var(--color-primitive-dark-line);
+
+  /* Decorative（装饰性，用于 sidebar grid 等） */
+  --color-grid:            var(--color-primitive-dark-grid);
+  --color-subtle:          var(--color-primitive-dark-line);
+
+  /* ---------- Typography ---------- */
+  --font-sans:    "Inter", system-ui, sans-serif;
   --font-display: "Space Grotesk", system-ui, sans-serif;
 }
 
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
 @layer base {
   html {
-    background-color: #F5F5F3;
+    background-color: var(--color-bg);
   }
 
   body {
-    background-color: #F5F5F3;
-    color: #0A0A0A;
-    font-family: "Inter", system-ui, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;

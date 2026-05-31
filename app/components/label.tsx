@@ -2,7 +2,7 @@ export default function Label({ children, invert = false }: { children: React.Re
   return (
     <span
       className="text-xs uppercase tracking-widest"
-      style={{ color: invert ? '#6B6B6B' : '#6B6B6B' }}
+      className="text-text-secondary"
     >
       {children}
     </span>

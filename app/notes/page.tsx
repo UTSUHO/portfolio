@@ -29,47 +29,38 @@ export default function Notes() {
   return (
     <div className="p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="border" style={{ borderColor: '#DCDCDC', backgroundColor: '#FFFFFF' }}>
-          <div
-            className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b"
-            style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}
-          >
-            <span className="inline-block w-2 h-2" style={{ backgroundColor: '#FF4D3A' }} />
-            <span style={{ color: '#0A0A0A' }}>SYSTEM_LOG</span>
-            <span className="ml-auto" style={{ color: '#6B6B6B' }}>{logs.length} ENTRIES</span>
+        <div className="border border-border bg-bg-primary">
+          <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
+            <span className="inline-block w-2 h-2 bg-accent" />
+            <span className="text-text">SYSTEM_LOG</span>
+            <span className="ml-auto text-text-secondary">{logs.length} ENTRIES</span>
           </div>
 
           {logs.map((log, i) => (
-            <div key={i} className="border-b last:border-b-0" style={{ borderColor: '#DCDCDC' }}>
+            <div key={i} className="border-b last:border-b-0 border-border">
               <div className="grid grid-cols-12">
-                <div
-                  className="col-span-12 sm:col-span-2 px-4 py-3 sm:border-r flex items-center gap-3"
-                  style={{ borderColor: '#DCDCDC' }}
+                <div className="col-span-12 sm:col-span-2 px-4 py-3 sm:border-r border-border flex items-center gap-3"
                 >
-                  <span className="text-xs font-mono" style={{ color: '#6B6B6B' }}>
+                  <span className="text-xs font-mono text-text-secondary">
                     {log.date}
                   </span>
                 </div>
                 <div className="col-span-12 sm:col-span-10 px-4 py-3">
                   <div className="flex items-center gap-3 mb-1">
-                    <span
-                      className="text-xs font-mono uppercase"
-                      style={{ color: '#FF4D3A' }}
+                    <span className="text-xs font-mono uppercase text-accent"
                     >
                       [{log.category}]
                     </span>
-                    <span
+                    <span className="text-text font-medium"
                       style={{
-                        color: '#0A0A0A',
                         fontSize: '13px',
-                        fontFamily: '"Inter", system-ui, sans-serif',
-                        fontWeight: 500
+                        fontFamily: '"Inter", system-ui, sans-serif'
                       }}
                     >
                       {log.title}
                     </span>
                   </div>
-                  <p className="text-xs" style={{ color: '#6B6B6B' }}>
+                  <p className="text-xs text-text-secondary">
                     {log.detail}
                   </p>
                 </div>

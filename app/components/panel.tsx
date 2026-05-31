@@ -10,21 +10,20 @@ interface PanelProps {
 export default function Panel({ children, className = '', style = {}, title, count, redSquare = true }: PanelProps) {
   return (
     <div
-      className={`border ${className}`}
-      style={{ borderColor: '#DCDCDC', backgroundColor: '#FFFFFF', ...style }}
+      className={`border border-border bg-bg-primary ${className}`}
+      style={{ ...style }}
     >
       {(title || count) && (
         <div
-          className="flex items-center justify-between px-4 h-8 text-xs font-mono uppercase tracking-wider border-b"
-          style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}
+          className="flex items-center justify-between px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg"
         >
           <div className="flex items-center gap-2">
             {redSquare && (
-              <span className="inline-block w-2 h-2" style={{ backgroundColor: '#FF4D3A' }} />
+              <span className="inline-block w-2 h-2 bg-accent" />
             )}
-            <span style={{ color: '#0A0A0A' }}>{title}</span>
+            <span className="text-text">{title}</span>
           </div>
-          {count && <span style={{ color: '#6B6B6B' }}>{count}</span>}
+          {count && <span className="text-text-secondary">{count}</span>}
         </div>
       )}
       {children}

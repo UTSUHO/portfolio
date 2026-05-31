@@ -21,30 +21,27 @@ const skills = [
 export default function Resume() {
   return (
     <div className="p-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 border" style={{ borderColor: '#DCDCDC' }}>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border">
         {/* Left: Resume Log */}
-        <div className="lg:col-span-7 border-r" style={{ borderColor: '#DCDCDC', backgroundColor: '#FFFFFF' }}>
-          <div
-            className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b"
-            style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}
-          >
-            <span className="inline-block w-2 h-2" style={{ backgroundColor: '#FF4D3A' }} />
-            <span style={{ color: '#0A0A0A' }}>RESUME_LOG</span>
+        <div className="lg:col-span-7 border-r border-border bg-bg-primary">
+          <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
+            <span className="inline-block w-2 h-2 bg-accent" />
+            <span className="text-text">RESUME_LOG</span>
           </div>
-          <div className="grid grid-cols-12 text-xs font-mono border-b" style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}>
-            <div className="col-span-3 px-4 py-2 border-r" style={{ borderColor: '#DCDCDC', color: '#6B6B6B' }}>TIMESTAMP</div>
-            <div className="col-span-9 px-4 py-2" style={{ color: '#6B6B6B' }}>EVENT</div>
+          <div className="grid grid-cols-12 text-xs font-mono border-b border-border bg-bg">
+            <div className="col-span-3 px-4 py-2 border-r border-border text-text-secondary">TIMESTAMP</div>
+            <div className="col-span-9 px-4 py-2 text-text-secondary">EVENT</div>
           </div>
           {logs.map((log, i) => (
-            <div key={i} className="grid grid-cols-12 text-xs border-b last:border-b-0" style={{ borderColor: '#DCDCDC' }}>
-              <div className="col-span-3 px-4 py-3 border-r font-mono" style={{ borderColor: '#DCDCDC', color: '#6B6B6B' }}>
+            <div key={i} className="grid grid-cols-12 text-xs border-b last:border-b-0 border-border">
+              <div className="col-span-3 px-4 py-3 border-r border-border font-mono text-text-secondary">
                 {log.timestamp}
               </div>
               <div className="col-span-9 px-4 py-3">
-                <div style={{ color: '#0A0A0A', fontSize: '13px', fontFamily: '"Inter", system-ui, sans-serif' }}>
+                <div className="text-text" style={{ fontSize: '13px', fontFamily: '"Inter", system-ui, sans-serif' }}>
                   {log.event}
                 </div>
-                <div className="mt-1" style={{ color: '#6B6B6B', fontSize: '12px' }}>
+                <div className="mt-1 text-text-secondary" style={{ fontSize: '12px' }}>
                   {log.detail}
                 </div>
               </div>
@@ -53,62 +50,53 @@ export default function Resume() {
         </div>
 
         {/* Right: Skill Matrix */}
-        <div className="lg:col-span-5" style={{ backgroundColor: '#FFFFFF' }}>
-          <div
-            className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b"
-            style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}
-          >
-            <span className="inline-block w-2 h-2" style={{ backgroundColor: '#FF4D3A' }} />
-            <span style={{ color: '#0A0A0A' }}>SKILL_MATRIX</span>
+        <div className="lg:col-span-5 bg-bg-primary">
+          <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
+            <span className="inline-block w-2 h-2 bg-accent" />
+            <span className="text-text">SKILL_MATRIX</span>
           </div>
           <div className="p-4 space-y-4">
             {skills.map((skill) => (
               <div key={skill.name}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-mono" style={{ color: '#0A0A0A' }}>{skill.name}</span>
-                  <span className="text-xs font-mono" style={{ color: '#6B6B6B' }}>{skill.level}%</span>
+                  <span className="text-xs font-mono text-text">{skill.name}</span>
+                  <span className="text-xs font-mono text-text-secondary">{skill.level}%</span>
                 </div>
-                <div className="h-1 w-full" style={{ backgroundColor: '#DCDCDC' }}>
+                <div className="h-1 w-full bg-border">
                   <div
-                    className="h-full transition-all"
-                    style={{ width: `${skill.level}%`, backgroundColor: '#FF4D3A' }}
+                    className="h-full transition-all bg-accent"
+                    style={{ width: `${skill.level}%` }}
                   />
                 </div>
               </div>
             ))}
           </div>
 
-          <div
-            className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-t border-b"
-            style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}
-          >
-            <span className="inline-block w-2 h-2" style={{ backgroundColor: '#FF4D3A' }} />
-            <span style={{ color: '#0A0A0A' }}>INTERESTS</span>
+          <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-t border-b border-border bg-bg">
+            <span className="inline-block w-2 h-2 bg-accent" />
+            <span className="text-text">INTERESTS</span>
           </div>
           <div className="p-4 grid grid-cols-2 gap-2">
             {['Video Game', 'Board Game', 'Music', 'Mythology', 'Bangumi'].map((item) => (
-              <div key={item} className="flex items-center gap-2 text-xs" style={{ color: '#6B6B6B' }}>
-                <span className="inline-block w-1.5 h-1.5" style={{ backgroundColor: '#FF4D3A' }} />
+              <div key={item} className="flex items-center gap-2 text-xs text-text-secondary">
+                <span className="inline-block w-1.5 h-1.5 bg-accent" />
                 {item}
               </div>
             ))}
           </div>
 
-          <div
-            className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-t border-b"
-            style={{ borderColor: '#DCDCDC', backgroundColor: '#F5F5F3' }}
-          >
-            <span className="inline-block w-2 h-2" style={{ backgroundColor: '#FF4D3A' }} />
-            <span style={{ color: '#0A0A0A' }}>LINKS</span>
+          <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-t border-b border-border bg-bg">
+            <span className="inline-block w-2 h-2 bg-accent" />
+            <span className="text-text">LINKS</span>
           </div>
           <div className="p-4 space-y-2">
             <a href="https://github.com/UTSUHO" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs group">
-              <span className="font-mono" style={{ color: '#6B6B6B' }}>[GH]</span>
-              <span className="group-hover:text-[#FF4D3A] transition-colors" style={{ color: '#0A0A0A' }}>github.com/UTSUHO</span>
+              <span className="font-mono text-text-secondary">[GH]</span>
+              <span className="group-hover:text-accent transition-colors text-text">github.com/UTSUHO</span>
             </a>
             <a href="https://bangumi.tv/user/nightofknight" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs group">
-              <span className="font-mono" style={{ color: '#6B6B6B' }}>[BG]</span>
-              <span className="group-hover:text-[#FF4D3A] transition-colors" style={{ color: '#0A0A0A' }}>bangumi.tv/user/nightofknight</span>
+              <span className="font-mono text-text-secondary">[BG]</span>
+              <span className="group-hover:text-accent transition-colors text-text">bangumi.tv/user/nightofknight</span>
             </a>
           </div>
         </div>
