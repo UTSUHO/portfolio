@@ -29,7 +29,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex bg-bg">
         {/* Left Sidebar Visual */}
-        <aside className="hidden lg:block w-16 flex-shrink-0 bg-bg-invert">
+        <aside className="hidden lg:block w-16 flex-shrink-0 bg-bg-primary border-r border-border">
           <SidebarVisual />
         </aside>
 

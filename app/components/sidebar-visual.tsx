@@ -1,114 +1,77 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function SidebarVisual() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [activeColor, setActiveColor] = useState('#FFFFFF')
+  const colorMapRef = useRef<Map<string, string>>(new Map())
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    const resize = () => {
-      const parent = canvas.parentElement
-      if (!parent) return
-      canvas.width = parent.clientWidth
-      canvas.height = parent.clientHeight
-      draw()
-    }
-
-    const draw = () => {
-      const w = canvas.width
-      const h = canvas.height
-      ctx.clearRect(0, 0, w, h)
-
-      const rootStyle = getComputedStyle(document.documentElement)
-      const getColor = (name: string) => rootStyle.getPropertyValue(name).trim()
-
-      // Background
-      ctx.fillStyle = getColor('--color-bg-invert')
-      ctx.fillRect(0, 0, w, h)
-
-      // Grid lines
-      ctx.strokeStyle = getColor('--color-grid')
-      ctx.lineWidth = 1
-
-      const gridSize = 40
-      for (let x = 0; x <= w; x += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, h)
-        ctx.stroke()
-      }
-      for (let y = 0; y <= h; y += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(w, y)
-        ctx.stroke()
-      }
-
-      // Accent cross lines
-      ctx.strokeStyle = getColor('--color-subtle')
-      ctx.lineWidth = 1
-      const crossOffset = 60
-
-      // Top-left corner marks
-      ctx.beginPath()
-      ctx.moveTo(0, crossOffset)
-      ctx.lineTo(crossOffset, crossOffset)
-      ctx.lineTo(crossOffset, 0)
-      ctx.stroke()
-
-      // Bottom-left corner marks
-      ctx.beginPath()
-      ctx.moveTo(0, h - crossOffset)
-      ctx.lineTo(crossOffset, h - crossOffset)
-      ctx.lineTo(crossOffset, h)
-      ctx.stroke()
-
-      // Random accent dots
-      ctx.fillStyle = getColor('--color-accent')
-      const dotPositions = [
-        { x: w * 0.3, y: h * 0.2 },
-        { x: w * 0.7, y: h * 0.4 },
-        { x: w * 0.5, y: h * 0.7 },
-        { x: w * 0.2, y: h * 0.85 },
-        { x: w * 0.8, y: h * 0.15 },
-      ]
-      dotPositions.forEach(pos => {
-        ctx.beginPath()
-        ctx.arc(pos.x, pos.y, 2, 0, Math.PI * 2)
-        ctx.fill()
+    const updateColorMap = () => {
+      const map = new Map<string, string>()
+      document.querySelectorAll('[data-section-id]').forEach((el) => {
+        const id = el.getAttribute('data-section-id')
+        const color = el.getAttribute('data-section-color')
+        if (id && color) {
+          map.set(id, color)
+        }
       })
-
-      // Coordinate text
-      ctx.fillStyle = getColor('--color-text-secondary')
-      ctx.font = '10px monospace'
-      ctx.fillText('x:0', 8, h - 8)
-      ctx.fillText(`y:${Math.round(h)}`, 8, h - 20)
-
-      // Vertical label
-      ctx.save()
-      ctx.translate(w - 12, h / 2)
-      ctx.rotate(-Math.PI / 2)
-      ctx.textAlign = 'center'
-      ctx.fillStyle = getColor('--color-subtle')
-      ctx.font = '10px monospace'
-      ctx.fillText('REI_UTSUHO_SYS // VISUAL_MODULE', 0, 0)
-      ctx.restore()
+      colorMapRef.current = map
     }
 
-    resize()
-    window.addEventListener('resize', resize)
-    return () => window.removeEventListener('resize', resize)
+    updateColorMap()
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let maxRatio = 0
+        let bestId: string | null = null
+
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio
+            bestId = entry.target.getAttribute('data-section-id')
+          }
+        })
+
+        if (bestId) {
+          const color = colorMapRef.current.get(bestId)
+          if (color) {
+            setActiveColor(color)
+          }
+        }
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] }
+    )
+
+    document.querySelectorAll('[data-section-id]').forEach((el) => {
+      observer.observe(el)
+    })
+
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <div className="relative w-full h-full bg-bg-invert">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+    <div
+      ref={containerRef}
+      className="relative w-full h-full transition-colors duration-300"
+      style={{ backgroundColor: activeColor }}
+    >
+      {/* Coordinate text */}
+      <div className="absolute bottom-2 left-2 text-[10px] font-mono text-text-secondary">
+        <div>x:0</div>
+        <div>y:0</div>
+      </div>
+
+      {/* Vertical label */}
+      <div
+        className="absolute right-3 top-1/2 text-[10px] font-mono text-text-secondary tracking-wider"
+        style={{
+          writingMode: 'vertical-rl',
+          transform: 'translateY(-50%) rotate(180deg)',
+        }}
+      >
+        REI_UTSUHO_SYS // VISUAL_MODULE
+      </div>
     </div>
-  )
-}
+  )}

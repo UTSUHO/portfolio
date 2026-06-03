@@ -10,7 +10,7 @@ export function TopStatusBar() {
 
   return (
     <div
-      className="flex items-center justify-between px-6 h-24 text-xs font-mono uppercase tracking-wider bg-bg-invert text-text-secondary border-b border-subtle"
+      className="flex items-center justify-between px-6 h-24 text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle"
     >
       <div className="flex items-center gap-4">
         <span className="text-text-invert">REI_UTSUHO_SYS</span>

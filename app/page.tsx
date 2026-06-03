@@ -8,7 +8,11 @@ export default function Home() {
         {/* Top Dashboard Row */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border">
           {/* Left: Identity Panel */}
-          <div className="lg:col-span-4 border-r border-border bg-bg-primary">
+          <div
+            className="lg:col-span-4 border-r border-border bg-bg-primary"
+            data-section-id="identity"
+            data-section-color="#FFFFFF"
+          >
             <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
               <span className="inline-block w-2 h-2 bg-accent" />
               <span className="text-text">IDENTITY</span>
@@ -38,7 +42,11 @@ export default function Home() {
           </div>
 
           {/* Right: Visual Panel */}
-          <div className="lg:col-span-8 bg-bg-primary">
+          <div
+            className="lg:col-span-8 bg-bg-primary"
+            data-section-id="visual"
+            data-section-color="#FFFFFF"
+          >
             <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
               <span className="inline-block w-2 h-2 bg-accent" />
               <span className="text-text">VISUAL_SYS</span>
@@ -52,7 +60,12 @@ export default function Home() {
 
         {/* System Modules Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-t-0 border-border">
-          <Link href="/projects" className="group border-r border-b md:border-b-0 border-border bg-bg-primary">
+          <Link
+            href="/projects"
+            className="group border-r border-b md:border-b-0 border-border bg-bg-primary"
+            data-section-id="works"
+            data-section-color="#F8F8F6"
+          >
             <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg transition-colors group-hover:bg-bg-invert">
               <span className="inline-block w-2 h-2 bg-accent" />
               <span className="text-text group-hover:text-text-invert transition-colors">WORKS</span>
@@ -65,7 +78,12 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href="/resume" className="group border-r border-b md:border-b-0 border-border bg-bg-primary">
+          <Link
+            href="/resume"
+            className="group border-r border-b md:border-b-0 border-border bg-bg-primary"
+            data-section-id="resume"
+            data-section-color="#F0F0EE"
+          >
             <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg transition-colors group-hover:bg-bg-invert">
               <span className="inline-block w-2 h-2 bg-accent" />
               <span className="text-text group-hover:text-text-invert transition-colors">RESUME</span>
@@ -78,7 +96,12 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href="/library" className="group border-border bg-bg-primary">
+          <Link
+            href="/library"
+            className="group border-border bg-bg-primary"
+            data-section-id="library"
+            data-section-color="#F8F8F6"
+          >
             <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg transition-colors group-hover:bg-bg-invert">
               <span className="inline-block w-2 h-2 bg-accent" />
               <span className="text-text group-hover:text-text-invert transition-colors">LIBRARY</span>
@@ -93,7 +116,11 @@ export default function Home() {
         </div>
 
         {/* Latest Log Row */}
-        <div className="border border-t-0 border-border bg-bg-primary">
+        <div
+          className="border border-t-0 border-border bg-bg-primary"
+          data-section-id="latest-log"
+          data-section-color="#FFFFFF"
+        >
           <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
             <span className="inline-block w-2 h-2 bg-accent" />
             <span className="text-text">LATEST_LOG</span>
