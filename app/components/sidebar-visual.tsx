@@ -51,26 +51,44 @@ export default function SidebarVisual() {
   }, [])
 
   return (
-    <div
-      className="fixed top-0 left-0 h-screen z-50 bg-bg-primary border-r border-border hidden lg:flex flex-col transition-colors duration-300"
-      style={{ width: 'var(--width-sidebar)', backgroundColor: activeColor }}
-    >
-      {/* Coordinate text */}
-      <div className="absolute bottom-2 left-2 text-[10px] font-mono text-text-secondary">
-        <div>x:0</div>
-        <div>y:0</div>
-      </div>
-
-      {/* Vertical label */}
+    <>
       <div
-        className="absolute right-3 top-1/2 text-[10px] font-mono text-text-secondary tracking-wider"
+        className="fixed top-0 left-0 h-screen z-50 hidden lg:flex flex-col"
         style={{
-          writingMode: 'vertical-rl',
-          transform: 'translateY(-50%) rotate(180deg)',
+          width: 'var(--width-sidebar)',
+          backgroundColor: 'transparent',
         }}
       >
-        REI_UTSUHO_SYS // VISUAL_MODULE
+        {/* Coordinate text */}
+        {/* <div className="absolute bottom-2 left-2 text-[10px] font-mono text-text-secondary">
+          <div>x:0</div>
+          <div>y:0</div>
+        </div> */}
+
+        {/* Vertical label */}
+        <div
+          className="absolute right-3 top-1/2 text-[10px] font-mono text-text-secondary tracking-wider"
+          style={{
+            writingMode: 'vertical-rl',
+            transform: 'translateY(-50%) rotate(180deg)',
+          }}
+        >
+          REI_UTSUHO_SYS // VISUAL_MODULE
+        </div>
       </div>
-    </div>
+
+      {/* Difference-mode border line — placed at root level so it blends with page content */}
+      <div
+        className="fixed top-0 hidden lg:block pointer-events-none"
+        style={{
+          left: 'var(--width-sidebar)',
+          width: '1px',
+          height: '100vh',
+          backgroundColor: '#ffffff',
+          mixBlendMode: 'difference',
+          zIndex: 50,
+        }}
+      />
+    </>
   )
 }

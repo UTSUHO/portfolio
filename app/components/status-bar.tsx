@@ -1,17 +1,22 @@
-'use client'
+"use client";
 
 export function TopStatusBar() {
-  const now = new Date()
-  const dateStr = now.toLocaleDateString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: '2-digit'
-  }).replace(/\//g, '.')
+  const now = new Date();
+  const dateStr = now
+    .toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "2-digit",
+    })
+    .replace(/\//g, ".");
 
   return (
     <div
       className="absolute w-full flex items-center justify-between px-6 text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle box-border"
-      style={{ height: 'var(--height-status)', paddingLeft: 'calc(var(--width-sidebar) + 24px)' }}
+      style={{
+        height: "var(--height-status)",
+        paddingLeft: "calc(var(--width-sidebar) + 24px)",
+      }}
     >
       <div className="flex items-center gap-4">
         <span className="text-text-invert">REI_UTSUHO_SYS</span>
@@ -26,13 +31,14 @@ export function TopStatusBar() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function BottomStatusBar() {
   return (
     <div
       className="flex items-center justify-between px-6 h-8 text-xs font-mono uppercase tracking-wider bg-bg-invert text-text-secondary border-t border-subtle"
+      style={{ paddingLeft: "calc(var(--width-sidebar) + 24px)" }}
     >
       <div className="flex items-center gap-4">
         <span>SYS:STABLE</span>
@@ -44,5 +50,5 @@ export function BottomStatusBar() {
         <span>&copy; {new Date().getFullYear()} REI UTSUHO</span>
       </div>
     </div>
-  )
+  );
 }
