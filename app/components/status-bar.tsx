@@ -12,17 +12,19 @@ export function TopStatusBar() {
 
   return (
     <div
-      className="absolute w-full flex items-center justify-between px-6 text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle box-border"
+      className="absolute w-full grid grid-cols-1 lg:grid-cols-12 items-center text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle box-border"
       style={{
         height: "var(--height-status)",
-        paddingLeft: "calc(var(--width-sidebar) + 24px)",
+        paddingLeft: "var(--width-sidebar)",
       }}
     >
-      <div className="flex items-center gap-4">
+      {/* left */}
+      <div className="lg:col-span-4 flex items-center gap-4 px-6 border-r h-full">
         <span className="text-text-invert">REI_UTSUHO_SYS</span>
         <span className="hidden sm:inline">x:0 y:0</span>
       </div>
-      <div className="flex items-center gap-4">
+      {/* right */}
+      <div className="lg:col-span-8 flex items-center justify-end gap-4 px-6">
         <span>v.2.0.1</span>
         <span>{dateStr}</span>
         <span className="flex items-center gap-1">

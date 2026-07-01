@@ -12,28 +12,29 @@ export default function Home() {
         backgroundColor="#FFFFFF"
         className="snap-start h-screen flex flex-col pt-[var(--height-status)] min-h-0"
       >
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border min-h-0">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 border border-none min-h-0">
           {/* Left: Identity Panel */}
           <div
-            className="lg:col-span-4 border-r border-border bg-bg-primary flex flex-col"
+            className="lg:col-span-4 border-r bg-bg-primary flex flex-col"
             data-section-id="identity"
             data-section-color="#FFFFFF"
           >
-            <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-text">IDENTITY</span>
-            </div>
             <div className="p-6 flex-1">
+              <div
+                className="text-white text-xl mt-8 mb-8 ml-4"
+                style={{ mixBlendMode: "difference" }}
+              >
+                //&nbsp;&nbsp;&nbsp;IDENTITY
+              </div>
               <h1
                 className="font-bold leading-none mb-2 text-text"
                 style={{
-                  fontSize: "48px",
+                  fontSize: "96px",
                   fontFamily: '"Space Grotesk", system-ui, sans-serif',
                 }}
               >
-                Rei
-                <br />
-                Utsuho
+                Rei Utsuho
+                <span className="cursor-blink text-accent">_</span>
               </h1>
               <p className="text-xs font-mono uppercase tracking-wider mb-4 text-text-secondary">
                 Digital IronSmith
@@ -57,11 +58,6 @@ export default function Home() {
             data-section-id="visual"
             data-section-color="#FFFFFF"
           >
-            <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-text">VISUAL_SYS</span>
-              <span className="ml-auto text-text-secondary">portal2.glb</span>
-            </div>
             <HeroVisual />
             {/* TabNav vertically below HeroVisual */}
             <TabNav />
@@ -75,7 +71,7 @@ export default function Home() {
         className="snap-start h-screen flex flex-col"
         name="PROJECT_SHOWCASE"
       >
-        <div className="flex-1 min-h-0 p-8">
+        <div className="flex-1 min-h-0 pb-8 pl-8 pr-8">
           <div className="flex-1 min-h-full grid grid-cols-1 lg:grid-cols-3 border border-subtle">
             <WebGLSlot
               index={0}

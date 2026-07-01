@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { Grip } from "lucide-react";
 import {
   Sheet,
   SheetTrigger,
@@ -34,10 +35,12 @@ export default function TabNav() {
           <a
             key={tab.href}
             href={`#${tab.anchor}`}
-            className="flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-t border-b border-border hover:text-text transition-colors duration-150"
+            className={`flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider border-r border-t border-b border-border hover:text-text transition-colors duration-150 ${
+              index === 0 ? "bg-accent text-text" : "text-text-secondary"
+            }`}
           >
-            <div className="text-4xl bg-transparent">
-              <span>0{index+1}</span>
+            <div className="text-3xl bg-transparent">
+              <span>0{index + 1}</span>
               <br />
               <span>{tab.label}</span>
             </div>
@@ -46,10 +49,12 @@ export default function TabNav() {
           <Link
             key={tab.href}
             href={tab.href}
-            className="flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-t border-b border-border hover:text-text transition-colors duration-150"
+            className={`flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider border-r border-t border-b border-border hover:text-text transition-colors duration-150 ${
+              index === 0 ? "bg-accent text-text" : "text-text-secondary"
+            }`}
           >
-            <div className="text-4xl bg-transparent">
-              <span>0{index+1}</span>
+            <div className="text-3xl bg-transparent">
+              <span>0{index + 1}</span>
               <br />
               <span>{tab.label}</span>
             </div>
@@ -63,9 +68,9 @@ export default function TabNav() {
           render={
             <button
               type="button"
-              className="flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-t border-b border-border hover:text-text transition-colors duration-150 cursor-pointer"
+              className="flex items-center justify-center gap-2 text-text-secondary border-r border-t border-b border-border hover:text-text transition-colors duration-150 cursor-pointer"
             >
-              <span className="inline-block text-4xl bg-transparent">MORE</span>
+              <Grip className="w-20 h-20" />
             </button>
           }
         />
