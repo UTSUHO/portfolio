@@ -42,6 +42,10 @@
   --color-grid:            var(--color-primitive-dark-grid);
   --color-subtle:          var(--color-primitive-dark-line);
 
+  /* ---------- Layout ---------- */
+  --height-status: 96px;
+  --width-sidebar: 64px;
+
   /* ---------- Typography ---------- */
   --font-sans:    "Inter", system-ui, sans-serif;
   --font-display: "Space Grotesk", system-ui, sans-serif;
@@ -54,6 +58,7 @@
 @layer base {
   html {
     background-color: var(--color-bg);
+    scroll-behavior: smooth;
   }
 
   body {

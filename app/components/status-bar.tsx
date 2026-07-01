@@ -10,7 +10,8 @@ export function TopStatusBar() {
 
   return (
     <div
-      className="flex items-center justify-between px-6 h-24 text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle"
+      className="flex items-center justify-between px-6 text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle box-border"
+      style={{ height: 'var(--height-status)', paddingLeft: 'calc(var(--width-sidebar) + 24px)' }}
     >
       <div className="flex items-center gap-4">
         <span className="text-text-invert">REI_UTSUHO_SYS</span>

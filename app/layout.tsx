@@ -27,17 +27,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-screen flex bg-bg">
-        {/* Left Sidebar Visual */}
-        <aside className="hidden lg:block w-16 flex-shrink-0 bg-bg-primary border-r border-border">
-          <SidebarVisual />
-        </aside>
+      <body className="min-h-screen bg-bg">
+        {/* Left Sidebar Visual - fixed, does not occupy space */}
+        <SidebarVisual />
 
         {/* Right Content Area */}
-        <div className="flex-1 flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-0">
           <TopStatusBar />
-          <main className="flex-1">{children}</main>
-          <TabNav />
+          <main className="flex-1 flex flex-col min-h-0">{children}</main>
           <BottomStatusBar />
         </div>
       </body>

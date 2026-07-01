@@ -1,15 +1,15 @@
-import Link from 'next/link'
 import HeroVisual from './components/hero-visual'
+import TabNav from './components/tab-nav'
+import Section from './components/section'
 
 export default function Home() {
   return (
-    <div>
-      <div>
-        {/* Top Dashboard Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border">
+    <div className="flex flex-col w-full box-border">
+      <Section id="dashboard" backgroundColor="#FFFFFF" className="h-[calc(100vh-var(--height-status))] flex flex-col min-h-0">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border min-h-0">
           {/* Left: Identity Panel */}
           <div
-            className="lg:col-span-4 border-r border-border bg-bg-primary"
+            className="lg:col-span-4 border-r border-border bg-bg-primary flex flex-col"
             data-section-id="identity"
             data-section-color="#FFFFFF"
           >
@@ -17,7 +17,7 @@ export default function Home() {
               <span className="inline-block w-2 h-2 bg-accent" />
               <span className="text-text">IDENTITY</span>
             </div>
-            <div className="p-6">
+            <div className="p-6 flex-1">
               <h1
                 className="font-bold leading-none mb-2 text-text"
                 style={{ fontSize: '48px', fontFamily: '"Space Grotesk", system-ui, sans-serif' }}
@@ -30,9 +30,7 @@ export default function Home() {
               <p className="text-xs leading-relaxed text-text-secondary">
                 Indie game designer & full-stack developer.
                 Currently running project{' '}
-                <Link href="/projects" className="underline hover:text-accent transition-colors text-text">
-                  Queen
-                </Link>.
+                <span className="underline text-text">Queen</span>.
               </p>
               <div className="mt-4 flex items-center gap-2">
                 <span className="inline-block w-2 h-2 bg-accent" />
@@ -41,9 +39,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: Visual Panel */}
+          {/* Right: Visual Panel with TabNav */}
           <div
-            className="lg:col-span-8 bg-bg-primary"
+            className="lg:col-span-8 bg-bg-primary flex flex-col"
             data-section-id="visual"
             data-section-color="#FFFFFF"
           >
@@ -52,88 +50,27 @@ export default function Home() {
               <span className="text-text">VISUAL_SYS</span>
               <span className="ml-auto text-text-secondary">portal2.glb</span>
             </div>
-            <div className="h-[300px] lg:h-full min-h-[300px]">
+            <div className="flex-1 min-h-0">
               <HeroVisual />
             </div>
+            {/* TabNav vertically below HeroVisual */}
+            <TabNav />
           </div>
         </div>
+      </Section>
 
-        {/* System Modules Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-t-0 border-border">
-          <Link
-            href="/projects"
-            className="group border-r border-b md:border-b-0 border-border bg-bg-primary"
-            data-section-id="works"
-            data-section-color="#F8F8F6"
-          >
-            <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg transition-colors group-hover:bg-bg-invert">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-text group-hover:text-text-invert transition-colors">WORKS</span>
-              <span className="ml-auto text-text-secondary">7 ENTRIES</span>
-            </div>
-            <div className="p-4">
-              <p className="text-xs text-text-secondary">
-                Game design, dev tools, translations, and design experiments.
-              </p>
-            </div>
-          </Link>
-
-          <Link
-            href="/resume"
-            className="group border-r border-b md:border-b-0 border-border bg-bg-primary"
-            data-section-id="resume"
-            data-section-color="#F0F0EE"
-          >
-            <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg transition-colors group-hover:bg-bg-invert">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-text group-hover:text-text-invert transition-colors">RESUME</span>
-              <span className="ml-auto text-text-secondary">4 LOGS</span>
-            </div>
-            <div className="p-4">
-              <p className="text-xs text-text-secondary">
-                Experience, education, and skill matrix.
-              </p>
-            </div>
-          </Link>
-
-          <Link
-            href="/library"
-            className="group border-border bg-bg-primary"
-            data-section-id="library"
-            data-section-color="#F8F8F6"
-          >
-            <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg transition-colors group-hover:bg-bg-invert">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-text group-hover:text-text-invert transition-colors">LIBRARY</span>
-              <span className="ml-auto text-text-secondary">24 GAMES</span>
-            </div>
-            <div className="p-4">
-              <p className="text-xs text-text-secondary">
-                Game checklists and essays by category.
-              </p>
-            </div>
-          </Link>
+      <Section id="showcase" backgroundColor="#13181d" className="h-screen flex flex-col">
+        <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-subtle bg-[#0A0A0A]">
+          <span className="inline-block w-2 h-2 bg-accent" />
+          <span className="text-text-invert">WEBGL_SHOWCASE</span>
+          <span className="ml-auto text-text-secondary">3 SLOTS</span>
         </div>
-
-        {/* Latest Log Row */}
-        <div
-          className="border border-t-0 border-border bg-bg-primary"
-          data-section-id="latest-log"
-          data-section-color="#FFFFFF"
-        >
-          <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
-            <span className="inline-block w-2 h-2 bg-accent" />
-            <span className="text-text">LATEST_LOG</span>
-            <span className="ml-auto text-text-secondary">2026.06.01</span>
-          </div>
-          <div className="px-4 py-3 flex items-center gap-4">
-            <span className="text-xs font-mono text-text-secondary">[SYSTEM]</span>
-            <span className="text-xs text-text">
-              Portfolio interface v2.0 deployed. All systems operational.
-            </span>
-          </div>
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-3">
+          <div data-webgl-slot="0" className="relative min-h-0 border-b lg:border-b-0 lg:border-r border-subtle" />
+          <div data-webgl-slot="1" className="relative min-h-0 border-b lg:border-b-0 lg:border-r border-subtle" />
+          <div data-webgl-slot="2" className="relative min-h-0" />
         </div>
-      </div>
+      </Section>
     </div>
   )
 }

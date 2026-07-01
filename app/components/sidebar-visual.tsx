@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 export default function SidebarVisual() {
   const [activeColor, setActiveColor] = useState('#FFFFFF')
   const colorMapRef = useRef<Map<string, string>>(new Map())
-  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const updateColorMap = () => {
@@ -53,9 +52,8 @@ export default function SidebarVisual() {
 
   return (
     <div
-      ref={containerRef}
-      className="relative w-full h-full transition-colors duration-300"
-      style={{ backgroundColor: activeColor }}
+      className="fixed top-0 left-0 h-screen z-50 bg-bg-primary border-r border-border hidden lg:flex flex-col transition-colors duration-300"
+      style={{ width: 'var(--width-sidebar)', backgroundColor: activeColor }}
     >
       {/* Coordinate text */}
       <div className="absolute bottom-2 left-2 text-[10px] font-mono text-text-secondary">
@@ -74,4 +72,5 @@ export default function SidebarVisual() {
         REI_UTSUHO_SYS // VISUAL_MODULE
       </div>
     </div>
-  )}
+  )
+}
