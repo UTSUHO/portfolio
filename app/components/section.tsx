@@ -5,9 +5,10 @@ interface SectionProps {
   backgroundColor: string
   children: ReactNode
   className?: string
+  name?: string
 }
 
-export default function Section({ id, backgroundColor, children, className = '' }: SectionProps) {
+export default function Section({ id, backgroundColor, children, className = '', name }: SectionProps) {
   return (
     <section
       data-section-id={id}
@@ -15,6 +16,13 @@ export default function Section({ id, backgroundColor, children, className = '' 
       className={`w-full box-border ${className}`}
       style={{ backgroundColor, paddingLeft: 'var(--width-sidebar)' }}
     >
+      {name && (
+        <div className="flex items-center gap-2 px-4 h-24">
+          <span className="text-text-invert text-xl mt-8 ml-4">
+            //&nbsp;&nbsp;&nbsp;{name}
+          </span>
+        </div>
+      )}
       {children}
     </section>
   )

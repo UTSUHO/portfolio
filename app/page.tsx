@@ -1,6 +1,8 @@
 import HeroVisual from "./components/hero-visual";
 import TabNav from "./components/tab-nav";
 import Section from "./components/section";
+import SubSection from "./components/sub-section";
+import WebGLSlot from "./components/webgl-slot";
 
 export default function Home() {
   return (
@@ -60,9 +62,7 @@ export default function Home() {
               <span className="text-text">VISUAL_SYS</span>
               <span className="ml-auto text-text-secondary">portal2.glb</span>
             </div>
-            <div className="flex-1 min-h-0">
-              <HeroVisual />
-            </div>
+            <HeroVisual />
             {/* TabNav vertically below HeroVisual */}
             <TabNav />
           </div>
@@ -73,24 +73,56 @@ export default function Home() {
         id="showcase"
         backgroundColor="#13181d"
         className="snap-start h-screen flex flex-col"
+        name="PROJECT_SHOWCASE"
       >
-        <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-subtle bg-[#0A0A0A]">
-          <span className="inline-block w-2 h-2 bg-accent" />
-          <span className="text-text-invert">WEBGL_SHOWCASE</span>
-          <span className="ml-auto text-text-secondary"></span>
-        </div>
         <div className="flex-1 min-h-0 p-8">
-          <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-3 border-b bg-blue-200">
-            <div
-              data-webgl-slot="0"
-              className="relative min-h-0 border-b lg:border-b-0 lg:border-r border-subtle"
+          <div className="flex-1 min-h-full grid grid-cols-1 lg:grid-cols-3 border border-subtle">
+            <WebGLSlot
+              index={0}
+              className="border-b lg:border-b-0 lg:border-r border-subtle"
             />
-            <div
-              data-webgl-slot="1"
-              className="relative min-h-0 border-b lg:border-b-0 lg:border-r border-subtle"
+            <WebGLSlot
+              index={1}
+              className="border-b lg:border-b-0 lg:border-r border-subtle"
             />
-            <div data-webgl-slot="2" className="relative min-h-0" />
+            <WebGLSlot index={2} />
           </div>
+        </div>
+      </Section>
+
+      <Section
+        id="terminal"
+        backgroundColor="#FFF"
+        className="snap-start h-screen flex flex-col"
+      >
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+          <SubSection title="LOG_OUTPUT" count="3 ENTRIES">
+            <div className="h-full border border-border bg-bg-primary">
+              <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
+                <span className="text-text-secondary">&gt;_</span>
+                <span className="text-text">awaiting input...</span>
+              </div>
+              <div className="p-6 space-y-2">
+                <div className="text-xs font-mono text-text-secondary">
+                  <span className="text-accent">$</span> init portfolio_v2.0.1
+                </div>
+                <div className="text-xs font-mono text-text-secondary">
+                  <span className="text-accent">$</span> load modules: identity,
+                  visual, showcase
+                </div>
+                <div className="text-xs font-mono text-text-secondary">
+                  <span className="text-accent">$</span> status: online
+                </div>
+              </div>
+            </div>
+          </SubSection>
+          <SubSection title="METRICS" count="LIVE">
+            <div className="h-full border border-border bg-bg-primary flex items-center justify-center">
+              <span className="text-xs font-mono text-text-secondary uppercase tracking-wider">
+                no data
+              </span>
+            </div>
+          </SubSection>
         </div>
       </Section>
     </div>

@@ -11,43 +11,44 @@
 
 @theme {
   /* ---------- Primitive Colors（原始色值，不直接使用） ---------- */
-  --color-primitive-cream:      #F5F5F3;
-  --color-primitive-white:      #FFFFFF;
-  --color-primitive-black:      #0A0A0A;
-  --color-primitive-gray:       #6B6B6B;
-  --color-primitive-border:     #DCDCDC;
-  --color-primitive-red:        #FF4D3A;
-  --color-primitive-dark-grid:  #1A1A1A;
-  --color-primitive-dark-line:  #333333;
+  --color-primitive-cream: #f5f5f3;
+  --color-primitive-white: #ffffff;
+  --color-primitive-black: #0a0a0a;
+  --color-primitive-gray: #6b6b6b;
+  --color-primitive-border: #dcdcdc;
+  --color-primitive-red: #ff4d3a;
+  --color-primitive-dark-grid: #1a1a1a;
+  --color-primitive-dark-line: #333333;
 
   /* ---------- Semantic Colors（语义层，组件唯一入口） ---------- */
   /* Background */
-  --color-bg:              var(--color-primitive-cream);
-  --color-bg-primary:      var(--color-primitive-white);
-  --color-bg-invert:       var(--color-primitive-black);
+  --color-bg: var(--color-primitive-white);
+  --color-bg-primary: var(--color-primitive-white);
+  --color-bg-invert: var(--color-primitive-black);
 
   /* Text */
-  --color-text:            var(--color-primitive-black);
-  --color-text-invert:     var(--color-primitive-white);
-  --color-text-secondary:  var(--color-primitive-gray);
+  --color-text: var(--color-primitive-black);
+  --color-text-invert: var(--color-primitive-white);
+  --color-text-secondary: var(--color-primitive-gray);
 
   /* Accent */
-  --color-accent:          var(--color-primitive-red);
+  --color-accent: var(--color-primitive-red);
 
   /* Border / Divider */
-  --color-border:          var(--color-primitive-border);
-  --color-border-invert:   var(--color-primitive-dark-line);
+  --color-border: var(--color-primitive-border);
+  --color-border-invert: var(--color-primitive-dark-line);
 
   /* Decorative（装饰性，用于 sidebar grid 等） */
-  --color-grid:            var(--color-primitive-dark-grid);
-  --color-subtle:          var(--color-primitive-dark-line);
+  --color-grid: var(--color-primitive-dark-grid);
+  --color-subtle: var(--color-primitive-dark-line);
 
   /* ---------- Layout ---------- */
   --height-status: 96px;
+  --height-navbar: 192px;
   --width-sidebar: 64px;
 
   /* ---------- Typography ---------- */
-  --font-sans:    "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
   --font-display: "Space Grotesk", system-ui, sans-serif;
 }
 
