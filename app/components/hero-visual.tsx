@@ -122,7 +122,7 @@ export default function HeroVisual() {
   return (
     <div
       ref={refContainer}
-      className="w-full h-full min-h-[400px] relative"
+      className="w-full h-full relative"
     >
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center"

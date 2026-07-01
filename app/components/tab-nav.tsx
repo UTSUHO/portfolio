@@ -19,16 +19,6 @@ const tabs = [
   { href: '/notes', label: 'LOG' },
 ]
 
-function scrollToAnchor(id: string) {
-  const el = document.getElementById(id)
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
-}
-
-const tabClassName =
-  'flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-b border-border hover:text-text transition-colors duration-150 cursor-pointer'
-
 export default function TabNav() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -38,20 +28,19 @@ export default function TabNav() {
     <nav className="grid grid-cols-6 w-full box-border" style={{ height: 'var(--height-status)' }}>
       {tabs.map((tab) =>
         isHome && tab.anchor ? (
-          <button
+          <a
             key={tab.href}
-            type="button"
-            onClick={() => scrollToAnchor(tab.anchor)}
-            className={tabClassName}
+            href={`#${tab.anchor}`}
+            className="flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-b border-border hover:text-text transition-colors duration-150"
           >
             <span className="inline-block w-2 h-2 bg-transparent" />
             {tab.label}
-          </button>
+          </a>
         ) : (
           <Link
             key={tab.href}
             href={tab.href}
-            className={tabClassName}
+            className="flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-b border-border hover:text-text transition-colors duration-150"
           >
             <span className="inline-block w-2 h-2 bg-transparent" />
             {tab.label}
@@ -65,7 +54,7 @@ export default function TabNav() {
           render={
             <button
               type="button"
-              className={tabClassName}
+              className="flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider text-text-secondary border-r border-b border-border hover:text-text transition-colors duration-150 cursor-pointer"
             >
               <span className="inline-block w-2 h-2 bg-transparent" />
               MORE
@@ -81,18 +70,15 @@ export default function TabNav() {
           <div className="grid grid-cols-1 gap-0 p-4">
             {tabs.map((tab) =>
               isHome && tab.anchor ? (
-                <button
+                <a
                   key={tab.href}
-                  type="button"
-                  onClick={() => {
-                    setOpen(false)
-                    scrollToAnchor(tab.anchor)
-                  }}
-                  className="flex items-center gap-2 px-4 h-12 text-xs font-mono uppercase tracking-wider text-text-secondary border-b border-border hover:text-text hover:bg-bg transition-colors text-left"
+                  href={`#${tab.anchor}`}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2 px-4 h-12 text-xs font-mono uppercase tracking-wider text-text-secondary border-b border-border hover:text-text hover:bg-bg transition-colors"
                 >
                   <span className="inline-block w-2 h-2 bg-accent" />
                   {tab.label}
-                </button>
+                </a>
               ) : (
                 <Link
                   key={tab.href}
