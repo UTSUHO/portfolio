@@ -112,8 +112,8 @@ export default function Home() {
               </div>
             </div>
           </SubSection>
-          <SubSection title="METRICS" count="LIVE">
-            <div className="h-full border border-border bg-bg-primary flex items-center justify-center">
+          <SubSection title="METRICS" count="LIVE" backgroundColor="bg-accent">
+            <div className="h-full border border-border flex items-center justify-center">
               <span className="text-xs font-mono text-text-secondary uppercase tracking-wider">
                 no data
               </span>

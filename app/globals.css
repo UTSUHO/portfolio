@@ -14,9 +14,10 @@
   --color-primitive-cream: #f5f5f3;
   --color-primitive-white: #ffffff;
   --color-primitive-black: #0a0a0a;
+  --color-primitive-dark: #13181d;
   --color-primitive-gray: #6b6b6b;
   --color-primitive-border: #dcdcdc;
-  --color-primitive-red: #ff4d3a;
+  --color-primitive-red: #f84532;
   --color-primitive-dark-grid: #1a1a1a;
   --color-primitive-dark-line: #333333;
 
@@ -25,7 +26,7 @@
   --color-bg: var(--color-primitive-white);
   --color-bg-primary: var(--color-primitive-white);
   --color-bg-invert: var(--color-primitive-black);
-
+  --color-bg-accent: var(--color-primitive-red);
   /* Text */
   --color-text: var(--color-primitive-black);
   --color-text-invert: var(--color-primitive-white);
