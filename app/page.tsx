@@ -95,7 +95,7 @@ export default function Home() {
         backgroundColor="#FFF"
         className="snap-start h-screen flex flex-col"
       >
-        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 grid-rows-2">
           <ExperienceSection profiles={experienceProfiles} />
           <SubSection
             title="LATEST NOTES"
@@ -113,15 +113,6 @@ export default function Home() {
           >
             <LatestNotesPanel notes={notes.slice(0, 3)} />
           </SubSection>
-        </div>
-      </Section>
-      {/* section4 */}
-      <Section
-        id="contact"
-        backgroundColor="#13181d"
-        className="snap-start h-screen flex flex-col"
-      >
-        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
           <SubSection
             title="LIBRARY"
             backgroundColor="bg-invert"

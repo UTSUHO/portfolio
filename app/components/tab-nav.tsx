@@ -17,7 +17,7 @@ const tabs = [
   { href: "/projects", label: "PROJECTS"},
   { href: "/resume", label: "RESUME" },
   { href: "/library", label: "LIBRARY" },
-  { href: "/notes", label: "LOG" },
+  { href: "/notes", label: "NOTES" },
 ];
 
 export default function TabNav() {
@@ -31,7 +31,10 @@ export default function TabNav() {
       style={{ height: "var(--height-navbar)" }}
     >
       {tabs.map((tab, index) => {
-        const isActive = tab.href === pathname || (isHome && tab.href === "/");
+        const isActive =
+          tab.href === "/"
+            ? pathname === "/"
+            : pathname.startsWith(tab.href);
         const baseClass =
           "flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider border-r border-t border-b border-border hover:text-text transition-colors duration-150";
         const activeClass = isActive
@@ -71,7 +74,7 @@ export default function TabNav() {
           render={
             <button
               type="button"
-              className="flex items-center justify-center gap-2 text-text-secondary border-r border-t border-b border-border hover:text-text transition-colors duration-150 cursor-pointer"
+              className="flex items-center justify-center gap-2 bg-bg-invert text-text-invert border-r border-t border-b border-border hover:opacity-90 transition-opacity duration-150 cursor-pointer"
             >
               <Grip className="w-20 h-20" />
             </button>
