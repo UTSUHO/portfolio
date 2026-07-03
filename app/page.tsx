@@ -115,6 +115,37 @@ export default function Home() {
           </SubSection>
         </div>
       </Section>
+      {/* section4 */}
+      <Section
+        id="contact"
+        backgroundColor="#13181d"
+        className="snap-start h-screen flex flex-col"
+      >
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+          <SubSection
+            title="LIBRARY"
+            backgroundColor="bg-invert"
+            textColor="text-invert"
+            borderColor="border-invert"
+          >
+            <div className="h-full flex items-center justify-center">
+              <span className="text-xs font-mono uppercase tracking-wider text-text-secondary">
+                contact placeholder
+              </span>
+            </div>
+          </SubSection>
+          <SubSection
+            title="LINKS"
+            backgroundColor="bg-primary"
+          >
+            <div className="h-full flex items-center justify-center">
+              <span className="text-xs font-mono uppercase tracking-wider text-text-secondary">
+                links placeholder
+              </span>
+            </div>
+          </SubSection>
+        </div>
+      </Section>
     </div>
   );
 }

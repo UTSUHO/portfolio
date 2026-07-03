@@ -25,7 +25,7 @@
   /* Background */
   --color-bg: var(--color-primitive-white);
   --color-bg-primary: var(--color-primitive-white);
-  --color-bg-invert: var(--color-primitive-black);
+  --color-bg-invert: var(--color-primitive-dark);
   --color-bg-accent: var(--color-primitive-red);
   /* Text */
   --color-text: var(--color-primitive-black);
