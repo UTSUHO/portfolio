@@ -354,6 +354,104 @@ export const notes: NoteMeta[] = [
   }
 ]
 
+export interface ExperienceItem {
+  year: string
+  company: string
+  position: string
+  description: string
+}
+
+export const experience: ExperienceItem[] = [
+  {
+    year: '2025 — NOW',
+    company: 'Project Queen',
+    position: 'Indie Game Developer',
+    description: 'Fantasy SRPG with mythology-inspired worldbuilding. Core battle system, narrative state graph, and UI direction.'
+  },
+  {
+    year: '2022 — 2025',
+    company: 'Indie Game Project',
+    position: 'Game Designer',
+    description: 'Game design, system architecture, narrative direction, and playtest coordination across multiple prototypes.'
+  }
+]
+
+export const skills = [
+  { name: 'Game Design', level: 75 },
+  { name: 'Programming', level: 80 },
+  { name: 'Translation', level: 60 },
+  { name: 'UI/UX Design', level: 55 }
+]
+
+export interface ExperienceProfile {
+  id: string
+  label: string
+  items: ExperienceItem[]
+  skills: { name: string; level: number }[]
+}
+
+export const experienceProfiles: ExperienceProfile[] = [
+  {
+    id: 'game-dev',
+    label: 'GAME DEV',
+    items: experience,
+    skills: [
+      { name: 'Game Design', level: 75 },
+      { name: 'Programming', level: 80 },
+      { name: 'Translation', level: 60 },
+      { name: 'UI/UX Design', level: 55 }
+    ]
+  },
+  {
+    id: 'frontend',
+    label: 'FRONTEND',
+    items: [
+      {
+        year: '2025 — NOW',
+        company: 'Project Queen',
+        position: 'Frontend Engineer',
+        description: 'Built the project dashboard, design system, and real-time UI components with React and TypeScript.'
+      },
+      {
+        year: '2022 — 2025',
+        company: 'Indie Game Project',
+        position: 'UI Engineer',
+        description: 'Implemented component libraries, state management, and responsive interfaces for game tooling.'
+      }
+    ],
+    skills: [
+      { name: 'React / Next.js', level: 85 },
+      { name: 'TypeScript', level: 80 },
+      { name: 'UI Design', level: 70 },
+      { name: 'Node.js', level: 65 }
+    ]
+  },
+  {
+    id: 'translation',
+    label: 'TRANSLATION',
+    items: [
+      {
+        year: '2021 — NOW',
+        company: 'Touhou M-1 Series',
+        position: 'Translator / Editor',
+        description: 'Subtitle localization for comedy series, balancing faithful translation with comedic timing.'
+      },
+      {
+        year: '2019 — 2021',
+        company: 'Touhou Madarazakura',
+        position: 'Localization Coordinator',
+        description: 'Led UI, dialogue, and manual localization for STG fan game with shared glossary and tooling.'
+      }
+    ],
+    skills: [
+      { name: 'Japanese', level: 90 },
+      { name: 'Chinese', level: 95 },
+      { name: 'English', level: 80 },
+      { name: 'CAT Tools', level: 60 }
+    ]
+  }
+]
+
 export function getProjectById(id: string): Project | undefined {
   return projects.find((p) => p.id === id)
 }

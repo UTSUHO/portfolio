@@ -1,41 +1,14 @@
 import PageShell from '../components/page-shell'
 import SkillBar from '../components/skill-bar'
 import StatNumber from '../components/stat-number'
-import Timeline from '../components/timeline'
+import ExperiencePanel from '../components/experience-panel'
 import FadeIn from '../components/fade-in'
 import Divider from '../components/divider'
+import { experience, skills } from '@/lib/data'
 
 export const metadata = {
   title: 'Resume - Rei Utsuho'
 }
-
-const skills = [
-  { name: 'Game Design', level: 75 },
-  { name: 'Programming', level: 80 },
-  { name: 'Translation', level: 60 },
-  { name: 'UI/UX Design', level: 55 }
-]
-
-const experience = [
-  {
-    year: '2025 — NOW',
-    company: 'Project Queen',
-    position: 'Indie Game Developer',
-    description: 'Fantasy SRPG with mythology-inspired worldbuilding. Core battle system, narrative state graph, and UI direction.'
-  },
-  {
-    year: '2022 — 2025',
-    company: 'Indie Game Project',
-    position: 'Game Designer',
-    description: 'Game design, system architecture, narrative direction, and playtest coordination across multiple prototypes.'
-  },
-  {
-    year: '2017 — 2021',
-    company: 'RIT',
-    position: "Bachelor's Web & Mobile Computing",
-    description: 'Golisano College of Computing and Information Sciences. Focus on software engineering and interactive media.'
-  }
-]
 
 const stats = [
   { value: 7, label: 'Projects' },
@@ -141,7 +114,7 @@ export default function Resume() {
                 <span className="inline-block w-2 h-2 bg-accent" />
                 <span className="text-xs font-mono uppercase tracking-wider text-text">EXPERIENCE</span>
               </div>
-              <Timeline items={experience} />
+              <ExperiencePanel items={experience} />
             </div>
           </FadeIn>
 

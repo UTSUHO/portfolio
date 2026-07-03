@@ -31,11 +31,11 @@ export default function SkillBar({ name, level }: SkillBarProps) {
 
   return (
     <div ref={ref}>
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-xs font-mono uppercase tracking-wider text-text">{name}</span>
-        <span className="text-xs font-mono text-text-secondary">{level}%</span>
+      <div className="flex items-center justify-between mb-2">
+        <span className="font-mono uppercase tracking-wider text-text" style={{ fontSize: '14px' }}>{name}</span>
+        <span className="font-mono text-text-secondary" style={{ fontSize: '14px' }}>{level}%</span>
       </div>
-      <div className="h-1 w-full bg-border overflow-hidden">
+      <div className="h-2 w-full bg-border overflow-hidden">
         <div
           className="h-full bg-accent transition-all duration-1000 ease-out"
           style={{ width: isVisible ? `${level}%` : '0%' }}

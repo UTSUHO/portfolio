@@ -2,7 +2,7 @@
 
 import FadeIn from './fade-in'
 
-interface TimelineItem {
+export interface TimelineItem {
   year: string
   company: string
   position: string
@@ -15,20 +15,24 @@ interface TimelineProps {
 
 export default function Timeline({ items }: TimelineProps) {
   return (
-    <div className="relative">
+    <div className="relative pl-10 w-full">
+      <div className="absolute left-[9px] top-2 bottom-2 w-px bg-border" />
       {items.map((item, index) => (
         <FadeIn key={index} delay={index * 100} direction="left">
-          <div className="relative pl-8 pb-8 last:pb-0">
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-border" />
-            <div className="absolute left-0 top-0 w-2 h-2 -translate-x-[3px] bg-accent" />
+          <div className="relative pb-12 last:pb-0 flex flex-col justify-center">
+            <div className="absolute left-[-36px] top-1/2 -translate-y-1/2 w-3 h-3 bg-accent" />
             <div className="text-xs font-mono uppercase tracking-wider text-text-secondary mb-1">
               {item.year}
             </div>
-            <div className="text-sm font-medium text-text mb-1" style={{ fontSize: '13px' }}>
+            <div className="font-medium text-text mb-1" style={{ fontSize: '20px' }}>
               {item.position}
             </div>
-            <div className="text-xs text-text-secondary mb-2">{item.company}</div>
-            <p className="text-xs text-text-secondary leading-relaxed">{item.description}</p>
+            <div className="text-sm text-text-secondary mb-2" style={{ fontSize: '14px' }}>
+              {item.company}
+            </div>
+            <p className="text-sm text-text-secondary leading-relaxed" style={{ fontSize: '14px' }}>
+              {item.description}
+            </p>
           </div>
         </FadeIn>
       ))}

@@ -3,6 +3,10 @@ import TabNav from "./components/tab-nav";
 import Section from "./components/section";
 import SubSection from "./components/sub-section";
 import WebGLSlot from "./components/webgl-slot";
+import ExperienceSection from "./components/experience-section";
+import LatestNotesPanel from "./components/latest-notes-panel";
+import Link from "next/link";
+import { experienceProfiles, notes } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -64,7 +68,7 @@ export default function Home() {
           </div>
         </div>
       </Section>
-
+      {/* section2 */}
       <Section
         id="showcase"
         backgroundColor="#13181d"
@@ -85,39 +89,29 @@ export default function Home() {
           </div>
         </div>
       </Section>
-
+      {/* section3 */}
       <Section
         id="terminal"
         backgroundColor="#FFF"
         className="snap-start h-screen flex flex-col"
       >
         <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
-          <SubSection title="LOG_OUTPUT" count="3 ENTRIES">
-            <div className="h-full border border-border bg-bg-primary">
-              <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
-                <span className="text-text-secondary">&gt;_</span>
-                <span className="text-text">awaiting input...</span>
-              </div>
-              <div className="p-6 space-y-2">
-                <div className="text-xs font-mono text-text-secondary">
-                  <span className="text-accent">$</span> init portfolio_v2.0.1
-                </div>
-                <div className="text-xs font-mono text-text-secondary">
-                  <span className="text-accent">$</span> load modules: identity,
-                  visual, showcase
-                </div>
-                <div className="text-xs font-mono text-text-secondary">
-                  <span className="text-accent">$</span> status: online
-                </div>
-              </div>
-            </div>
-          </SubSection>
-          <SubSection title="METRICS" count="LIVE" backgroundColor="bg-accent">
-            <div className="h-full border border-border flex items-center justify-center">
-              <span className="text-xs font-mono text-text-secondary uppercase tracking-wider">
-                no data
-              </span>
-            </div>
+          <ExperienceSection profiles={experienceProfiles} />
+          <SubSection
+            title="LATEST NOTES"
+            count={
+              <Link
+                href="/notes"
+                className="hover:text-text-invert transition-colors duration-150"
+              >
+                VIEW ALL NOTES
+              </Link>
+            }
+            backgroundColor="bg-accent"
+            textColor="text-invert"
+            borderColor="border"
+          >
+            <LatestNotesPanel notes={notes.slice(0, 3)} />
           </SubSection>
         </div>
       </Section>

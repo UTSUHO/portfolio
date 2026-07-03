@@ -31,7 +31,7 @@ export function TopStatusBar() {
           <span className="hidden sm:inline">x:0 y:0</span>
         </div>
         {/* right */}
-        <div className="lg:col-span-8 flex items-center border-b h-full">
+        <div className="lg:col-span-8 flex items-center h-full">
           {!isHome ? (
             <div className="w-full h-full">
               <TabNav />

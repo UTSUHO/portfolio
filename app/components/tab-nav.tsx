@@ -14,7 +14,7 @@ import {
 
 const tabs = [
   { href: "/", label: "HOME", anchor: "dashboard" },
-  { href: "/projects", label: "WORKS", anchor: "showcase" },
+  { href: "/projects", label: "PROJECTS"},
   { href: "/resume", label: "RESUME" },
   { href: "/library", label: "LIBRARY" },
   { href: "/notes", label: "LOG" },
@@ -27,7 +27,7 @@ export default function TabNav() {
 
   return (
     <nav
-      className="grid grid-cols-6 w-full box-border bg-bg-primary"
+      className="grid grid-cols-6 w-full box-border border-b bg-bg-primary"
       style={{ height: "var(--height-navbar)" }}
     >
       {tabs.map((tab, index) => {

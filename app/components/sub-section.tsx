@@ -19,7 +19,8 @@ function resolveColor(value: string): string {
 
 interface SubSectionProps {
   title?: string;
-  count?: string;
+  count?: ReactNode;
+  action?: ReactNode;
   children: ReactNode;
   className?: string;
   backgroundColor?: "bg" | "bg-primary" | "bg-invert" | "bg-accent" | string;
@@ -30,6 +31,7 @@ interface SubSectionProps {
 export default function SubSection({
   title,
   count,
+  action,
   children,
   className = "",
   backgroundColor,
@@ -45,18 +47,22 @@ export default function SubSection({
           : undefined,
       }}
     >
-      {(title || count) && (
+      {(title || count || action) && (
         <div
-          className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b"
+          className="flex items-center gap-2 px-4 pt-[66px] pb-[66px] h-[160px] box-border text-xl border-b"
           style={{ borderColor: resolveColor(borderColor) }}
         >
-          <span className="inline-block w-2 h-2 bg-accent" />
           {title && (
-            <span style={{ color: resolveColor(textColor) }}>{title}</span>
+            <span className="leading-[28px]" style={{ color: resolveColor(textColor) }}>//&nbsp;&nbsp;&nbsp;{title}</span>
+          )}
+          {action && (
+            <span className="ml-auto text-xs font-mono" style={{ color: resolveColor(textColor) }}>
+              {action}
+            </span>
           )}
           {count && (
             <span
-              className="ml-auto"
+              className={`${action ? "" : "ml-auto"} text-xs font-mono`}
               style={{ color: resolveColor(textColor) }}
             >
               {count}
