@@ -10,7 +10,7 @@ export default function PageShell({ children, className = '' }: PageShellProps) 
     <div
       className={`min-h-screen ${className}`}
       style={{
-        paddingTop: 'calc(var(--height-status) + var(--height-navbar))',
+        paddingTop: 'calc(var(--height-status))',
         paddingLeft: 'var(--width-sidebar)'
       }}
     >

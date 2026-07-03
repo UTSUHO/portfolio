@@ -1,5 +1,5 @@
 import HeroVisual from "./components/hero-visual";
-import HomeTabNav from "./components/home-tab-nav";
+import TabNav from "./components/tab-nav";
 import Section from "./components/section";
 import SubSection from "./components/sub-section";
 import WebGLSlot from "./components/webgl-slot";
@@ -60,11 +60,7 @@ export default function Home() {
             data-section-color="#FFFFFF"
           >
             <HeroVisual />
-            {/* Placeholder preserves the right panel flex layout */}
-            <div
-              className="w-full"
-              style={{ height: "var(--height-navbar)" }}
-            />
+            <TabNav />
           </div>
         </div>
       </Section>
@@ -125,8 +121,6 @@ export default function Home() {
           </SubSection>
         </div>
       </Section>
-
-      <HomeTabNav />
     </div>
   );
 }

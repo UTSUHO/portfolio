@@ -31,17 +31,23 @@ export function TopStatusBar() {
           <span className="hidden sm:inline">x:0 y:0</span>
         </div>
         {/* right */}
-        <div className="lg:col-span-8 flex items-center justify-end gap-4 px-6 h-full">
-          <span>v.2.0.1</span>
-          <span>{dateStr}</span>
-          <span className="flex items-center gap-1">
-            <span className="inline-block w-1.5 h-1.5 bg-accent" />
-            ONLINE
-          </span>
+        <div className="lg:col-span-8 flex items-center border-b h-full">
+          {!isHome ? (
+            <div className="w-full h-full">
+              <TabNav />
+            </div>
+          ) : (
+            <div className="flex items-center justify-end gap-4 px-6 h-full w-full">
+              <span>v.2.0.1</span>
+              <span>{dateStr}</span>
+              <span className="flex items-center gap-1">
+                <span className="inline-block w-1.5 h-1.5 bg-accent" />
+                ONLINE
+              </span>
+            </div>
+          )}
         </div>
       </div>
-
-      {!isHome && <TabNav />}
     </div>
   );
 }
