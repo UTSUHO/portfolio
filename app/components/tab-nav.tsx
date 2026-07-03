@@ -27,17 +27,22 @@ export default function TabNav() {
 
   return (
     <nav
-      className="grid grid-cols-6 w-full box-border"
+      className="grid grid-cols-6 w-full box-border bg-bg-primary"
       style={{ height: "var(--height-navbar)" }}
     >
-      {tabs.map((tab, index) =>
-        isHome && tab.anchor ? (
+      {tabs.map((tab, index) => {
+        const isActive = tab.href === pathname || (isHome && tab.href === "/");
+        const baseClass =
+          "flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider border-r border-t border-b border-border hover:text-text transition-colors duration-150";
+        const activeClass = isActive
+          ? "bg-accent text-text"
+          : "text-text-secondary";
+
+        return isHome && tab.anchor ? (
           <a
             key={tab.href}
             href={`#${tab.anchor}`}
-            className={`flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider border-r border-t border-b border-border hover:text-text transition-colors duration-150 ${
-              index === 0 ? "bg-accent text-text" : "text-text-secondary"
-            }`}
+            className={`${baseClass} ${activeClass}`}
           >
             <div className="text-3xl bg-transparent">
               <span>0{index + 1}</span>
@@ -49,9 +54,7 @@ export default function TabNav() {
           <Link
             key={tab.href}
             href={tab.href}
-            className={`flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider border-r border-t border-b border-border hover:text-text transition-colors duration-150 ${
-              index === 0 ? "bg-accent text-text" : "text-text-secondary"
-            }`}
+            className={`${baseClass} ${activeClass}`}
           >
             <div className="text-3xl bg-transparent">
               <span>0{index + 1}</span>
@@ -59,8 +62,8 @@ export default function TabNav() {
               <span>{tab.label}</span>
             </div>
           </Link>
-        )
-      )}
+        );
+      })}
 
       {/* Default block - opens sheet menu */}
       <Sheet open={open} onOpenChange={setOpen}>

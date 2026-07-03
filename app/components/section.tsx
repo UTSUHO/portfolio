@@ -17,7 +17,7 @@ export default function Section({ id, backgroundColor, children, className = '',
       style={{ backgroundColor, paddingLeft: 'var(--width-sidebar)' }}
     >
       {name && (
-        <div className="flex items-center gap-2 pt-4 pb-4 px-4 h-24">
+        <div className="flex items-center gap-2 pt-20 pb-20 px-4 h-24">
           <span
             className="text-white text-xl ml-4"
             style={{ mixBlendMode: "difference" }}

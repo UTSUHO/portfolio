@@ -1,6 +1,12 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import TabNav from "./tab-nav";
+
 export function TopStatusBar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const now = new Date();
   const dateStr = now
     .toLocaleDateString("en-US", {
@@ -12,26 +18,30 @@ export function TopStatusBar() {
 
   return (
     <div
-      className="absolute w-full grid grid-cols-1 lg:grid-cols-12 items-center text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle box-border"
-      style={{
-        height: "var(--height-status)",
-        paddingLeft: "var(--width-sidebar)",
-      }}
+      className="absolute top-0 left-0 w-full z-[1] box-border"
+      style={{ paddingLeft: "var(--width-sidebar)" }}
     >
-      {/* left */}
-      <div className="lg:col-span-4 flex items-center gap-4 px-6 border-r h-full">
-        <span className="text-text-invert">REI_UTSUHO_SYS</span>
-        <span className="hidden sm:inline">x:0 y:0</span>
+      <div
+        className="w-full grid grid-cols-1 lg:grid-cols-12 items-center text-xs font-mono uppercase tracking-wider bg-bg-primary text-text-secondary border-b border-subtle box-border"
+        style={{ height: "var(--height-status)" }}
+      >
+        {/* left */}
+        <div className="lg:col-span-4 flex items-center gap-4 px-6 border-r h-full">
+          <span className="text-text-invert">REI_UTSUHO_SYS</span>
+          <span className="hidden sm:inline">x:0 y:0</span>
+        </div>
+        {/* right */}
+        <div className="lg:col-span-8 flex items-center justify-end gap-4 px-6 h-full">
+          <span>v.2.0.1</span>
+          <span>{dateStr}</span>
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-1.5 h-1.5 bg-accent" />
+            ONLINE
+          </span>
+        </div>
       </div>
-      {/* right */}
-      <div className="lg:col-span-8 flex items-center justify-end gap-4 px-6">
-        <span>v.2.0.1</span>
-        <span>{dateStr}</span>
-        <span className="flex items-center gap-1">
-          <span className="inline-block w-1.5 h-1.5 bg-accent" />
-          ONLINE
-        </span>
-      </div>
+
+      {!isHome && <TabNav />}
     </div>
   );
 }

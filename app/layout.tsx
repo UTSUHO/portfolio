@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { TopStatusBar, BottomStatusBar } from './components/status-bar'
-import TabNav from './components/tab-nav'
 import SidebarVisual from './components/sidebar-visual'
 
 export const metadata: Metadata = {
@@ -34,7 +33,8 @@ export default function RootLayout({
         {/* Right Content Area */}
         <div className="flex flex-col min-h-0">
           <TopStatusBar />
-          <main className="flex-1 flex flex-col min-h-0">{children}</main>
+
+          <main className="relative flex-1 flex flex-col min-h-0">{children}</main>
           <BottomStatusBar />
         </div>
       </body>
