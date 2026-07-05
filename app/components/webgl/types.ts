@@ -7,16 +7,6 @@ export type HeroLayerId =
   | 'library'
   | 'notes';
 
-export type HeroPartGroup = HeroLayerId | 'shared';
-
-export type HeroPartKind =
-  | 'box'
-  | 'darkInset'
-  | 'wireBox'
-  | 'coreCage'
-  | 'columnRow'
-  | 'detachedWall';
-
 export interface HeroLayerConfig {
   id: HeroLayerId;
   index: number;
@@ -29,19 +19,6 @@ export interface HeroLayerConfig {
   accent?: boolean;
 }
 
-export interface HeroPartConfig {
-  id: string;
-  group: HeroPartGroup;
-  kind: HeroPartKind;
-  position: [number, number, number];
-  size: [number, number, number];
-  colorRole?: 'light' | 'mid' | 'dark';
-  edge?: boolean;
-  count?: number;
-  spacing?: [number, number, number];
-  opacity?: number;
-}
-
 export interface AnnotationConfig {
   id: string;
   label: string;
@@ -50,7 +27,6 @@ export interface AnnotationConfig {
   localPosition: [number, number, number];
   side: 'left' | 'right' | 'top';
   active?: boolean;
-  initialVisible?: boolean;
 }
 
 export interface HeroArchitecture {
@@ -64,7 +40,6 @@ export interface ProjectedAnnotation extends AnnotationConfig {
   x: number;
   y: number;
   visible: boolean;
-  opacity?: number;
 }
 
 export type AnnotationUpdateHandler = (items: ProjectedAnnotation[]) => void;

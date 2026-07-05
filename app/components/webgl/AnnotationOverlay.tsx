@@ -17,7 +17,6 @@ export function AnnotationOverlay({ annotations }: Props) {
             }`}
             style={{
               transform: `translate3d(${item.x}px, ${item.y}px, 0)`,
-              opacity: item.opacity ?? 0.72,
             }}
           >
             <span className="hero-annotation__code">{item.label}</span>
