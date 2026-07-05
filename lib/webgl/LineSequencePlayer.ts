@@ -185,6 +185,11 @@ export class LineSequencePlayer {
   getState(): PlayerState {
     const frameIndex = this.getWrappedFrameIndex(this.frameIndex);
     const frame = this.sequence.frames[frameIndex];
+    const vertexCount = frame?.vertices.length ?? 0;
+    const edgeCount = Object.values(frame?.roleCounts ?? {}).reduce(
+      (a, b) => a + b,
+      0
+    );
     return {
       isPlaying: this.isPlaying,
       frameIndex,
@@ -195,6 +200,8 @@ export class LineSequencePlayer {
       fps: this.fps,
       speed: this.speed,
       loop: this.loop,
+      vertexCount,
+      edgeCount,
     };
   }
 

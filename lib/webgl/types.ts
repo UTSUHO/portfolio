@@ -133,6 +133,8 @@ export type PlayerState = {
   fps: number;
   speed: number;
   loop: boolean;
+  vertexCount: number;
+  edgeCount: number;
 };
 
 export type LineSequencePlayerParams = {

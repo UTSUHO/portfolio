@@ -15,6 +15,7 @@ import type {
   NormalizedLineSequence,
   RoleMaterialOverrides,
 } from "@/lib/webgl";
+import TechnicalSpecimenOverlay from "./technical-specimen-overlay";
 import LineSequenceDebugOverlay from "./line-sequence-debug-overlay";
 
 interface LineSequenceSceneProps {
@@ -27,6 +28,7 @@ interface LineSequenceSceneProps {
   durationSeconds?: number;
   showDebug?: boolean;
   roleMaterials?: RoleMaterialOverrides;
+  specimen?: boolean;
 }
 
 export default function LineSequenceScene({
@@ -39,6 +41,7 @@ export default function LineSequenceScene({
   durationSeconds,
   showDebug = false,
   roleMaterials,
+  specimen = false,
 }: LineSequenceSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -121,7 +124,7 @@ export default function LineSequenceScene({
       playerRef.current?.update(deltaSeconds);
       sceneRuntime.render();
 
-      if (showDebug) {
+      if (showDebug || specimen) {
         setTick((t) => (t + 1) % 30);
       }
     };
@@ -155,7 +158,7 @@ export default function LineSequenceScene({
       sceneRuntimeRef.current = null;
       rendererRef.current = false;
     };
-  }, [dataUrl, autoPlay, loop, playbackFps, playbackSpeed, durationSeconds, showDebug, roleMaterials]);
+  }, [dataUrl, autoPlay, loop, playbackFps, playbackSpeed, durationSeconds, showDebug, specimen, roleMaterials]);
 
   return (
     <div ref={containerRef} className={`relative w-full flex-1 min-h-0 overflow-hidden ${className}`}>
@@ -177,6 +180,13 @@ export default function LineSequenceScene({
         </div>
       )}
 
+      {specimen && loaded && (
+        <TechnicalSpecimenOverlay
+          player={playerRef.current}
+          materialSystem={materialSystemRef.current}
+        />
+      )}
+
       {showDebug && (
         <LineSequenceDebugOverlay
           player={playerRef.current}
@@ -186,7 +196,6 @@ export default function LineSequenceScene({
         />
       )}
 
-      {/* force re-render of debug overlay with throttled state */}
       <span className="hidden">{tick}</span>
     </div>
   );

@@ -67,7 +67,8 @@ export default function Home() {
               dataUrl="/data/line_sequence_classified.json"
               autoPlay
               loop
-              durationSeconds={6}
+              playbackFps={60}
+              specimen
             />
             <TabNav />
           </div>
@@ -130,10 +131,7 @@ export default function Home() {
               </span>
             </div>
           </SubSection>
-          <SubSection
-            title="LINKS"
-            backgroundColor="bg-primary"
-          >
+          <SubSection title="LINKS" backgroundColor="bg-primary">
             <div className="h-full flex items-center justify-center">
               <span className="text-xs font-mono uppercase tracking-wider text-text-secondary">
                 links placeholder
