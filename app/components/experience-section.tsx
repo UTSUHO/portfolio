@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Layers } from 'lucide-react'
+import { Layers, ArrowRight } from 'lucide-react'
 import SubSection from './sub-section'
 import ExperiencePanel from './experience-panel'
 import Link from 'next/link'
@@ -26,7 +26,7 @@ export default function ExperienceSection({ profiles }: ExperienceSectionProps) 
         <button
           type="button"
           onClick={cycleProfile}
-          className="flex items-center gap-1.5 text-text-secondary hover:text-accent transition-colors duration-150"
+          className="flex items-center mr-4 gap-1.5 text-text-secondary hover:text-accent transition-colors duration-150"
           title={profile.label}
         >
           <Layers className="w-3.5 h-3.5" />
@@ -36,9 +36,10 @@ export default function ExperienceSection({ profiles }: ExperienceSectionProps) 
       count={
         <Link
           href="/resume"
-          className="hover:text-accent transition-colors duration-150"
+          className="flex items-center gap-1 hover:text-accent transition-colors duration-150"
         >
-          VIEW FULL RESUME
+          <span>VIEW FULL RESUME</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       }
     >

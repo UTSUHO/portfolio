@@ -4,9 +4,11 @@ import Section from "./components/section";
 import SubSection from "./components/sub-section";
 import WebGLSlot from "./components/webgl-slot";
 import ExperienceSection from "./components/experience-section";
+import ProjectLog from "./components/project-log";
 import LatestNotesPanel from "./components/latest-notes-panel";
 import Link from "next/link";
-import { experienceProfiles, notes } from "@/lib/data";
+import { experienceProfiles, notes, projects } from "@/lib/data";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
@@ -131,7 +133,7 @@ export default function Home() {
         id="showcase"
         backgroundColor="#13181d"
         className="snap-start h-screen flex flex-col"
-        name="PROJECT_SHOWCASE"
+        name="WORK_SHOWCASE"
       >
         <div className="flex-1 min-h-0 pb-8 pl-8 pr-8">
           <div className="flex-1 min-h-full grid grid-cols-1 lg:grid-cols-3 border border-subtle">
@@ -153,24 +155,36 @@ export default function Home() {
         backgroundColor="#FFF"
         className="snap-start h-screen flex flex-col"
       >
-        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 grid-rows-2">
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 ">
           <ExperienceSection profiles={experienceProfiles} />
           <SubSection
-            title="LATEST NOTES"
+            title="PROJECT_LOGS"
             count={
               <Link
                 href="/notes"
-                className="hover:text-text-invert transition-colors duration-150"
+                className="flex hover:text-text-invert transition-colors duration-150"
               >
-                VIEW ALL NOTES
+                <span>VIEW ALL PROJECTS</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             }
             backgroundColor="bg-accent"
-            textColor="text-invert"
+            textColor="text"
             borderColor="border"
+            headerStyle={{ borderColor: 'rgba(0, 0, 0, 0.3)' }}
           >
-            <LatestNotesPanel notes={notes.slice(0, 3)} />
+            <ProjectLog projects={projects} />
           </SubSection>
+        </div>
+      </Section>
+      {/* section4 */}
+      <Section
+        id="library"
+        backgroundColor="#13181D"
+        className="snap-start flex flex-col"
+        style={{ height: "calc(100vh - 32px)" }}
+      >
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
           <SubSection
             title="LIBRARY"
             backgroundColor="bg-invert"
@@ -183,12 +197,22 @@ export default function Home() {
               </span>
             </div>
           </SubSection>
-          <SubSection title="LINKS" backgroundColor="bg-primary">
-            <div className="h-full flex items-center justify-center">
-              <span className="text-xs font-mono uppercase tracking-wider text-text-secondary">
-                links placeholder
-              </span>
-            </div>
+          <SubSection
+            title="LATEST NOTES"
+            count={
+              <Link
+                href="/notes"
+                className="flex hover:text-text transition-colors duration-150"
+              >
+                <span>VIEW ALL NOTES</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            }
+            backgroundColor="bg-primary"
+            textColor="text"
+            borderColor="border"
+          >
+            <LatestNotesPanel notes={notes.slice(0, 3)} />
           </SubSection>
         </div>
       </Section>

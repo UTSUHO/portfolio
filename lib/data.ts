@@ -1,3 +1,15 @@
+export type ProjectTag = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
+export const PROJECT_TAG_MAP = [
+  { index: 0 as ProjectTag, label: 'work', icon: 'briefcase' },
+  { index: 1 as ProjectTag, label: 'interest', icon: 'heart' },
+  { index: 2 as ProjectTag, label: 'ai', icon: 'bot' },
+  { index: 3 as ProjectTag, label: 'gamedesign', icon: 'gamepad2' },
+  { index: 4 as ProjectTag, label: 'frontend', icon: 'monitor' },
+  { index: 5 as ProjectTag, label: 'fullstack', icon: 'layers' },
+  { index: 6 as ProjectTag, label: 'design', icon: 'palette' },
+] as const
+
 export interface Project {
   id: string
   number: string
@@ -14,6 +26,7 @@ export interface Project {
     tech: string
   }
   visualType: 'wireframe' | 'network' | 'voxel' | 'shader'
+  tags: ProjectTag[]
   overview: string
   problem: string
   solution: string
@@ -55,6 +68,7 @@ export const projects: Project[] = [
       tech: 'Paper Prototype / PlaytestKit'
     },
     visualType: 'wireframe',
+    tags: [1, 3],
     overview: 'Mead-of-Poetry is a mid-weight strategy board game built around Norse and Chinese mythology. Players take on the role of poets seeking the mythical mead of poetry, trading verses, gathering divine favor, and navigating a world where language is power.',
     problem: 'Most mythology-themed board games rely on combat or area control. I wanted to explore knowledge and language as core mechanical resources, while keeping the ruleset approachable for players new to the genre.',
     solution: 'Designed a card-drafting system where each verse card carries both resource value and narrative text. Combinations of verses trigger "rhetorical devices" that produce asymmetric effects, encouraging players to read the cards literally and strategically at the same time.',
@@ -93,6 +107,7 @@ export const projects: Project[] = [
       tech: 'Unity / C# / Figma'
     },
     visualType: 'network',
+    tags: [1, 3],
     overview: 'CODE:QUEEN is a single-player fantasy SRPG currently in development. The game combines grid-based tactical combat with a narrative system where player choices reshape the mythology of the world.',
     problem: 'Traditional SRPGs often separate story and combat into distinct modes. I wanted every tactical decision to also carry narrative weight, so the battlefield becomes a stage for character drama.',
     solution: 'Built a "Fate Weave" system that links unit abilities to story threads. Using certain skills advances corresponding narrative arcs, unlocking alternate map states, reinforcements, and endings.',
@@ -131,6 +146,7 @@ export const projects: Project[] = [
       tech: 'TypeScript / Node.js / React'
     },
     visualType: 'network',
+    tags: [1, 5],
     overview: 'API-Disruptor is a lightweight developer tool that lets engineers inject latency, errors, and jitter into local REST API calls to observe how clients behave under failure.',
     problem: 'Testing distributed failure modes locally usually requires heavy infrastructure. Small teams need a fast, configurable way to simulate bad network behavior without deploying a chaos platform.',
     solution: 'Created a local proxy server with a declarative rule engine. Rules define match conditions, disruption types, and probability curves. A small React dashboard visualizes live request outcomes.',
@@ -169,6 +185,7 @@ export const projects: Project[] = [
       tech: 'Aegisub / Git'
     },
     visualType: 'voxel',
+    tags: [1],
     overview: 'A multi-episode subtitle translation project for the Touhou M-1 Grand Prix comedy series, balancing faithful Japanese-to-Chinese translation with comedic timing.',
     problem: 'Comedy translation requires preserving punchlines across language boundaries. Literal translation often kills timing, while overly free adaptation loses character voice.',
     solution: 'Developed a translation workflow that separates dialogue translation, timing adjustment, and punchline review into distinct passes, allowing each to be optimized independently.',
@@ -207,6 +224,7 @@ export const projects: Project[] = [
       tech: 'PDF / Markdown'
     },
     visualType: 'shader',
+    tags: [1, 3],
     overview: 'A 30-page critical analysis of Humankind, examining how the game reframes civilization progression through cultural hybridity rather than linear tech trees.',
     problem: 'Most game reviews focus on mechanics in isolation. I wanted to analyze how Humankind\'s design expresses a specific philosophical idea about history and identity.',
     solution: 'Structured the essay around three lenses—mechanics, narrative systems, and historical representation—showing how they reinforce each other.',
@@ -244,6 +262,7 @@ export const projects: Project[] = [
       tech: 'Illustrator / InDesign'
     },
     visualType: 'wireframe',
+    tags: [1],
     overview: 'A dust jacket redesign that treats surveillance and language control as visual systems rather than imagery. The final piece uses constrained typography and repeated structural units.',
     problem: 'Many 1984 covers rely on predictable eye or surveillance imagery. I wanted to communicate the book\'s themes through layout and typographic restraint.',
     solution: 'Created a modular grid system where each cover panel is composed of identical typographic cells. The spine interrupts the grid with a single red accent line, representing the fracture of language.',
@@ -282,6 +301,7 @@ export const projects: Project[] = [
       tech: 'Aegisub / Git / Python'
     },
     visualType: 'voxel',
+    tags: [1],
     overview: 'A fan localization project for a Touhou shooting-game title. Scope included in-game UI, story dialogue, spell card names, and the instruction manual.',
     problem: 'STG games combine fast-paced UI text with dense mythological references. Localization must be accurate under pressure and consistent across multiple file formats.',
     solution: 'Built a small Python pipeline to extract, diff, and re-inject text assets. Established a shared glossary for spell names and character terminology to keep translations consistent.',
@@ -403,27 +423,59 @@ export const experienceProfiles: ExperienceProfile[] = [
     ]
   },
   {
-    id: 'frontend',
-    label: 'FRONTEND',
+    id: 'fullstack',
+    label: 'FULLSTACK',
     items: [
       {
-        year: '2025 — NOW',
-        company: 'Project Queen',
-        position: 'Frontend Engineer',
-        description: 'Built the project dashboard, design system, and real-time UI components with React and TypeScript.'
+        year: '2022.09 — NOW',
+        company: '中科南京信息高铁研究院',
+        position: '前端负责人 / 项目技术负责人',
+        description:
+          '负责东数西算南京算力网、AI Infra、社会计算等中大型平台的前端架构与技术选型；主导构建体系由 Webpack 重构至 Vite，开发服务器启动时间从 3 分钟降至 20 秒；优化关键业务模块，将页面加载时间从 21 秒降至 5 秒；指导无工程经验研究生开展规范化开发。'
       },
       {
-        year: '2022 — 2025',
-        company: 'Indie Game Project',
-        position: 'UI Engineer',
-        description: 'Implemented component libraries, state management, and responsive interfaces for game tooling.'
+        year: '2024.12 — NOW',
+        company: '南京师范大学',
+        position: '研究生就业与职业发展指导顾问',
+        description:
+          '面向计算机相关专业及跨专业就业需求的研究生，提供技术路径规划、工程能力提升与求职能力辅导。'
+      },
+      {
+        year: '2022.09 — NOW',
+        company: '某国家级研究院所 / 上海临港实验室',
+        position: '前端开发负责人',
+        description:
+          '主导基于开源“天枢”框架的 AI 训推平台建设；重构数据集标注模块，将原独立页面改造为基于 dataset type 的抽象化实现；独立完成前端适配、统一认证对接与联调，将平台能力裁剪集成至甲方现有业务系统。'
+      },
+      {
+        year: '2023 — 2024',
+        company: '某国家级应急信息报送系统',
+        position: '项目稳定化工程师',
+        description:
+          '以关键技术支援身份介入，负责展示与渲染等核心模块实现；在主要开发人员离职后整体接手项目，系统性修复历史缺陷与稳定性问题，显著提升可维护性与运行可靠性。'
+      },
+      {
+        year: '2025 — NOW',
+        company: '流浪地球 3 剧组',
+        position: '外部工程技术支持 / 技术顾问',
+        description:
+          '参与面向长篇叙事文本的多智能体知识图谱构建系统设计与实验方案实施；负责论文相关数据集调研与实验复现；协助搭建研发环境与基础工程设施，引入开源项目支撑系统工程化推进。'
+      },
+      {
+        year: '2024 — NOW',
+        company: '工热所 CAD 特征识别项目',
+        position: '项目技术负责人',
+        description:
+          '主导 CAD 相关目标识别 AI 模型项目，制定技术路线、解读核心论文并梳理方法论；围绕 STEP 文件解析与 CAD 目标识别开展关键技术调研，协同项目经理评估实现路径与交付口径。'
       }
     ],
     skills: [
-      { name: 'React / Next.js', level: 85 },
-      { name: 'TypeScript', level: 80 },
-      { name: 'UI Design', level: 70 },
-      { name: 'Node.js', level: 65 }
+      { name: 'Vue2/3', level: 90 },
+      { name: 'React / Next.js', level: 80 },
+      { name: 'TypeScript', level: 85 },
+      { name: 'Vite / Webpack', level: 80 },
+      { name: 'Three.js / WebGL', level: 75 },
+      { name: 'Node.js', level: 70 }
     ]
   },
   {

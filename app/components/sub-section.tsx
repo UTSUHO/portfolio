@@ -26,6 +26,7 @@ interface SubSectionProps {
   backgroundColor?: "bg" | "bg-primary" | "bg-invert" | "bg-accent" | string;
   textColor?: "text" | "text-invert" | "text-secondary" | string;
   borderColor?: "border" | "subtle" | string;
+  headerStyle?: React.CSSProperties;
 }
 
 export default function SubSection({
@@ -37,6 +38,7 @@ export default function SubSection({
   backgroundColor,
   textColor = "text",
   borderColor = "border",
+  headerStyle,
 }: SubSectionProps) {
   return (
     <div
@@ -50,7 +52,7 @@ export default function SubSection({
       {(title || count || action) && (
         <div
           className="flex items-center gap-2 px-4 pt-[66px] pb-[66px] h-[160px] box-border text-xl border-b"
-          style={{ borderColor: resolveColor(borderColor) }}
+          style={{ borderColor: resolveColor(borderColor), ...headerStyle }}
         >
           {title && (
             <span className="leading-[28px]" style={{ color: resolveColor(textColor) }}>//&nbsp;&nbsp;&nbsp;{title}</span>
