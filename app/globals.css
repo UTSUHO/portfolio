@@ -62,6 +62,7 @@
     background-color: var(--color-bg);
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
+    scrollbar-color: var(--color-text) transparent;
   }
 
   body {
@@ -82,6 +83,32 @@
   .cursor-blink {
     animation: blink 1s step-end infinite;
   }
+}
+
+/* Global scrollbar color/hover styling (width remains browser default) */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-text);
+  border-radius: 0;
+  border: 0 none transparent;
+  background-clip: border-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent);
+}
+
+/* System-style narrow scrollbar for PROJECT_LOGS and similar panels */
+.scrollbar-system::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-system {
+  scrollbar-width: thin;
 }
 
 @keyframes blink {

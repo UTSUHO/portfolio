@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Briefcase, ChevronRight, ExternalLink, Heart, Gamepad2, Monitor, Layers, Bot, Palette } from 'lucide-react'
+import { Briefcase, ChevronRight, ExternalLink, Heart, Gamepad2, Monitor, Layers, Bot, Palette, ListCollapse, ListStart } from 'lucide-react'
 import { Project, ProjectTag, PROJECT_TAG_MAP } from '@/lib/data'
 
 interface ProjectLogProps {
@@ -23,12 +23,16 @@ type GroupedProjects = Record<string, Project[]>
 function TagBar({
   active,
   onSelect,
+  allExpanded,
+  onToggleExpand,
 }: {
   active: ProjectTag | null
   onSelect: (tag: ProjectTag | null) => void
+  allExpanded: boolean
+  onToggleExpand: () => void
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-2 px-6 py-3 border-b border-black/30">
+    <div className="flex flex-wrap items-center gap-2 px-6 py-3 border-b">
       <button
         type="button"
         onClick={() => onSelect(null)}
@@ -49,8 +53,12 @@ function TagBar({
             onClick={() => onSelect(active === tag.index ? null : tag.index)}
             className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono uppercase tracking-wider border transition-colors duration-150 ${
               active === tag.index
-                ? 'bg-black text-white border-black'
-                : 'bg-transparent text-black border-black/30 hover:border-black'
+                ? tag.index === 0
+                  ? 'bg-black text-text-invert border-black'
+                  : 'bg-black text-white border-black'
+                : tag.index === 0
+                  ? 'bg-transparent text-text-invert border-text-invert hover:border-black hover:text-black'
+                  : 'bg-transparent text-black border-black/30 hover:border-black'
             }`}
           >
             <Icon className="w-3.5 h-3.5" />
@@ -58,6 +66,16 @@ function TagBar({
           </button>
         )
       })}
+      <button
+        type="button"
+        onClick={onToggleExpand}
+        aria-label={allExpanded ? 'Collapse all years' : 'Expand all years'}
+        aria-pressed={allExpanded}
+        title={allExpanded ? 'Collapse all years' : 'Expand all years'}
+        className="ml-auto flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono uppercase tracking-wider border transition-colors duration-150 bg-transparent text-black border-black/30 hover:border-black"
+      >
+        {allExpanded ? <ListCollapse className="w-3.5 h-3.5" /> : <ListStart className="w-3.5 h-3.5" />}
+      </button>
     </div>
   )
 }
@@ -92,24 +110,28 @@ function YearHeader({
   tags,
   open,
   onClick,
+  isWork,
 }: {
   year: string
   count: number
   tags: ProjectTag[]
   open: boolean
   onClick: () => void
+  isWork: boolean
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="w-full flex items-center gap-3 h-12 px-6 text-left border-b border-black/30 hover:bg-black/5 transition-colors duration-150"
+      className={`w-full flex items-center gap-3 h-12 px-6 text-left border-black/30 transition-colors duration-150 ${
+        isWork ? 'bg-bg-accent text-text-invert' : 'bg-white text-black'
+      }`}
     >
-      <span className="inline-block w-2 h-2 bg-black" />
-      <span className="text-base font-mono uppercase tracking-wider text-black">
+      <span className={`inline-block w-2 h-2 ${isWork ? 'bg-white' : 'bg-black'}`} />
+      <span className={`text-base font-mono uppercase tracking-wider ${isWork ? 'text-white' : 'text-black'}`}>
         {year}
       </span>
-      <span className="text-sm font-mono uppercase tracking-wider text-black/70">
+      <span className={`text-sm font-mono uppercase tracking-wider ${isWork ? 'text-white/70' : 'text-black/70'}`}>
         [{count.toString().padStart(2, '0')}]
       </span>
       <div className="hidden md:flex items-center gap-1 ml-4">
@@ -121,7 +143,9 @@ function YearHeader({
             <span
               key={tag}
               title={config.label}
-              className="inline-flex items-center justify-center w-5 h-5 border border-black/20 text-black/60"
+              className={`inline-flex items-center justify-center w-5 h-5 border ${
+                isWork ? 'border-white/30 text-white/70' : 'border-black/20 text-black/60'
+              }`}
             >
               <Icon className="w-3 h-3" />
             </span>
@@ -129,34 +153,38 @@ function YearHeader({
         })}
       </div>
       <ChevronRight
-        className={`w-4 h-4 text-black ml-auto transition-transform duration-150 ${
-          open ? 'rotate-90' : ''
-        }`}
+        className={`w-4 h-4 ml-auto transition-transform duration-150 ${
+          isWork ? 'text-white' : 'text-black'
+        } ${open ? 'rotate-90' : ''}`}
       />
     </button>
   )
 }
 
-function ProjectMissionCard({ project }: { project: Project }) {
+function ProjectMissionCard({ project, isWork }: { project: Project; isWork: boolean }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="border-b border-black/30 last:border-b-0">
+    <div className={`border-b last:border-b-0 ${
+      isWork ? 'bg-bg-accent text-white border-black/30' : 'bg-white text-black border-black/30'
+    }`}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
         className="group w-full flex items-center gap-4 px-6 h-14 text-left hover:pl-8 transition-all duration-150"
       >
-        <span className="text-sm font-mono text-black w-14 shrink-0">
+        <span className={`text-sm font-mono w-14 shrink-0 ${isWork ? 'text-white' : 'text-black'}`}>
           [{project.id}]
         </span>
         <div className="flex-1 min-w-0 text-left">
-          <div className="text-base text-black truncate">{project.title}</div>
-          <div className="text-sm text-black/70 truncate">
+          <div className={`text-base truncate ${isWork ? 'text-white' : 'text-black'}`}>{project.title}</div>
+          <div className={`text-sm truncate ${isWork ? 'text-white/70' : 'text-black/70'}`}>
             {project.subtitle}
           </div>
         </div>
-        <span className="hidden sm:inline text-sm font-mono uppercase tracking-wider text-black/70 w-28 text-right shrink-0">
+        <span className={`hidden sm:inline text-sm font-mono uppercase tracking-wider w-28 text-right shrink-0 ${
+          isWork ? 'text-white/70' : 'text-black/70'
+        }`}>
           {project.category}
         </span>
         <div className="hidden md:flex items-center gap-1.5 shrink-0">
@@ -168,7 +196,9 @@ function ProjectMissionCard({ project }: { project: Project }) {
               <span
                 key={tag}
                 title={config.label}
-                className="inline-flex items-center justify-center w-6 h-6 border border-black/30 text-black/70"
+                className={`inline-flex items-center justify-center w-6 h-6 border ${
+                  isWork ? 'border-white/30 text-white/70' : 'border-black/30 text-black/70'
+                }`}
               >
                 <Icon className="w-3.5 h-3.5" />
               </span>
@@ -176,14 +206,14 @@ function ProjectMissionCard({ project }: { project: Project }) {
           })}
         </div>
         <ChevronRight
-          className={`w-4 h-4 text-black shrink-0 transition-transform duration-150 ${
-            open ? 'rotate-90' : ''
-          }`}
+          className={`w-4 h-4 shrink-0 transition-transform duration-150 ${
+            isWork ? 'text-white' : 'text-black'
+          } ${open ? 'rotate-90' : ''}`}
         />
       </button>
 
       {open && (
-        <div className="px-6 pb-5 bg-white">
+        <div className={`px-6 pb-5 bg-white border border-black/30`}>
           <div className="py-4 text-base text-black leading-relaxed">
             {project.overview}
           </div>
@@ -230,23 +260,43 @@ export default function ProjectLog({ projects }: ProjectLogProps) {
     setOpenYears((prev) => ({ ...prev, [year]: !prev[year] }))
   }
 
+  const allExpanded = years.length > 0 && years.every((year) => !!openYears[year])
+
+  const toggleAllYears = () => {
+    const next: Record<string, boolean> = {}
+    years.forEach((year) => {
+      next[year] = !allExpanded
+    })
+    setOpenYears((prev) => ({ ...prev, ...next }))
+  }
+
   return (
-    <div className="h-full flex flex-col overflow-auto">
-      <TagBar active={activeTag} onSelect={setActiveTag} />
-      <div className="flex-1 overflow-auto">
+    <div className="h-full flex flex-col overflow-auto scrollbar-system">
+      <TagBar
+        active={activeTag}
+        onSelect={setActiveTag}
+        allExpanded={allExpanded}
+        onToggleExpand={toggleAllYears}
+      />
+      <div className="flex-1 overflow-auto scrollbar-system">
         {years.map((year) => (
-          <div key={year} className="border-b border-black/30 last:border-b-0">
+          <div key={year} className="border-b ">
             <YearHeader
               year={year}
               count={grouped[year].length}
               tags={getYearTags(grouped[year])}
               open={!!openYears[year]}
               onClick={() => toggleYear(year)}
+              isWork={grouped[year].some((p) => p.tags.includes(0))}
             />
             {openYears[year] && (
               <div>
                 {grouped[year].map((project) => (
-                  <ProjectMissionCard key={project.id} project={project} />
+                  <ProjectMissionCard
+                    key={project.id}
+                    project={project}
+                    isWork={project.tags.includes(0)}
+                  />
                 ))}
               </div>
             )}

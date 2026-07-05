@@ -45,7 +45,7 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border bg-bg-primary mb-6">
             <div className="lg:col-span-5 p-8 border-b lg:border-b-0 lg:border-r border-border">
               <div className="text-xs font-mono uppercase tracking-wider text-text-secondary mb-4">
-                {project.number}
+                {project.id} / PROJECT
               </div>
               <h1 className="font-display text-4xl lg:text-5xl font-bold text-text leading-none mb-4">
                 {project.title}
@@ -195,7 +195,7 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
                   href={`/projects/${related.id}`}
                   className="group block p-6 border-b sm:border-r border-border last:border-r-0 hover:bg-bg transition-colors"
                 >
-                  <div className="text-xs font-mono text-text-secondary mb-2">{related.number}</div>
+                  <div className="text-xs font-mono text-text-secondary mb-2">{related.id} / PROJECT</div>
                   <div className="text-text group-hover:text-accent transition-colors mb-2" style={{ fontSize: '13px' }}>
                     {related.title}
                   </div>
