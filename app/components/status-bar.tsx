@@ -1,18 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import TabNav from "./tab-nav";
 
 export function TopStatusBar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMouse({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const now = new Date();
   const dateStr = now
-    .toLocaleDateString("en-US", {
+    .toLocaleDateString("zh-CN", {
+      year: "numeric",
       month: "2-digit",
       day: "2-digit",
-      year: "2-digit",
     })
     .replace(/\//g, ".");
 
@@ -26,9 +36,10 @@ export function TopStatusBar() {
         style={{ height: "var(--height-status)" }}
       >
         {/* left */}
-        <div className="lg:col-span-4 flex items-center gap-4 px-6 border-r h-full">
-          <span className="text-text-invert">REI_UTSUHO_SYS</span>
-          <span className="hidden sm:inline">x:0 y:0</span>
+        <div className="lg:col-span-4 flex items-center justify-between gap-4 px-6 border-r h-full">
+          <span className="text-text">
+            SYSTEM.LOG <span className="inline-block w-1.5 h-1.5 bg-accent" />
+          </span>
         </div>
         {/* right */}
         <div className="lg:col-span-8 flex items-center h-full">
@@ -37,13 +48,21 @@ export function TopStatusBar() {
               <TabNav />
             </div>
           ) : (
-            <div className="flex items-center justify-end gap-4 px-6 h-full w-full">
-              <span>v.2.0.1</span>
-              <span>{dateStr}</span>
-              <span className="flex items-center gap-1">
-                <span className="inline-block w-1.5 h-1.5 bg-accent" />
-                ONLINE
-              </span>
+            <div className="flex items-center px-6 h-full w-full">
+              <div className="w-[50%] flex items-center justify-between h-full border-r pr-6">
+                <span>V 2.0.1</span>
+                <span className="hidden sm:inline">
+                  x:{mouse.x.toString().padStart(4)} y:
+                  {mouse.y.toString().padStart(4)}
+                </span>
+              </div>
+              <div className="w-[50%] flex items-center justify-end gap-4">
+                <span>DATE: {dateStr}</span>
+                <span className="flex items-center gap-1">
+                  <span className="inline-block w-1.5 h-1.5 bg-accent" />
+                  ONLINE
+                </span>
+              </div>
             </div>
           )}
         </div>

@@ -32,7 +32,7 @@ export default function Home() {
                 //&nbsp;&nbsp;&nbsp;IDENTITY
               </div>
               <h1
-                className="font-bold leading-none mb-2 text-text"
+                className="font-bold leading-none mb-8 text-left text-text"
                 style={{
                   fontSize: "96px",
                   fontFamily: '"Space Grotesk", system-ui, sans-serif',
@@ -41,18 +41,70 @@ export default function Home() {
                 Rei Utsuho
                 <span className="cursor-blink text-accent">_</span>
               </h1>
-              <p className="text-xs font-mono uppercase tracking-wider mb-4 text-text-secondary">
-                Digital IronSmith
-              </p>
-              <p className="text-xs leading-relaxed text-text-secondary">
-                Indie game designer & full-stack developer. Currently running
-                project <span className="underline text-text">Queen</span>.
-              </p>
-              <div className="mt-4 flex items-center gap-2">
-                <span className="inline-block w-2 h-2 bg-accent" />
-                <span className="text-xs font-mono text-text-secondary">
-                  ETR 2025
-                </span>
+              <h2 className="text-xl uppercase tracking-wider mb-8 text-text">
+                &lt; Digital IronSmith /&gt;
+              </h2>
+              <div className="mb-16">
+                <p className="text-s leading-relaxed text-text-secondary">
+                  <span>
+                    Indie game designer & full-stack developer. Currently
+                    running Indie Game Studio
+                  </span>
+                  &nbsp;
+                  <span className="underline text-text">Ypsilon Janus</span>.
+                  <br />
+                  <span>
+                    Passionate about building high performance web applications
+                    and delightful user experiences.
+                  </span>
+                </p>
+                <div className="mt-4 flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 bg-accent" />
+                  <span className="text-xs font-mono text-text-secondary">
+                    Project ETR 2027
+                  </span>
+                </div>
+              </div>
+              <div className="mt-8 mb-8">
+                <div
+                  className="text-white text-xl mb-8 ml-4"
+                  style={{ mixBlendMode: "difference" }}
+                >
+                  //&nbsp;&nbsp;&nbsp;RESEARCH FIELD
+                </div>
+                <div className="relative h-px w-full bg-gradient-to-r from-transparent via-subtle to-transparent">
+                  {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent rounded-full" />
+                  <span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent rounded-full" /> */}
+                </div>
+                <br />
+                <div className="flex justify-between items-center pl-6 pr-6">
+                  <span>GAME DESIGN</span>
+                  {/* <span className="mx-2">|</span> */}
+                  <span>COMPUTER GRAPHICS</span>
+                  {/* <span className="mx-2">|</span> */}
+                  <span>AGENT ENGINEERING</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  className="text-white text-xl mt-8 mb-8 ml-4"
+                  style={{ mixBlendMode: "difference" }}
+                >
+                  //&nbsp;&nbsp;&nbsp;TECH STACK
+                </div>
+                <div className="relative h-px w-full bg-gradient-to-r from-transparent via-subtle to-transparent">
+                  {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent rounded-full" />
+                  <span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent rounded-full" /> */}
+                </div>
+                <br />
+                <div className="flex justify-between items-center pl-6 pr-6">
+                  <span>VUE/REACT</span>
+                  {/* <span className="mx-2">|</span> */}
+                  <span>NODE/JS/TS</span>
+                  {/* <span className="mx-2">|</span> */}
+                  <span>WEBGL/CSS3</span>
+                  <span>PYTHON</span>
+                </div>{" "}
               </div>
             </div>
           </div>
