@@ -6,7 +6,8 @@
       "Bash(npx shadcn@latest init -y --defaults)",
       "Bash(npx shadcn@latest add sheet -y)",
       "Bash(mkdir -p \"app/notes/[slug]\")",
-      "Bash(npx playwright *)"
+      "Bash(npx playwright *)",
+      "Bash(node hero-verify.js)"
     ],
     "additionalDirectories": [
       "D:\\Documents\\Github\\portfolio\\app\\notes"
