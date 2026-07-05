@@ -1,4 +1,4 @@
-import HeroVisual from "./components/hero-visual";
+import LineSequenceScene from "./components/line-sequence-scene";
 import TabNav from "./components/tab-nav";
 import Section from "./components/section";
 import SubSection from "./components/sub-section";
@@ -59,11 +59,16 @@ export default function Home() {
 
           {/* Right: Visual Panel with TabNav */}
           <div
-            className="lg:col-span-8 bg-bg-primary flex flex-col"
+            className="lg:col-span-8 bg-bg-primary flex flex-col min-h-0"
             data-section-id="visual"
             data-section-color="#FFFFFF"
           >
-            <HeroVisual />
+            <LineSequenceScene
+              dataUrl="/data/line_sequence_classified.json"
+              autoPlay
+              loop
+              durationSeconds={6}
+            />
             <TabNav />
           </div>
         </div>
