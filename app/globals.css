@@ -184,12 +184,24 @@
   opacity: 0.55;
 }
 
+.hero-annotation--right {
+  transform-origin: left top;
+}
+
+.hero-annotation--left {
+  transform-origin: right top;
+}
+
 .hero-annotation--right::before {
   left: -32px;
 }
 
 .hero-annotation--left::before {
   right: -32px;
+}
+
+.hero-annotation--top {
+  transform-origin: left top;
 }
 
 .hero-annotation--top::before {

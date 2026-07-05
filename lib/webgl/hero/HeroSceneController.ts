@@ -77,7 +77,7 @@ export class HeroSceneController {
 
   private createCamera() {
     const aspect = this.container.clientWidth / this.container.clientHeight;
-    const frustum = 5.2;
+    const frustum = 3.45;
 
     this.camera = new THREE.OrthographicCamera(
       -frustum * aspect,
@@ -88,20 +88,22 @@ export class HeroSceneController {
       100,
     );
 
-    this.camera.position.set(4.8, 4.2, 5.4);
-    this.camera.lookAt(0, 0.8, 0);
+    this.camera.position.set(5.4, 5.2, 6.2);
+    this.camera.lookAt(0, 1.05, 0);
   }
 
   private createLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 1.6);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.9);
     this.scene.add(ambient);
 
-    const key = new THREE.DirectionalLight(0xffffff, 2.2);
+    const key = new THREE.DirectionalLight(0xffffff, 3.4);
     key.position.set(5, 8, 5);
     key.castShadow = true;
+    key.shadow.mapSize.width = 1024;
+    key.shadow.mapSize.height = 1024;
     this.scene.add(key);
 
-    const fill = new THREE.DirectionalLight(0xffffff, 0.8);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.6);
     fill.position.set(-4, 3, -2);
     this.scene.add(fill);
   }
@@ -119,9 +121,17 @@ export class HeroSceneController {
     this.renderer.render(this.scene, this.camera);
   };
 
+  private getScrollProgress() {
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    if (!maxScroll) return 0;
+    return Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+  }
+
   private updateAnnotations() {
     const { onAnnotationUpdate } = this.options;
     if (!onAnnotationUpdate || !this.architecture?.anchors) return;
+
+    const scrollProgress = this.getScrollProgress();
 
     const items = Object.entries(this.architecture.anchors).map(([id, anchor]) => {
       const config = anchor.userData.annotationConfig as {
@@ -129,8 +139,18 @@ export class HeroSceneController {
         sublabel?: string;
         side: 'left' | 'right' | 'top';
         active?: boolean;
+        initialVisible?: boolean;
       };
-      const projected = projectToScreen(anchor, this.camera, this.container);
+      const projected = projectToScreen(anchor, this.camera, this.container, config?.side);
+
+      const isVisible =
+        config?.initialVisible ||
+        scrollProgress > 0.08;
+
+      const fadeProgress =
+        config?.initialVisible
+          ? 1
+          : Math.min(Math.max((scrollProgress - 0.08) / 0.12, 0), 1);
 
       return {
         id,
@@ -141,7 +161,8 @@ export class HeroSceneController {
         active: config?.active,
         x: projected.x,
         y: projected.y,
-        visible: projected.visible,
+        visible: projected.visible && isVisible,
+        opacity: 0.72 * fadeProgress,
       };
     });
 
@@ -155,7 +176,7 @@ export class HeroSceneController {
     if (!width || !height) return;
 
     const aspect = width / height;
-    const frustum = 5.2;
+    const frustum = 3.45;
 
     this.camera.left = -frustum * aspect;
     this.camera.right = frustum * aspect;
