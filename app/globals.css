@@ -61,6 +61,7 @@
   html {
     background-color: var(--color-bg);
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
   }
 
   body {
@@ -137,78 +138,4 @@
   .divider-expand.is-visible {
     transform: scaleX(1);
   }
-}
-
-/* ============================================================
-   Hero Canvas & Annotation Overlay
-   ============================================================ */
-
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.hero-canvas canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-annotations {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-}
-
-.hero-annotation {
-  position: absolute;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  line-height: 1.2;
-  color: #1a1d1f;
-  opacity: 0.72;
-  transform-origin: left top;
-  white-space: nowrap;
-}
-
-.hero-annotation::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  width: 24px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.55;
-}
-
-.hero-annotation--right::before {
-  left: -32px;
-}
-
-.hero-annotation--left::before {
-  right: -32px;
-}
-
-.hero-annotation--top::before {
-  left: 0;
-  top: 18px;
-}
-
-.hero-annotation__code {
-  display: block;
-  letter-spacing: 0.04em;
-}
-
-.hero-annotation__sub {
-  display: block;
-  margin-top: 2px;
-  color: #737373;
-}
-
-.hero-annotation.is-active {
-  color: #ff3b2f;
-  opacity: 1;
 }
