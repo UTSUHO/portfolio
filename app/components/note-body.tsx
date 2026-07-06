@@ -6,16 +6,19 @@ interface NoteBodyComponents {
 
 function slugify(text: string): string {
   return text
+    .trim()
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
+    .replace(/[^\w一-龥\-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
 }
 
 const components: NoteBodyComponents = {
   h1: ({ children }: { children: ReactNode }) => (
     <h1
       id={typeof children === 'string' ? slugify(children) : undefined}
-      className="font-display text-5xl font-medium text-text mt-16 mb-8 leading-tight"
+      className="font-display text-4xl sm:text-5xl font-medium text-text mt-16 mb-8 leading-tight"
     >
       {children}
     </h1>
@@ -23,7 +26,7 @@ const components: NoteBodyComponents = {
   h2: ({ children }: { children: ReactNode }) => (
     <h2
       id={typeof children === 'string' ? slugify(children) : undefined}
-      className="font-display text-3xl font-medium text-text mt-12 mb-6 leading-tight"
+      className="font-display text-2xl sm:text-3xl font-medium text-text mt-14 mb-6 leading-tight"
     >
       {children}
     </h2>
@@ -31,13 +34,13 @@ const components: NoteBodyComponents = {
   h3: ({ children }: { children: ReactNode }) => (
     <h3
       id={typeof children === 'string' ? slugify(children) : undefined}
-      className="font-display text-xl font-medium text-text mt-8 mb-4"
+      className="font-display text-xl font-medium text-text mt-10 mb-4"
     >
       {children}
     </h3>
   ),
   p: ({ children }: { children: ReactNode }) => (
-    <p className="text-base text-text leading-[1.8] mb-6" style={{ fontSize: '16px' }}>
+    <p className="text-base text-text leading-[1.85] mb-6">
       {children}
     </p>
   ),
@@ -47,21 +50,28 @@ const components: NoteBodyComponents = {
     </blockquote>
   ),
   ul: ({ children }: { children: ReactNode }) => (
-    <ul className="list-disc pl-6 mb-6 space-y-2 text-text leading-[1.8]">{children}</ul>
+    <ul className="list-none pl-0 mb-6 space-y-2 text-text leading-[1.85]">
+      {children}
+    </ul>
   ),
   ol: ({ children }: { children: ReactNode }) => (
-    <ol className="list-decimal pl-6 mb-6 space-y-2 text-text leading-[1.8]">{children}</ol>
+    <ol className="list-none pl-0 mb-6 space-y-2 text-text leading-[1.85]">
+      {children}
+    </ol>
   ),
   li: ({ children }: { children: ReactNode }) => (
-    <li className="text-base" style={{ fontSize: '16px' }}>{children}</li>
+    <li className="flex gap-3 text-base">
+      <span className="text-text-secondary select-none">—</span>
+      <span>{children}</span>
+    </li>
   ),
   code: ({ children }: { children: ReactNode }) => (
-    <code className="bg-bg-invert text-text-invert px-1.5 py-0.5 font-mono text-sm">
+    <code className="bg-bg border border-border px-1.5 py-0.5 font-mono text-sm text-text">
       {children}
     </code>
   ),
   pre: ({ children }: { children: ReactNode }) => (
-    <pre className="bg-bg-invert p-4 my-6 overflow-x-auto font-mono text-sm leading-relaxed">
+    <pre className="bg-bg border border-border p-4 my-6 overflow-x-auto font-mono text-sm leading-relaxed text-text-secondary">
       {children}
     </pre>
   ),

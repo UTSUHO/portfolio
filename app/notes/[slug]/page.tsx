@@ -35,7 +35,7 @@ export default async function NoteDetail({ params }: NoteDetailProps) {
     notFound()
   }
 
-  const { headings } = content
+  const { headings, frontmatter } = content
   const { prev, next } = getAdjacentNotes(slug)
 
   // Import the MDX module via the manual mapping so @next/mdx processes it.
@@ -50,7 +50,13 @@ export default async function NoteDetail({ params }: NoteDetailProps) {
   return (
     <PageShell className="p-6">
       <div className="max-w-7xl mx-auto">
-        <NoteReader meta={meta} headings={headings} prev={prev} next={next}>
+        <NoteReader
+          meta={meta}
+          frontmatter={frontmatter}
+          headings={headings}
+          prev={prev}
+          next={next}
+        >
           <MdxContent />
         </NoteReader>
       </div>

@@ -1,8 +1,18 @@
-# Mead-of-Poetry Prototype Complete
+---
+title: "Mead-of-Poetry Prototype Complete"
+titleZh: "诗之蜜酒原型完成"
+date: "2023.08.20"
+category: "Thoughts"
+readingTime: "7 min read"
+tags: ["Boardgame", "Mythology", "Prototype", "Mechanics"]
+coverImage: "/images/contents/earthElement.png"
+excerpt: "一款以中外神话为底本的桌面游戏原型完成。核心机制围绕“语言作为资源”展开，记录设计迭代与 30 余次测试的反馈。"
+language: "mixed"
+---
+
+# 01 / 设计概要
 
 The Mead-of-Poetry board game prototype is now mechanically complete. This marks the end of the core design phase and the beginning of structured playtesting.
-
-## Design Summary
 
 Players are poets competing to compose the most powerful stanzas. The core loop is simple:
 
@@ -11,13 +21,17 @@ Players are poets competing to compose the most powerful stanzas. The core loop 
 3. Invoke rhetorical devices
 4. Score completed stanzas
 
-## What Makes It Different
+---
+
+# 02 / 独特之处
 
 Most resource-management games use wood, stone, or gold. Mead-of-Poetry uses language. Each card is both a resource and a piece of text. This means the theme is not painted on top of the mechanics; it is the mechanics.
 
 > A card that reads "The raven's wing" is not just +1 memory. It is also the thing you are writing.
 
-## Playtest Results
+---
+
+# 03 / 测试结果
 
 After thirty sessions, the strongest feedback was about clarity. Players loved the concept but needed clearer signals for device triggers. The next iteration will focus on:
 
@@ -25,6 +39,8 @@ After thirty sessions, the strongest feedback was about clarity. Players loved t
 - A reference sheet that does not overwhelm
 - Smaller starting hand to reduce analysis paralysis
 
-## From Here
+---
+
+# 04 / 下一步
 
 The prototype will enter a revision pass, then art direction begins. The goal is a print-and-play release before pursuing manufacturing.

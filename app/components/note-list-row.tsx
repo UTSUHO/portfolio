@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { NoteMeta } from '@/lib/data'
+import { NoteEntry } from '@/lib/data'
 
 interface NoteListRowProps {
-  note: NoteMeta
+  note: NoteEntry
   index: number
 }
 
@@ -31,7 +31,7 @@ export default function NoteListRow({ note, index }: NoteListRowProps) {
           {note.category}
         </span>
         <span className="hidden sm:block w-16 font-mono text-xs text-text-secondary group-hover:text-text-invert transition-colors text-right">
-          {note.readTime}
+          {note.readingTime}
         </span>
         <span className="w-4 text-right text-border group-hover:text-text-invert transition-all duration-150 group-hover:translate-x-1">
           →

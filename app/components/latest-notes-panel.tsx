@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { NoteMeta } from '@/lib/data'
+import { NoteEntry } from '@/lib/data'
 
 interface LatestNotesPanelProps {
-  notes: NoteMeta[]
+  notes: NoteEntry[]
 }
 
 export default function LatestNotesPanel({ notes }: LatestNotesPanelProps) {
