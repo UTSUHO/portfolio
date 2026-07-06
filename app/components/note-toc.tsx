@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Heading } from '@/lib/mdx'
+import { Heading } from '@/lib/markdown'
 
 interface NoteTocProps {
   headings: Heading[]

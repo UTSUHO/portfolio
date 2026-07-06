@@ -102,43 +102,23 @@ export function parseFrontmatter(source: string): NoteFrontmatter {
   return frontmatter
 }
 
-// Manual mapping so @next/mdx can statically analyze the imports.
-const noteModules: Record<string, () => Promise<{ default: React.ComponentType }>> = {
-  'portfolio-interface-v2': () => import('@/content/notes/portfolio-interface-v2.mdx'),
-  'project-queen-plan-phase': () => import('@/content/notes/project-queen-plan-phase.mdx'),
-  'mead-of-poetry-prototype': () => import('@/content/notes/mead-of-poetry-prototype.mdx'),
-  'distributed-systems-consistency': () => import('@/content/notes/distributed-systems-consistency.mdx'),
-  'interface-as-architecture': () => import('@/content/notes/interface-as-architecture.mdx'),
-  'building-with-webgl': () => import('@/content/notes/building-with-webgl.mdx'),
-  'year-end-review': () => import('@/content/notes/year-end-review.mdx')
-}
-
-export async function getNoteModule(slug: string) {
-  const loadModule = noteModules[slug]
-  if (!loadModule) return null
-  return loadModule()
-}
-
 export interface NoteContent {
   meta: NoteEntry
   frontmatter: NoteFrontmatter
   headings: Heading[]
-  source: string
+  body: string
 }
 
 export async function getNoteContent(slug: string, meta: NoteEntry): Promise<NoteContent | null> {
-  const module = await getNoteModule(slug)
-  if (!module) return null
-
   // Read raw source for heading extraction and frontmatter parsing.
   // In production this is only used at build time.
   const { readFile } = await import('fs/promises')
   const { join } = await import('path')
-  const filePath = join(process.cwd(), 'content', 'notes', `${slug}.mdx`)
+  const filePath = join(process.cwd(), 'content', 'notes', `${slug}.md`)
   const source = await readFile(filePath, 'utf8')
   const frontmatter = parseFrontmatter(source)
-  const bodySource = source.replace(/^---[\s\S]*?---\n*/, '')
-  const headings = extractHeadings(bodySource)
+  const body = source.replace(/^---[\s\S]*?---\n*/, '')
+  const headings = extractHeadings(body)
 
-  return { meta, frontmatter, source, headings }
+  return { meta, frontmatter, body, headings }
 }

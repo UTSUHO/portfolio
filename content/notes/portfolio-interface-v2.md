@@ -1,15 +1,3 @@
----
-title: "Portfolio Interface v2.0 Deployed"
-titleZh: "作品集界面 v2.0 上线"
-date: "2026.06.01"
-category: "Systems"
-readingTime: "5 min read"
-tags: ["Portfolio", "Next.js", "TailwindCSS", "System"]
-coverImage: "/images/contents/airElement.png"
-excerpt: "将作品集从 Chakra UI + Pages Router 迁移到 TailwindCSS + App Router。目标不只是技术更新，而是让站点的视觉语言与我思考系统的方式更紧密地咬合。"
-language: "mixed"
----
-
 # 01 / 为什么重建
 
 The previous version relied on component libraries that abstracted layout decisions away. This version rebuilds every surface from borders, grids, and type scale. The result is an interface that behaves more like a control panel than a marketing site.

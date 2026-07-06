@@ -1,15 +1,3 @@
----
-title: "Mead-of-Poetry Prototype Complete"
-titleZh: "诗之蜜酒原型完成"
-date: "2023.08.20"
-category: "Thoughts"
-readingTime: "7 min read"
-tags: ["Boardgame", "Mythology", "Prototype", "Mechanics"]
-coverImage: "/images/contents/earthElement.png"
-excerpt: "一款以中外神话为底本的桌面游戏原型完成。核心机制围绕“语言作为资源”展开，记录设计迭代与 30 余次测试的反馈。"
-language: "mixed"
----
-
 # 01 / 设计概要
 
 The Mead-of-Poetry board game prototype is now mechanically complete. This marks the end of the core design phase and the beginning of structured playtesting.

@@ -1,15 +1,3 @@
----
-title: "Project Queen Enters Plan Phase"
-titleZh: "代号σ 进入企划阶段"
-date: "2025.01.15"
-category: "Journal"
-readingTime: "6 min read"
-tags: ["GameDev", "SRPG", "Design", "Mythology"]
-coverImage: "/images/contents/fireElement.png"
-excerpt: "一款以神话为灵感的奇幻 SRPG 开始从原型进入正式企划阶段。记录核心战斗系统、叙事状态图与 UI 方向的早期决策。"
-language: "mixed"
----
-
 # 01 / 当前重点
 
 Project Queen is a fantasy SRPG built around mythology-inspired worldbuilding. After several months of pre-production, the project has moved into formal planning.

@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
 import { notes, getAdjacentNotes, getNoteBySlug } from '@/lib/data'
-import { getNoteContent } from '@/lib/mdx'
+import { getNoteContent } from '@/lib/markdown'
 import PageShell from '../../components/page-shell'
 import NoteReader from '../../components/note-reader'
+import NoteMarkdown from '../../components/note-markdown'
 
 interface NoteDetailProps {
   params: Promise<{ slug: string }>
@@ -35,17 +36,8 @@ export default async function NoteDetail({ params }: NoteDetailProps) {
     notFound()
   }
 
-  const { headings, frontmatter } = content
+  const { headings, frontmatter, body } = content
   const { prev, next } = getAdjacentNotes(slug)
-
-  // Import the MDX module via the manual mapping so @next/mdx processes it.
-  const { getNoteModule } = await import('@/lib/mdx')
-  const noteModule = await getNoteModule(slug)
-  if (!noteModule) {
-    notFound()
-  }
-
-  const MdxContent = noteModule.default
 
   return (
     <PageShell className="p-6">
@@ -57,7 +49,7 @@ export default async function NoteDetail({ params }: NoteDetailProps) {
           prev={prev}
           next={next}
         >
-          <MdxContent />
+          <NoteMarkdown>{body}</NoteMarkdown>
         </NoteReader>
       </div>
     </PageShell>

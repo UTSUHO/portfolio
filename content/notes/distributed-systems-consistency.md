@@ -1,15 +1,3 @@
----
-title: "On Consistency in Distributed Systems"
-titleZh: "关于分布式系统中一致性的一些思考"
-date: "2025.05.28"
-category: "Tech"
-readingTime: "8 min read"
-tags: ["Distributed Systems", "Architecture", "Consistency"]
-coverImage: "/images/contents/aquaElement.png"
-excerpt: "一致性不是二元的。它是一组保证的连续谱，每种保证都有不同的成本与故障模式。这里记录对 CAP、一致性模型与工程权衡的理解。"
-language: "mixed"
----
-
 # 01 / CAP 权衡
 
 Consistency in distributed systems is not a binary property. It is a spectrum of guarantees, each with different costs and failure modes.

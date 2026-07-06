@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 import { NoteEntry } from '@/lib/data'
-import { Heading, NoteFrontmatter } from '@/lib/mdx'
+import { Heading, NoteFrontmatter } from '@/lib/markdown'
 import ArticleMeta from './article-meta'
 import ArticleTitle from './article-title'
 import ArticleLead from './article-lead'
