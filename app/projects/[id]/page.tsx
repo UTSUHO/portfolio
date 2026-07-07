@@ -38,8 +38,8 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
     .filter((p): p is NonNullable<typeof p> => p !== undefined)
 
   return (
-    <PageShell className="p-6">
-      <div className="max-w-7xl mx-auto">
+    <PageShell>
+      <div className="max-w-screen-2xl mx-auto">
         {/* Hero */}
         <FadeIn>
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-border bg-bg-primary mb-6">

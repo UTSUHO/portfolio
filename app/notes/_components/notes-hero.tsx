@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function NotesHero() {
   return (
@@ -11,7 +11,7 @@ export default function NotesHero() {
           THOUGHTS
           <br />
           AND RECORDS
-          <span className="text-accent">_</span>
+          <span className="cursor-blink text-accent">_</span>
         </h1>
         <p className="text-sm text-text-secondary leading-relaxed mb-8 max-w-md">
           A space for reflections, technical notes, and ongoing thoughts. Ideas
@@ -47,7 +47,11 @@ export default function NotesHero() {
             ))}
           </g>
 
-          <g fill="var(--color-bg-primary)" stroke="var(--color-text-secondary)" strokeWidth="1">
+          <g
+            fill="var(--color-bg-primary)"
+            stroke="var(--color-text-secondary)"
+            strokeWidth="1"
+          >
             <rect x="80" y="80" width="120" height="160" />
             <rect x="220" y="120" width="100" height="100" />
           </g>
@@ -65,5 +69,5 @@ export default function NotesHero() {
         </svg>
       </div>
     </div>
-  )
+  );
 }

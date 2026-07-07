@@ -1,0 +1,128 @@
+@reference "../globals.css";
+
+:root {
+  --pl-white: #ffffff;
+  --pl-black: #0a0a0a;
+  --pl-red: #f84532;
+  --pl-gray: #6b6b6b;
+}
+
+.work {
+  --fg: var(--pl-white);
+  --bg: var(--pl-red);
+  --fg-muted: color-mix(in oklch, var(--fg), transparent 30%);
+  --border-muted: color-mix(in oklch, var(--fg), transparent 70%);
+}
+
+.personal {
+  --fg: var(--pl-black);
+  --bg: var(--pl-white);
+  --fg-muted: color-mix(in oklch, var(--fg), transparent 30%);
+  --border-muted: color-mix(in oklch, var(--fg), transparent 70%);
+}
+
+/* Year header ============================================================= */
+.yearHeader {
+  @apply w-full flex items-center gap-3 h-12 px-6 text-left border-black/30 transition-colors duration-150;
+  background-color: var(--bg);
+}
+
+.yearHeader .marker {
+  @apply inline-block w-2 h-2;
+  background-color: var(--fg);
+}
+
+.yearHeader .label {
+  @apply text-base font-mono uppercase tracking-wider;
+  color: var(--fg);
+}
+
+.yearHeader .count {
+  @apply text-sm font-mono uppercase tracking-wider;
+  color: var(--fg-muted);
+}
+
+.yearHeader .tag {
+  @apply inline-flex items-center justify-center w-5 h-5 border;
+  border-color: var(--border-muted);
+  color: var(--fg-muted);
+}
+
+.yearHeader .chevron {
+  @apply w-4 h-4 ml-auto transition-transform duration-150;
+  color: var(--fg);
+}
+
+/* Record card ============================================================= */
+.recordCard {
+  @apply border-b last:border-b-0;
+  background-color: var(--bg);
+}
+
+.recordCard .id,
+.recordCard .title,
+.recordCard .chevron {
+  color: var(--fg);
+}
+
+.recordCard .subtitle,
+.recordCard .category {
+  color: var(--fg-muted);
+}
+
+.recordCard .tag {
+  @apply inline-flex items-center justify-center w-6 h-6 border;
+  border-color: var(--border-muted);
+  color: var(--fg-muted);
+}
+
+.recordCard .id {
+  @apply text-sm font-mono w-12 sm:w-14;
+}
+
+.recordCard .title {
+  @apply text-base truncate;
+}
+
+.recordCard .subtitle {
+  @apply text-sm truncate;
+}
+
+.recordCard .category {
+  @apply hidden sm:inline-block text-sm font-mono uppercase tracking-wider w-24 lg:w-28 text-right shrink-0 truncate;
+}
+
+.recordCard .chevron {
+  @apply w-4 h-4 shrink-0 transition-transform duration-150;
+}
+
+/* Expanded panel ========================================================== */
+.expandedPanel {
+  @apply px-6 pb-5 bg-white border border-black/30;
+  color: var(--pl-black);
+}
+
+.expandedPanel .overview {
+  @apply py-4 text-base leading-relaxed;
+}
+
+.expandedPanel .metaGrid {
+  @apply grid grid-cols-2 gap-4 py-4 border-t border-black/20;
+}
+
+.expandedPanel .footer {
+  @apply flex items-center justify-between pt-4 border-t border-black/20;
+}
+
+.expandedPanel .year {
+  @apply text-sm font-mono uppercase tracking-wider;
+  color: color-mix(in oklch, var(--pl-black), transparent 30%);
+}
+
+.expandedPanel .link {
+  @apply flex items-center gap-1.5 text-sm font-mono uppercase tracking-wider transition-colors duration-150;
+}
+
+.expandedPanel .link:hover {
+  color: var(--pl-gray);
+}

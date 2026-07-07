@@ -80,9 +80,9 @@ export default function LibraryDetail({
               <div className="text-xs font-mono text-accent mb-6">
                 {entry.number} / {String(libraryEntries.length).padStart(2, '0')}
               </div>
-              <h1 className="font-display text-4xl lg:text-5xl font-medium text-text uppercase leading-none mb-6">
+              <h1 className="font-display text-4xl lg:text-5xl font-medium text-text uppercase leading-tight break-words mb-6">
                 {entry.title}
-                <span className="text-accent">_</span>
+                <span className="cursor-blink text-accent">_</span>
               </h1>
               <p className="text-sm text-text-secondary leading-relaxed mb-6">
                 {entry.summary}

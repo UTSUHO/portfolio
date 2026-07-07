@@ -40,8 +40,8 @@ export default async function NoteDetail({ params }: NoteDetailProps) {
   const { prev, next } = getAdjacentNotes(slug)
 
   return (
-    <PageShell className="p-6">
-      <div className="max-w-7xl mx-auto">
+    <PageShell>
+      <div className="max-w-screen-2xl mx-auto">
         <NoteReader
           meta={meta}
           frontmatter={frontmatter}

@@ -19,8 +19,8 @@ const stats = [
 
 export default function Resume() {
   return (
-    <PageShell className="p-6">
-      <div className="max-w-7xl mx-auto border border-border bg-bg-primary">
+    <PageShell>
+      <div className="max-w-screen-2xl mx-auto border border-border bg-bg-primary">
         {/* Hero */}
         <FadeIn>
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-0 border-b border-border">

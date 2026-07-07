@@ -36,7 +36,7 @@ export default function LibraryHero() {
           ENGINEERING
           <br />
           LIBRARY
-          <span className="text-accent">_</span>
+          <span className="cursor-blink text-accent">_</span>
         </h1>
         <p className="text-sm text-text-secondary leading-relaxed mb-8 max-w-sm">
           A curated archive of engineering practice, system design, experiments,
