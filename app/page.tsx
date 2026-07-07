@@ -6,8 +6,9 @@ import WebGLSlot from "./_components/webgl-slot";
 import ExperienceSection from "./_components/experience-section";
 import ProjectLog from "./_components/project-log";
 import LatestNotesPanel from "./_components/latest-notes-panel";
+import LatestLibraryPanel from "./_components/latest-library-panel";
 import Link from "next/link";
-import { experienceProfiles, notes, projects } from "@/lib/data";
+import { experienceProfiles, libraryEntries, notes, projects } from "@/lib/data";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -187,15 +188,20 @@ export default function Home() {
         <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
           <SubSection
             title="LIBRARY"
+            count={
+              <Link
+                href="/library"
+                className="flex hover:text-white/80 transition-colors duration-150"
+              >
+                <span>VIEW ALL LIBRARY</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            }
             backgroundColor="bg-invert"
             textColor="text-invert"
             borderColor="border-invert"
           >
-            <div className="h-full flex items-center justify-center">
-              <span className="text-xs font-mono uppercase tracking-wider text-text-secondary">
-                contact placeholder
-              </span>
-            </div>
+            <LatestLibraryPanel entries={libraryEntries.slice(0, 7)} />
           </SubSection>
           <SubSection
             title="LATEST NOTES"
@@ -212,7 +218,7 @@ export default function Home() {
             textColor="text"
             borderColor="border"
           >
-            <LatestNotesPanel notes={notes.slice(0, 3)} />
+            <LatestNotesPanel notes={notes.slice(0, 7)} />
           </SubSection>
         </div>
       </Section>

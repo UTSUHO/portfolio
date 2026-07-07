@@ -35,7 +35,7 @@ export default function LatestNotesPanel({ notes }: LatestNotesPanelProps) {
       </div>
       <div className="px-6 py-3 border-t border-black/20">
         <div className="text-xs font-mono uppercase tracking-wider text-black/60">
-          Weekly Notes
+          PERSONAL Notes
         </div>
       </div>
     </div>
