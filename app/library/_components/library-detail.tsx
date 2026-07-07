@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { LibraryEntry, libraryEntries } from '@/lib/data'
-import Panel from './panel'
+import Panel from '../../components/panel'
 import LibraryMetaTable from './library-meta-table'
 import TechnicalHeroVisual from './technical-hero-visual'
-import TocPanel from './toc-panel'
+import TocPanel from '../../components/toc-panel'
 import BottomArchiveNav from './bottom-archive-nav'
 import LibraryCard from './library-card'
 

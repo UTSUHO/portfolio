@@ -1,7 +1,7 @@
 'use client'
 
 import { LibraryCategory, LibraryStatus } from '@/lib/data'
-import Panel from './panel'
+import Panel from '../../components/panel'
 
 interface LibraryFiltersProps {
   categories: LibraryCategory[]

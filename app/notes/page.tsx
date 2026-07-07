@@ -1,5 +1,5 @@
 import PageShell from '../components/page-shell'
-import NotesIndex from '../components/notes-index'
+import NotesIndex from './_components/notes-index'
 
 export const metadata = {
   title: 'Notes - Rei Utsuho'

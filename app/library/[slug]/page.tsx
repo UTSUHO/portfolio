@@ -6,7 +6,7 @@ import {
   getLibraryRelated
 } from '@/lib/data'
 import PageShell from '../../components/page-shell'
-import LibraryDetail from '../../components/library-detail'
+import LibraryDetail from '../_components/library-detail'
 
 interface LibraryDetailPageProps {
   params: Promise<{ slug: string }>

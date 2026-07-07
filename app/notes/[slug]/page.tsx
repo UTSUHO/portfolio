@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { notes, getAdjacentNotes, getNoteBySlug } from '@/lib/data'
 import { getNoteContent } from '@/lib/markdown'
 import PageShell from '../../components/page-shell'
-import NoteReader from '../../components/note-reader'
-import NoteMarkdown from '../../components/note-markdown'
+import NoteReader from '../_components/note-reader'
+import NoteMarkdown from '../_components/note-markdown'
 
 interface NoteDetailProps {
   params: Promise<{ slug: string }>

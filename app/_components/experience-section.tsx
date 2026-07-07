@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Layers, ArrowRight } from 'lucide-react'
 import SubSection from './sub-section'
-import ExperiencePanel from './experience-panel'
+import ExperiencePanel from '../components/experience-panel'
 import Link from 'next/link'
 import { ExperienceProfile } from '@/lib/data'
 

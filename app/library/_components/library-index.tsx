@@ -10,7 +10,7 @@ import LibraryHero from './library-hero'
 import LibraryFilters from './library-filters'
 import LibrarySortBar, { LibrarySortKey } from './library-sort-bar'
 import LibraryCard from './library-card'
-import PaginationBar from './pagination-bar'
+import PaginationBar from '../../components/pagination-bar'
 
 const PAGE_SIZE = 8
 

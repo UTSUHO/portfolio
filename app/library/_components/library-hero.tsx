@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Panel from './panel'
+import Panel from '../../components/panel'
 import TechnicalHeroVisual from './technical-hero-visual'
 import { libraryEntries, LibraryCategory } from '@/lib/data'
 

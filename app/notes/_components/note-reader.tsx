@@ -7,8 +7,8 @@ import ArticleMeta from './article-meta'
 import ArticleTitle from './article-title'
 import ArticleLead from './article-lead'
 import CoverImage from './cover-image'
-import TocPanel from './toc-panel'
-import Panel from './panel'
+import TocPanel from '../../components/toc-panel'
+import Panel from '../../components/panel'
 import BottomNoteNav from './bottom-note-nav'
 
 interface NoteReaderProps {

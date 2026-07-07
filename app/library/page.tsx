@@ -1,5 +1,5 @@
 import PageShell from '../components/page-shell'
-import LibraryIndex from '../components/library-index'
+import LibraryIndex from './_components/library-index'
 
 export const metadata = {
   title: 'Library - Rei Utsuho'

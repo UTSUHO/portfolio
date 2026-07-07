@@ -1,11 +1,11 @@
-import LineSequenceScene from "./components/line-sequence-scene";
+import LineSequenceScene from "./_components/line-sequence-scene";
 import TabNav from "./components/tab-nav";
-import Section from "./components/section";
-import SubSection from "./components/sub-section";
-import WebGLSlot from "./components/webgl-slot";
-import ExperienceSection from "./components/experience-section";
-import ProjectLog from "./components/project-log";
-import LatestNotesPanel from "./components/latest-notes-panel";
+import Section from "./_components/section";
+import SubSection from "./_components/sub-section";
+import WebGLSlot from "./_components/webgl-slot";
+import ExperienceSection from "./_components/experience-section";
+import ProjectLog from "./_components/project-log";
+import LatestNotesPanel from "./_components/latest-notes-panel";
 import Link from "next/link";
 import { experienceProfiles, notes, projects } from "@/lib/data";
 import { ArrowRight } from "lucide-react";
