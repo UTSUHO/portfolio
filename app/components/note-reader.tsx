@@ -8,7 +8,7 @@ import ArticleTitle from './article-title'
 import ArticleLead from './article-lead'
 import CoverImage from './cover-image'
 import TocPanel from './toc-panel'
-import SharePanel from './share-panel'
+import Panel from './panel'
 import BottomNoteNav from './bottom-note-nav'
 
 interface NoteReaderProps {
@@ -43,7 +43,7 @@ export default function NoteReader({
   }))
 
   return (
-    <article className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+    <article className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6 items-start">
       <div className="min-w-0">
         <header className="mb-10 space-y-6">
           <ArticleMeta
@@ -60,16 +60,26 @@ export default function NoteReader({
 
         <div className="max-w-[780px]">{children}</div>
 
-        <div className="lg:hidden mt-12 mb-8">
-          <TocPanel items={tocItems} title="TABLE OF CONTENTS" />
-        </div>
-
         <BottomNoteNav prev={prev} next={next} />
       </div>
 
-      <aside className="hidden lg:block space-y-6">
+      <aside
+        className="order-first lg:order-none lg:sticky lg:top-[calc(var(--height-status)+24px)] lg:max-h-[calc(100vh-var(--height-status)-48px)] lg:overflow-y-auto space-y-4"
+      >
+        <Panel title="TAGS">
+          <div className="flex flex-wrap gap-2 p-4">
+            {meta.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[10px] font-mono uppercase tracking-wider border border-border px-2 py-1 text-text-secondary"
+              >
+                [{tag}]
+              </span>
+            ))}
+          </div>
+        </Panel>
+
         <TocPanel items={tocItems} title="TABLE OF CONTENTS" />
-        <SharePanel />
       </aside>
     </article>
   )
