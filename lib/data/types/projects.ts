@@ -32,7 +32,7 @@ export interface Project {
   architecture: {
     title?: string
     blocks: { label: string; value: string }[]
-    flow?: string[]
+    flow?: string
   }
   techStack: string[]
   challenges: string[]

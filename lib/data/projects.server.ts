@@ -16,6 +16,14 @@ function isProjectTag(value: unknown): value is ProjectTag {
   return typeof value === 'number' && value >= 0 && value <= 6
 }
 
+function normalizeFlow(value: unknown): Project['architecture']['flow'] {
+  if (typeof value === 'string') {
+    return value
+  }
+
+  return undefined
+}
+
 function normalizeProject(data: Record<string, unknown>): Project {
   const meta = (data.meta || {}) as Record<string, unknown>
   const architecture = (data.architecture || {}) as Record<string, unknown>
@@ -56,9 +64,7 @@ function normalizeProject(data: Record<string, unknown>): Project {
             })
             .filter((b) => b.label || b.value)
         : [],
-      flow: Array.isArray(architecture.flow)
-        ? architecture.flow.map(String)
-        : undefined
+      flow: normalizeFlow(architecture.flow)
     },
     techStack: Array.isArray(data.techStack)
       ? data.techStack.map(String)

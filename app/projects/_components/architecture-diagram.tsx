@@ -1,3 +1,5 @@
+import MermaidChart from './mermaid-chart'
+
 interface ArchitectureBlock {
   label: string
   value: string
@@ -6,10 +8,12 @@ interface ArchitectureBlock {
 interface ArchitectureDiagramProps {
   title?: string
   blocks: ArchitectureBlock[]
-  flow?: string[]
+  flow?: string
 }
 
 export default function ArchitectureDiagram({ title, blocks, flow }: ArchitectureDiagramProps) {
+  const hasFlow = typeof flow === 'string' && flow.trim().length > 0
+
   return (
     <div className="border border-border bg-bg-primary">
       {(title || blocks.length > 0) && (
@@ -37,21 +41,10 @@ export default function ArchitectureDiagram({ title, blocks, flow }: Architectur
         ))}
       </div>
 
-      {flow && flow.length > 0 && (
-        <div className="border-t border-border p-4">
+      {hasFlow && (
+        <div className="border-t border-border p-4 overflow-x-auto">
           <div className="text-xs font-mono uppercase tracking-wider text-text-secondary mb-3">FLOW</div>
-          <div className="flex flex-wrap items-center gap-2">
-            {flow.map((step, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <span className="px-3 h-7 border border-border text-xs font-mono text-text flex items-center">
-                  {step}
-                </span>
-                {index < flow.length - 1 && (
-                  <span className="text-text-secondary">→</span>
-                )}
-              </div>
-            ))}
-          </div>
+          <MermaidChart chart={flow} />
         </div>
       )}
     </div>
