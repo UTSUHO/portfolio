@@ -458,9 +458,7 @@ export default function ProjectPlaceholderWebGL() {
           className="copy absolute z-[6] left-[clamp(8px,3%,240px)] top-[44%] -translate-y-1/2 text-[rgba(235,239,242,0.78)] uppercase tracking-[0.42em] max-md:left-1/2 max-md:top-[25%] max-md:-translate-x-1/2 max-md:-translate-y-1/2 max-md:text-center"
           aria-label="Placeholder text"
         >
-          <div className="focus-mark relative w-12 h-12 mx-auto mb-[50px] opacity-[0.78]">
-            <span />
-          </div>
+
           <h1
             className="title m-0 font-normal leading-none text-[clamp(22px,2.25vw,40px)]"
             style={{ textShadow: '0 0 22px rgba(255,255,255,0.08)' }}
@@ -473,24 +471,23 @@ export default function ProjectPlaceholderWebGL() {
           <div className="short-rule w-7 h-px mt-[58px] mx-auto bg-[rgba(235,239,242,0.58)]" />
         </section>
 
-        <div className="corner-copy absolute z-[6] right-[clamp(26px,8vw,140px)] bottom-[clamp(40px,16vh,160px)] text-[rgba(235,239,242,0.78)] flex items-center gap-[15px] text-[clamp(10px,0.9vw,14px)] tracking-[0.36em] uppercase whitespace-nowrap max-md:hidden">
+        <div className="corner-copy absolute z-[6] right-[clamp(8px,32px,140px)] bottom-[clamp(8px,32px,160px)] text-[rgba(235,239,242,0.78)] flex items-center gap-[15px] text-[clamp(10px,0.9vw,14px)] tracking-[0.36em] uppercase whitespace-nowrap max-md:hidden">
           NO COVER ASSET
         </div>
 
         <section className="micro-ui absolute z-[6] left-[clamp(34px,5vw,70px)] bottom-[clamp(34px,7vh,78px)] grid grid-cols-[48px_auto] gap-[22px] items-center text-[rgba(235,239,242,0.48)] text-xs tracking-[0.12em] max-md:hidden">
-          <div
-            className="mini-cube-icon relative w-[42px] h-[42px] border border-[rgba(235,239,242,0.34)] opacity-[0.72]"
-            style={{ transform: 'rotate(30deg) skew(-8deg)' }}
-          />
+                    <div className="focus-mark relative w-12 h-12 mx-auto mt-[20px] mb-[20px] opacity-[0.78]">
+            <span />
+          </div>
           <div className="leading-[1.6]">
             <div>
-              <b>MODULE ID</b> PLH-000
+              <b>MODULE ID</b> Plcaholder
             </div>
             <div>
               <b>STATUS</b> DEFAULT
             </div>
             <div>
-              <b>VERSION</b> 1.0
+              <b>VERSION</b> V1.0
             </div>
           </div>
         </section>
