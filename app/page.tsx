@@ -8,7 +8,12 @@ import ProjectLog from "./_components/project-log";
 import LatestNotesPanel from "./_components/latest-notes-panel";
 import LatestLibraryPanel from "./_components/latest-library-panel";
 import Link from "next/link";
-import { experienceProfiles, libraryEntries, notes, projects } from "@/lib/data";
+import {
+  experienceProfiles,
+  libraryEntries,
+  notes,
+  projects,
+} from "@/lib/data";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -104,9 +109,10 @@ export default function Home() {
                   <span>VUE/REACT</span>
                   {/* <span className="mx-2">|</span> */}
                   <span>NODE/JS/TS</span>
-                  {/* <span className="mx-2">|</span> */}
-                  <span>WEBGL/CSS3</span>
+                  <span>WEBGL/CG</span>
                   <span>PYTHON</span>
+                  <span>GRAPH RAG</span>
+                  <span>BENCHMARK OPS</span>
                 </div>{" "}
               </div>
             </div>
@@ -172,7 +178,7 @@ export default function Home() {
             backgroundColor="bg-accent"
             textColor="text"
             borderColor="border"
-            headerStyle={{ borderColor: 'rgba(0, 0, 0, 0.3)' }}
+            headerStyle={{ borderColor: "rgba(0, 0, 0, 0.3)" }}
           >
             <ProjectLog projects={projects} />
           </SubSection>

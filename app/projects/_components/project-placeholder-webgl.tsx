@@ -487,7 +487,7 @@ export default function ProjectPlaceholderWebGL() {
               <b>STATUS</b> DEFAULT
             </div>
             <div>
-              <b>VERSION</b> V1.0
+              <b>VERSION</b> V2.0
             </div>
           </div>
         </section>
