@@ -1,9 +1,7 @@
 export * from './data/types'
 
 export {
-  PROJECT_TAG_MAP,
-  projects,
-  getProjectById
+  PROJECT_TAG_MAP
 } from './data/projects'
 
 export {

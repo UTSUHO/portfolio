@@ -12,8 +12,8 @@ import {
   experienceProfiles,
   libraryEntries,
   notes,
-  projects,
 } from "@/lib/data";
+import { projects } from "@/lib/data/projects.server";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getProjectById, projects } from '@/lib/data'
+import { getProjectById, projects } from '@/lib/data/projects.server'
 import PageShell from '../../components/page-shell'
 import ProjectPlaceholderWebGL from '../_components/project-placeholder-webgl'
 import ArchitectureDiagram from '../_components/architecture-diagram'

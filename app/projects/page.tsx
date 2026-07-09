@@ -1,7 +1,7 @@
 import PageShell from '../components/page-shell'
 import Panel from '../components/panel'
 import DataRow from '../components/data-row'
-import { projects } from '@/lib/data'
+import { projects } from '@/lib/data/projects.server'
 
 export const metadata = {
   title: 'Works - Rei Utsuho'
