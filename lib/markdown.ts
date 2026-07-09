@@ -1,3 +1,4 @@
+import { marked } from 'marked'
 import { NoteEntry } from './data'
 
 export interface Heading {
@@ -16,6 +17,11 @@ export interface NoteFrontmatter {
   tags?: string[]
   coverImage?: string
   language?: 'zh' | 'en' | 'mixed'
+}
+
+export interface LibraryVisualSlide {
+  label: string
+  html: string
 }
 
 function slugifyHeading(text: string): string {
@@ -121,4 +127,34 @@ export async function getNoteContent(slug: string, meta: NoteEntry): Promise<Not
   const headings = extractHeadings(body)
 
   return { meta, frontmatter, body, headings }
+}
+
+export async function getLibraryVisualSlides(slug: string): Promise<LibraryVisualSlide[] | null> {
+  const { readFile } = await import('fs/promises')
+  const { join } = await import('path')
+  const filePath = join(process.cwd(), 'content', 'library', `${slug}.md`)
+
+  let source: string
+  try {
+    source = await readFile(filePath, 'utf8')
+  } catch {
+    return null
+  }
+
+  const body = source.replace(/^---[\s\S]*?---\n*/, '')
+  const parts = body.split(/\n## /).filter(Boolean)
+
+  const slides: LibraryVisualSlide[] = []
+
+  for (const part of parts) {
+    const lines = part.split('\n')
+    const label = lines[0].trim()
+    const content = lines.slice(1).join('\n').trim()
+    if (!label || !content) continue
+
+    const html = marked(content, { breaks: true }) as string
+    slides.push({ label, html })
+  }
+
+  return slides.slice(0, 5)
 }

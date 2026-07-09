@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getProjectById, projects } from '@/lib/data'
 import PageShell from '../../components/page-shell'
-import ProjectWebGLPreview from '../_components/project-webgl-preview'
+import ProjectPlaceholderWebGL from '../_components/project-placeholder-webgl'
 import ArchitectureDiagram from '../_components/architecture-diagram'
 import FadeIn from '../../components/fade-in'
 import Divider from '../../components/divider'
@@ -83,7 +83,7 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
             </div>
 
             <div className="lg:col-span-7 min-h-[400px] lg:min-h-[500px]">
-              <ProjectWebGLPreview visualType={project.visualType} />
+              <ProjectPlaceholderWebGL />
             </div>
           </section>
         </FadeIn>
