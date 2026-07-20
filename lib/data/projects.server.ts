@@ -24,6 +24,28 @@ function normalizeFlow(value: unknown): Project['architecture']['flow'] {
   return undefined
 }
 
+function normalizeTechStack(value: unknown): Project['techStack'] {
+  if (!Array.isArray(value)) {
+    return []
+  }
+
+  return value
+    .map((item: unknown) => {
+      if (item !== null && typeof item === 'object') {
+        const obj = item as Record<string, unknown>
+        const entries = Object.entries(obj)
+        if (entries.length === 0) return null
+        const [header, content] = entries[0]
+        return {
+          header: String(header ?? ''),
+          content: String(content ?? '')
+        }
+      }
+      return null
+    })
+    .filter((item): item is { header: string; content: string } => item !== null && item.header !== '')
+}
+
 function normalizeProject(data: Record<string, unknown>): Project {
   const meta = (data.meta || {}) as Record<string, unknown>
   const architecture = (data.architecture || {}) as Record<string, unknown>
@@ -66,9 +88,7 @@ function normalizeProject(data: Record<string, unknown>): Project {
         : [],
       flow: normalizeFlow(architecture.flow)
     },
-    techStack: Array.isArray(data.techStack)
-      ? data.techStack.map(String)
-      : [],
+    techStack: normalizeTechStack(data.techStack),
     challenges: Array.isArray(data.challenges)
       ? data.challenges.map(String)
       : [],

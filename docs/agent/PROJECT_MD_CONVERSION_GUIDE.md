@@ -51,10 +51,11 @@ architecture:                      # 架构对象
       Gateway --> Chat["Stream Chat"]
       Gateway --> VNC["VNC Panel"]
 
-techStack:                         # 技术栈数组
-  - "Vue 3"
-  - "Vite 8"
-  - "Pinia 3"
+techStack:                         # 技术栈数组（header-content 键值对）
+  - "Frontend Framework": "Vue 3 + Vite 8 + Pinia 3 单页应用核心"
+  - "Styling": "Tailwind CSS 4 + shadcn-vue 风格组件"
+  - "Real-time": "WebSocket + GatewayBrowserClient 长连接"
+  - "Remote Desktop": "noVNC + xterm 终端集成"
 
 challenges:                        # 挑战数组
   - "流式消息增量合并..."
@@ -82,7 +83,7 @@ relatedIds:                        # 关联项目 ID 数组
 | `overview/problem/solution` | string | 是 | |
 | `architecture.blocks` | object[] | 是 | 每个 block 有 `label` 和 `value` |
 | `architecture.flow` | `string`（Mermaid 文本） | 否 | 完整 Mermaid 语法透传，直接交给 Mermaid 渲染 |
-| `techStack` | string[] | 否 | |
+| `techStack` | `{ [header: string]: string }[]` | 否 | header 渲染为卡片标题，content 渲染为卡片内容；每项只取第一个键值对 |
 | `challenges` | string[] | 否 | |
 | `outcome` | string | 否 | |
 | `relatedIds` | string[] | 否 | 关联项目 ID，用于底部 RELATED PROJECTS |
@@ -146,7 +147,7 @@ architecture:
 | 归档章节 | 对应 frontmatter 字段 |
 |----------|----------------------|
 | 项目概述 → overview | `overview` |
-| 技术栈表格 → meta.tech / techStack | `meta.tech`、`techStack` |
+| 技术栈表格 → meta.tech / techStack | `meta.tech`、`techStack`（header-content 键值对） |
 | 整体架构 → architecture.blocks | `architecture.blocks` |
 | 关键设计决策 → challenges | `challenges` |
-| 功能模块流程 → architecture.flow | `architecture.flow`（推荐 Mermaid） |
+| 功能模块流程 → architecture.flow | `architecture.flow`（Mermaid） |

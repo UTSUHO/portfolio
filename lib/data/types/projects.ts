@@ -34,7 +34,7 @@ export interface Project {
     blocks: { label: string; value: string }[]
     flow?: string
   }
-  techStack: string[]
+  techStack: { header: string; content: string }[]
   challenges: string[]
   outcome: string
   relatedIds: string[]

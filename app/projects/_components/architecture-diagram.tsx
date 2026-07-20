@@ -17,7 +17,7 @@ export default function ArchitectureDiagram({ title, blocks, flow }: Architectur
   return (
     <div className="border border-border bg-bg-primary">
       {(title || blocks.length > 0) && (
-        <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
+        <div className="flex items-center gap-2 p-8 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
           <span className="inline-block w-2 h-2 bg-accent" />
           <span className="text-text">{title || 'ARCHITECTURE'}</span>
         </div>

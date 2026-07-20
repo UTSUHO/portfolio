@@ -1,41 +1,41 @@
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import { getProjectById, projects } from '@/lib/data/projects.server'
-import PageShell from '../../components/page-shell'
-import ProjectPlaceholderWebGL from '../_components/project-placeholder-webgl'
-import ArchitectureDiagram from '../_components/architecture-diagram'
-import FadeIn from '../../components/fade-in'
-import Divider from '../../components/divider'
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { getProjectById, projects } from "@/lib/data/projects.server";
+import PageShell from "../../components/page-shell";
+import ProjectPlaceholderWebGL from "../_components/project-placeholder-webgl";
+import ArchitectureDiagram from "../_components/architecture-diagram";
+import FadeIn from "../../components/fade-in";
+import Divider from "../../components/divider";
 
 interface ProjectDetailProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({ id: project.id }))
+  return projects.map((project) => ({ id: project.id }));
 }
 
-export const dynamicParams = false
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: ProjectDetailProps) {
-  const { id } = await params
-  const project = getProjectById(id)
+  const { id } = await params;
+  const project = getProjectById(id);
   return {
-    title: project ? `${project.title} - Rei Utsuho` : 'Project - Rei Utsuho'
-  }
+    title: project ? `${project.title} - Rei Utsuho` : "Project - Rei Utsuho",
+  };
 }
 
 export default async function ProjectDetail({ params }: ProjectDetailProps) {
-  const { id } = await params
-  const project = getProjectById(id)
+  const { id } = await params;
+  const project = getProjectById(id);
 
   if (!project) {
-    notFound()
+    notFound();
   }
 
   const relatedProjects = project.relatedIds
     .map((relatedId) => getProjectById(relatedId))
-    .filter((p): p is NonNullable<typeof p> => p !== undefined)
+    .filter((p): p is NonNullable<typeof p> => p !== undefined);
 
   return (
     <PageShell>
@@ -50,7 +50,10 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
               <h1 className="font-display text-4xl lg:text-5xl font-bold text-text leading-none mb-4">
                 {project.title}
               </h1>
-              <p className="text-sm text-text-secondary leading-relaxed mb-8" style={{ fontSize: '13px' }}>
+              <p
+                className="text-sm text-text-secondary leading-relaxed mb-8"
+                style={{ fontSize: "13px" }}
+              >
                 {project.subtitle}
               </p>
 
@@ -88,39 +91,88 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
           </section>
         </FadeIn>
 
-        {/* Overview + Problem + Solution */}
+        {/* Overview */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <FadeIn delay={100}>
             <div className="border border-border bg-bg-primary p-8 h-full">
               <div className="flex items-center gap-2 mb-6">
                 <span className="inline-block w-2 h-2 bg-accent" />
-                <span className="text-xs font-mono uppercase tracking-wider text-text">OVERVIEW</span>
+                <span className="text-xs font-mono uppercase tracking-wider text-text">
+                  OVERVIEW
+                </span>
               </div>
-              <p className="text-base text-text leading-[1.8]">{project.overview}</p>
+              <p className="text-base text-text leading-[1.8]">
+                {project.overview}
+              </p>
             </div>
           </FadeIn>
 
+          {/* Problem  */}
           <FadeIn delay={200}>
             <div className="border border-border bg-bg-primary p-8 h-full">
               <div className="flex items-center gap-2 mb-6">
                 <span className="inline-block w-2 h-2 bg-accent" />
-                <span className="text-xs font-mono uppercase tracking-wider text-text">PROBLEM</span>
+                <span className="text-xs font-mono uppercase tracking-wider text-text">
+                  PROBLEM
+                </span>
               </div>
-              <p className="text-base text-text leading-[1.8]">{project.problem}</p>
+              <p className="text-base text-text leading-[1.8]">
+                {project.problem}
+              </p>
             </div>
           </FadeIn>
         </section>
-
+        {/* Solution */}
         <FadeIn delay={100}>
           <section className="border border-border bg-bg-primary p-8 mb-6">
             <div className="flex items-center gap-2 mb-6">
               <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-xs font-mono uppercase tracking-wider text-text">SOLUTION</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-text">
+                SOLUTION
+              </span>
             </div>
-            <p className="text-base text-text leading-[1.8] max-w-4xl">{project.solution}</p>
+            <p className="text-base text-text leading-[1.8] max-w-4xl">
+              {project.solution}
+            </p>
           </section>
         </FadeIn>
-
+        {/* Tech Stack */}
+        <FadeIn delay={100}>
+          <section className="border border-border bg-bg-primary p-8 mb-6">
+            <div className="flex items-center gap-2 mb-6">
+              <span className="inline-block w-2 h-2 bg-accent" />
+              <span className="text-xs font-mono uppercase tracking-wider text-text">
+                TECH STACK
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-border">
+              {project.techStack.map((tech, index) => (
+                <div
+                  key={index}
+                  className={`p-4 border-r border-b border-border ${
+                    index % 4 === 3 ? "sm:border-r-0" : ""
+                  } ${
+                    index >=
+                    project.techStack.length -
+                      (project.techStack.length % 2 === 0 ? 2 : 1)
+                      ? "sm:border-b-0"
+                      : ""
+                  }`}
+                >
+                  <div className="text-xs font-mono uppercase tracking-wider border-b border-border text-text-secondary mb-1">
+                    {tech.header}
+                  </div>
+                  <div
+                    className="text-sm text-text leading-relaxed"
+                    style={{ fontSize: "13px" }}
+                  >
+                    {tech.content}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </FadeIn>
         {/* Architecture */}
         <FadeIn delay={100}>
           <section className="mb-6">
@@ -132,36 +184,21 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
           </section>
         </FadeIn>
 
-        {/* Tech Stack */}
-        <FadeIn delay={100}>
-          <section className="border border-border bg-bg-primary p-8 mb-6">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-xs font-mono uppercase tracking-wider text-text">TECH STACK</span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-0 border border-border">
-              {project.techStack.map((tech) => (
-                <div
-                  key={tech}
-                  className="flex items-center px-4 h-12 border-r border-b border-border text-xs font-mono text-text last:border-r-0"
-                >
-                  {tech}
-                </div>
-              ))}
-            </div>
-          </section>
-        </FadeIn>
-
         {/* Challenges */}
         <FadeIn delay={100}>
           <section className="border border-border bg-bg-primary p-8 mb-6">
             <div className="flex items-center gap-2 mb-6">
               <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-xs font-mono uppercase tracking-wider text-text">CHALLENGES</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-text">
+                CHALLENGES
+              </span>
             </div>
             <ul className="space-y-4">
               {project.challenges.map((challenge, index) => (
-                <li key={index} className="flex items-start gap-3 text-base text-text leading-[1.8]">
+                <li
+                  key={index}
+                  className="flex items-start gap-3 text-base text-text leading-[1.8]"
+                >
                   <span className="inline-block w-1.5 h-1.5 bg-accent mt-2 shrink-0" />
                   {challenge}
                 </li>
@@ -175,9 +212,13 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
           <section className="border border-border bg-bg-primary p-8 mb-6">
             <div className="flex items-center gap-2 mb-6">
               <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-xs font-mono uppercase tracking-wider text-text">OUTCOME</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-text">
+                OUTCOME
+              </span>
             </div>
-            <p className="text-base text-text leading-[1.8] max-w-4xl">{project.outcome}</p>
+            <p className="text-base text-text leading-[1.8] max-w-8xl">
+              {project.outcome}
+            </p>
           </section>
         </FadeIn>
 
@@ -195,11 +236,18 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
                   href={`/projects/${related.id}`}
                   className="group block p-6 border-b sm:border-r border-border last:border-r-0 hover:bg-bg transition-colors"
                 >
-                  <div className="text-xs font-mono text-text-secondary mb-2">{related.id} / PROJECT</div>
-                  <div className="text-text group-hover:text-accent transition-colors mb-2" style={{ fontSize: '13px' }}>
+                  <div className="text-xs font-mono text-text-secondary mb-2">
+                    {related.id} / PROJECT
+                  </div>
+                  <div
+                    className="text-text group-hover:text-accent transition-colors mb-2"
+                    style={{ fontSize: "13px" }}
+                  >
                     {related.title}
                   </div>
-                  <div className="text-xs text-text-secondary">{related.category}</div>
+                  <div className="text-xs text-text-secondary">
+                    {related.category}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -207,5 +255,5 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
         </FadeIn>
       </div>
     </PageShell>
-  )
+  );
 }
