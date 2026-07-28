@@ -1,4 +1,4 @@
-# 01 / CAP 权衡
+# CAP 权衡
 
 Consistency in distributed systems is not a binary property. It is a spectrum of guarantees, each with different costs and failure modes.
 
@@ -14,7 +14,7 @@ But this framing is too coarse. Modern systems rarely choose at the system level
 
 ---
 
-# 02 / 一致性模型
+# 一致性模型
 
 ### 强一致性
 
@@ -30,7 +30,7 @@ Operations that are causally related are seen in order. Independent operations m
 
 ---
 
-# 03 / 实际影响
+# 实际影响
 
 When designing a system, ask:
 
@@ -42,7 +42,7 @@ When designing a system, ask:
 
 ---
 
-# 04 / 延伸阅读
+# 延伸阅读
 
 - Designing Data-Intensive Applications by Martin Kleppmann
 - Spanner: Google's Globally-Distributed Database

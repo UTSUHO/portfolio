@@ -42,7 +42,7 @@ export default function LibraryCard({ entry, variant = 'grid' }: LibraryCardProp
           <img
             src={entry.thumbnail}
             alt={entry.title}
-            className="w-full h-full object-cover grayscale contrast-75 group-hover:grayscale-0 transition-all duration-300"
+            className="w-full h-full object-contain grayscale contrast-75 group-hover:grayscale-0 transition-all duration-300"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

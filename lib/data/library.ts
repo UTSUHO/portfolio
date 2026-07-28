@@ -46,8 +46,8 @@ export const libraryEntries: LibraryEntry[] = [
     duration: "8 Months",
     stack: ["Aegisub","Git","Python"],
     tags: ["INTEREST"],
-    thumbnail: "/images/contents/vegvisir.jpg",
-    heroVisual: "/images/contents/vegvisir.jpg",
+    thumbnail: "/images/works/TH-ikaruga.jpeg",
+    heroVisual: "/images/works/TH-ikaruga.jpeg",
     sections: [
       {
         id: "overview",
@@ -107,8 +107,8 @@ export const libraryEntries: LibraryEntry[] = [
     duration: "1 Month",
     stack: ["Illustrator","InDesign"],
     tags: ["INTEREST"],
-    thumbnail: "/images/contents/vegvisir.jpg",
-    heroVisual: "/images/contents/vegvisir.jpg",
+    thumbnail: "/images/works/Fengyi-Chen-Dust-Jacket.png",
+    heroVisual: "/images/works/Fengyi-Chen-Dust-Jacket.png",
     sections: [
       {
         id: "overview",
@@ -168,8 +168,8 @@ export const libraryEntries: LibraryEntry[] = [
     duration: "12 Months",
     stack: ["Aegisub","Git"],
     tags: ["INTEREST"],
-    thumbnail: "/images/contents/vegvisir.jpg",
-    heroVisual: "/images/contents/vegvisir.jpg",
+    thumbnail: "/images/works/TH-M1.png",
+    heroVisual: "/images/works/TH-M1.png",
     sections: [
       {
         id: "overview",
@@ -229,8 +229,8 @@ export const libraryEntries: LibraryEntry[] = [
     duration: "2 Months",
     stack: ["PDF","Markdown"],
     tags: ["INTEREST","GAMEDESIGN"],
-    thumbnail: "/images/contents/vegvisir.jpg",
-    heroVisual: "/images/contents/vegvisir.jpg",
+    thumbnail: "/images/contents/humankind.jpg",
+    heroVisual: "/images/contents/humankind.jpg",
     sections: [
       {
         id: "overview",
@@ -290,8 +290,8 @@ export const libraryEntries: LibraryEntry[] = [
     duration: "3 Months",
     stack: ["TypeScript","Node.js","React"],
     tags: ["INTEREST","FULLSTACK"],
-    thumbnail: "/images/contents/vegvisir.jpg",
-    heroVisual: "/images/contents/vegvisir.jpg",
+    thumbnail: "/images/works/Api-Disruptor.png",
+    heroVisual: "/images/works/Api-Disruptor.png",
     sections: [
       {
         id: "overview",
@@ -351,8 +351,8 @@ export const libraryEntries: LibraryEntry[] = [
     duration: "18 Months",
     stack: ["Paper Prototype","PlaytestKit"],
     tags: ["INTEREST","GAMEDESIGN"],
-    thumbnail: "/images/contents/vegvisir.jpg",
-    heroVisual: "/images/contents/vegvisir.jpg",
+    thumbnail: "/images/contents/airElement.png",
+    heroVisual: "/images/contents/airElement.png",
     sections: [
       {
         id: "overview",
