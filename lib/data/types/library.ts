@@ -3,6 +3,7 @@ import { RelatedRef } from '../related'
 export type LibraryStatus = 'published' | 'in-progress' | 'archived'
 
 export type LibraryType =
+  | 'library'
   | 'project'
   | 'case-study'
   | 'experiment'
