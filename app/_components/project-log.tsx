@@ -154,7 +154,7 @@ function ProjectMissionCard({ project, isWork }: { project: Project; isWork: boo
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="group w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-6 h-auto min-h-14 py-2 text-left hover:pl-5 sm:hover:pl-8 transition-all duration-150"
+        className="bg-white border border-b-0 border-black/30 group w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-6 h-auto min-h-14 py-2 text-left hover:pl-5 sm:hover:pl-8 transition-all duration-150"
       >
         <span className="id shrink-0">[{project.id}]</span>
         <div className="flex-1 min-w-0 text-left overflow-hidden">
