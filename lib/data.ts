@@ -22,7 +22,6 @@ export {
   libraryStatuses,
   getLibraryEntryBySlug,
   getAdjacentLibraryEntries,
-  getLibraryRelated,
   getLibraryEntriesByCategory,
   getLibraryEntriesByStatus
 } from './data/library'

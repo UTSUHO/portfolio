@@ -7,12 +7,16 @@ export const metadata = {
   title: 'Works - Rei Utsuho'
 }
 
+const WORK_TAG = 0
+
 export default function Projects() {
+  const sortedProjects = [...projects].sort((a, b) => b.year.localeCompare(a.year))
+
   return (
     <PageShell>
       <div className="max-w-screen-2xl mx-auto">
         <Panel title="WORKS" count={`${projects.length} ENTRIES`}>
-          {projects.map((work) => (
+          {sortedProjects.map((work) => (
             <DataRow
               key={work.id}
               index={work.id}
@@ -20,6 +24,11 @@ export default function Projects() {
               category={work.category}
               year={work.year}
               href={`/projects/${work.id}`}
+              marker={
+                work.tags.includes(WORK_TAG) ? (
+                  <span className="inline-block w-2 h-2 bg-accent" title="Work project" />
+                ) : null
+              }
             />
           ))}
         </Panel>

@@ -7,10 +7,32 @@
       "Bash(npx shadcn@latest add sheet -y)",
       "Bash(mkdir -p \"app/notes/[slug]\")",
       "Bash(npx playwright *)",
-      "Bash(node -e \"const mdx = require\\('@mdx-js/mdx'\\); console.log\\(Object.keys\\(mdx\\)\\);\")"
+      "Bash(node -e \"const mdx = require\\('@mdx-js/mdx'\\); console.log\\(Object.keys\\(mdx\\)\\);\")",
+      "Bash(ls -la \"D:/Documents/Github/pix\" 2>/dev/null || echo \"directory not found or empty\")",
+      "Read(//d/Documents/Github/**)",
+      "Bash(node --check bin/pix.js)",
+      "Bash(node -e \"const { loadConfig, buildComposeConfig, collectEnvVars } = require\\('./bin/pix.js'\\);\")",
+      "Bash(ANTHROPIC_API_KEY=test-key node bin/pix.js --dry-run --help)",
+      "Bash(node verify-compose.js)",
+      "Bash(ANTHROPIC_API_KEY=test-key node -e ' *)",
+      "Bash(pix --dry-run --help)",
+      "Bash(docker context *)",
+      "Bash(node bin/pix.js --dry-run --help)",
+      "Bash(pix -- /bin/bash -c \"ls -la /root/.pi/agent && ls -la /root/.pi/agent/extensions\")",
+      "Bash(docker --context pi-local run --rm -v \"C:\\\\Users\\\\abyss raven\\\\.pi:/root/.pi\" alpine ls -la /root/.pi/agent/extensions)",
+      "Bash(docker --context pi-local run --rm -v \"/host_mnt/c/Users/abyss raven/.pi:/root/.pi\" alpine ls -la /root/.pi/agent/extensions)",
+      "Bash(docker --context pi-local run --rm -v \"C:/Users/abyss raven/.pi:/root/.pi\" alpine ls -la /root/.pi/agent/extensions)",
+      "Bash(docker --context pi-local run --rm -v \"C:\\\\Users\\\\abyss raven\\\\.pi:/root/.pi\" alpine sh -c \"ls -la /root/.pi/agent/extensions\")",
+      "Bash(docker --context pi-local run --rm -v \"C:\\\\Users\\\\abyss raven\\\\.pi:/root/.pi\" alpine sh -c \"find /root/.pi -maxdepth 3 -type d\")",
+      "Bash(node bin/pix.js --dry-run --daemon --help)",
+      "Bash(docker --context pi-local rm -f pix-pi-local-pi-daemon pix-pi-local-pi-1)",
+      "Bash(node bin/pix.js --daemon --help)",
+      "Bash(pix --daemon --help)"
     ],
     "additionalDirectories": [
-      "D:\\Documents\\Github\\portfolio\\app\\notes"
+      "D:\\Documents\\Github\\portfolio\\app\\notes",
+      "D:\\Documents\\Github\\pix",
+      "C:\\Users\\abyss raven"
     ]
   }
 }

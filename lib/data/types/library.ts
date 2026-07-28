@@ -1,3 +1,5 @@
+import { RelatedRef } from '../related'
+
 export type LibraryStatus = 'published' | 'in-progress' | 'archived'
 
 export type LibraryType =
@@ -54,5 +56,5 @@ export type LibraryEntry = {
   links?: { repository?: string; demo?: string; article?: string }
   keyFacts?: { label: string; value: string }[]
   sections: LibrarySection[]
-  relatedSlugs?: string[]
+  related: RelatedRef[]
 }

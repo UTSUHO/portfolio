@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
 import { Project, ProjectTag } from './types'
+import { normalizeRelated } from './related'
 
 const PROJECTS_DIR = join(process.cwd(), 'content', 'projects')
 
@@ -31,8 +32,20 @@ function normalizeTechStack(value: unknown): Project['techStack'] {
 
   return value
     .map((item: unknown) => {
+      if (typeof item === 'string') {
+        return { header: '', content: item }
+      }
+
       if (item !== null && typeof item === 'object') {
         const obj = item as Record<string, unknown>
+
+        if ('header' in obj && 'content' in obj) {
+          return {
+            header: String(obj.header ?? ''),
+            content: String(obj.content ?? '')
+          }
+        }
+
         const entries = Object.entries(obj)
         if (entries.length === 0) return null
         const [header, content] = entries[0]
@@ -41,9 +54,10 @@ function normalizeTechStack(value: unknown): Project['techStack'] {
           content: String(content ?? '')
         }
       }
+
       return null
     })
-    .filter((item): item is { header: string; content: string } => item !== null && item.header !== '')
+    .filter((item): item is { header: string; content: string } => item !== null && (item.header !== '' || item.content !== ''))
 }
 
 function normalizeProject(data: Record<string, unknown>): Project {
@@ -93,9 +107,7 @@ function normalizeProject(data: Record<string, unknown>): Project {
       ? data.challenges.map(String)
       : [],
     outcome: String(data.outcome ?? ''),
-    relatedIds: Array.isArray(data.relatedIds)
-      ? data.relatedIds.map(String)
-      : []
+    related: normalizeRelated(data.related)
   }
 }
 

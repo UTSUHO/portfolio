@@ -13,6 +13,7 @@ export const notes: NoteEntry[] = [
     tags: ['Portfolio', 'Next.js', 'TailwindCSS', 'System'],
     readingTime: '5 min read',
     coverImage: '/images/contents/airElement.png',
+    related: [],
     language: 'mixed'
   },
   {
@@ -26,6 +27,7 @@ export const notes: NoteEntry[] = [
     tags: ['GameDev', 'SRPG', 'Design', 'Mythology'],
     readingTime: '6 min read',
     coverImage: '/images/contents/fireElement.png',
+    related: [],
     language: 'mixed'
   },
   {
@@ -39,6 +41,7 @@ export const notes: NoteEntry[] = [
     tags: ['Boardgame', 'Mythology', 'Prototype', 'Mechanics'],
     readingTime: '7 min read',
     coverImage: '/images/contents/earthElement.png',
+    related: [],
     language: 'mixed'
   },
   {
@@ -52,6 +55,7 @@ export const notes: NoteEntry[] = [
     tags: ['Distributed Systems', 'Architecture', 'Consistency'],
     readingTime: '8 min read',
     coverImage: '/images/contents/aquaElement.png',
+    related: [],
     language: 'mixed'
   },
   {
@@ -65,6 +69,7 @@ export const notes: NoteEntry[] = [
     tags: ['Design', 'Systems', 'UI', 'Architecture'],
     readingTime: '6 min read',
     coverImage: '/images/contents/vegvisir.jpg',
+    related: [],
     language: 'mixed'
   },
   {
@@ -78,6 +83,7 @@ export const notes: NoteEntry[] = [
     tags: ['WebGL', 'Three.js', 'Shaders', 'Performance'],
     readingTime: '7 min read',
     coverImage: '/images/contents/airElement.png',
+    related: [],
     language: 'mixed'
   },
   {
@@ -91,6 +97,7 @@ export const notes: NoteEntry[] = [
     tags: ['Reflection', 'Planning', 'Life'],
     readingTime: '5 min read',
     coverImage: '/images/contents/vegvisir.jpg',
+    related: [],
     language: 'mixed'
   }
 ]

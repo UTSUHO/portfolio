@@ -2,8 +2,7 @@ import { notFound } from 'next/navigation'
 import {
   libraryEntries,
   getLibraryEntryBySlug,
-  getAdjacentLibraryEntries,
-  getLibraryRelated
+  getAdjacentLibraryEntries
 } from '@/lib/data'
 import { getLibraryVisualSlides } from '@/lib/markdown'
 import PageShell from '../../components/page-shell'
@@ -38,7 +37,6 @@ export default async function LibraryDetailPage({
   }
 
   const { prev, next } = getAdjacentLibraryEntries(slug)
-  const related = getLibraryRelated(entry)
   const visualSlides = await getLibraryVisualSlides(slug)
 
   return (
@@ -46,7 +44,6 @@ export default async function LibraryDetailPage({
       <div className="max-w-screen-2xl mx-auto">
         <LibraryDetail
           entry={entry}
-          related={related}
           prev={prev}
           next={next}
           visualSlides={visualSlides ?? undefined}

@@ -124,7 +124,10 @@ export const libraryEntries: LibraryEntry[] = [
       { label: 'Test Coverage', value: '87%' }
     ],
     sections,
-    relatedSlugs: ['distributed-mesh-network-system', 'internal-tools-catalog']
+    related: [
+      { type: "library", key: "distributed-mesh-network-system" },
+      { type: "library", key: "internal-tools-catalog" }
+    ]
   },
   {
     id: 'lib-02',
@@ -216,9 +219,9 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: [
-      'realtime-collaborative-whiteboard',
-      'webgl-scene-optimization-handbook'
+    related: [
+      { type: "library", key: "realtime-collaborative-whiteboard" },
+      { type: "library", key: "webgl-scene-optimization-handbook" }
     ]
   },
   {
@@ -309,7 +312,10 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: ['shader-study-archive', 'system-architecture-patterns']
+    related: [
+      { type: "library", key: "shader-study-archive" },
+      { type: "library", key: "system-architecture-patterns" }
+    ]
   },
   {
     id: 'lib-04',
@@ -399,9 +405,9 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: [
-      'webgl-scene-optimization-handbook',
-      'system-architecture-patterns'
+    related: [
+      { type: "library", key: "webgl-scene-optimization-handbook" },
+      { type: "library", key: "system-architecture-patterns" }
     ]
   },
   {
@@ -492,7 +498,10 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: ['performance-observability-platform', 'internal-tools-catalog']
+    related: [
+      { type: "library", key: "performance-observability-platform" },
+      { type: "library", key: "internal-tools-catalog" }
+    ]
   },
   {
     id: 'lib-06',
@@ -582,7 +591,10 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: ['internal-tools-catalog', 'design-system-documentation']
+    related: [
+      { type: "library", key: "internal-tools-catalog" },
+      { type: "library", key: "design-system-documentation" }
+    ]
   },
   {
     id: 'lib-07',
@@ -672,7 +684,10 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: ['design-system-documentation', 'system-architecture-patterns']
+    related: [
+      { type: "library", key: "design-system-documentation" },
+      { type: "library", key: "system-architecture-patterns" }
+    ]
   },
   {
     id: 'lib-08',
@@ -761,9 +776,9 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: [
-      'distributed-mesh-network-system',
-      'realtime-collaborative-whiteboard'
+    related: [
+      { type: "library", key: "distributed-mesh-network-system" },
+      { type: "library", key: "realtime-collaborative-whiteboard" }
     ]
   },
   {
@@ -831,7 +846,10 @@ export const libraryEntries: LibraryEntry[] = [
         ]
       }
     ],
-    relatedSlugs: ['humankind-essay', 'system-architecture-patterns']
+    related: [
+      { type: "library", key: "humankind-essay" },
+      { type: "library", key: "system-architecture-patterns" }
+    ]
   },
   {
     id: 'lib-10',
@@ -893,7 +911,10 @@ export const libraryEntries: LibraryEntry[] = [
         body: 'After publication the essay was used as a reference in Chinese-language game analysis discussions and informed later board-game design thinking.'
       }
     ],
-    relatedSlugs: ['games-collection', 'design-system-documentation']
+    related: [
+      { type: "library", key: "games-collection" },
+      { type: "library", key: "design-system-documentation" }
+    ]
   }
 ]
 
@@ -910,13 +931,6 @@ export function getAdjacentLibraryEntries(
     prev: index > 0 ? libraryEntries[index - 1] : null,
     next: index < libraryEntries.length - 1 ? libraryEntries[index + 1] : null
   }
-}
-
-export function getLibraryRelated(entry: LibraryEntry): LibraryEntry[] {
-  if (!entry.relatedSlugs) return []
-  return entry.relatedSlugs
-    .map((slug) => getLibraryEntryBySlug(slug))
-    .filter((e): e is LibraryEntry => Boolean(e))
 }
 
 export function getLibraryEntriesByCategory(

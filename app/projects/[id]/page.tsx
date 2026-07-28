@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { getProjectById, projects } from "@/lib/data/projects.server";
 import PageShell from "../../components/page-shell";
 import ProjectPlaceholderWebGL from "../_components/project-placeholder-webgl";
 import ArchitectureDiagram from "../_components/architecture-diagram";
 import FadeIn from "../../components/fade-in";
-import Divider from "../../components/divider";
+import RelatedLinks from "../../components/related-links";
 
 interface ProjectDetailProps {
   params: Promise<{ id: string }>;
@@ -32,10 +31,6 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
   if (!project) {
     notFound();
   }
-
-  const relatedProjects = project.relatedIds
-    .map((relatedId) => getProjectById(relatedId))
-    .filter((p): p is NonNullable<typeof p> => p !== undefined);
 
   return (
     <PageShell>
@@ -131,46 +126,9 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
                 SOLUTION
               </span>
             </div>
-            <p className="text-base text-text leading-[1.8] max-w-4xl">
+            <p className="text-base text-text leading-[1.8]">
               {project.solution}
             </p>
-          </section>
-        </FadeIn>
-        {/* Tech Stack */}
-        <FadeIn delay={100}>
-          <section className="border border-border bg-bg-primary p-8 mb-6">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-xs font-mono uppercase tracking-wider text-text">
-                TECH STACK
-              </span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-border">
-              {project.techStack.map((tech, index) => (
-                <div
-                  key={index}
-                  className={`p-4 border-r border-b border-border ${
-                    index % 4 === 3 ? "sm:border-r-0" : ""
-                  } ${
-                    index >=
-                    project.techStack.length -
-                      (project.techStack.length % 2 === 0 ? 2 : 1)
-                      ? "sm:border-b-0"
-                      : ""
-                  }`}
-                >
-                  <div className="text-xs font-mono uppercase tracking-wider border-b border-border text-text-secondary mb-1">
-                    {tech.header}
-                  </div>
-                  <div
-                    className="text-sm text-text leading-relaxed"
-                    style={{ fontSize: "13px" }}
-                  >
-                    {tech.content}
-                  </div>
-                </div>
-              ))}
-            </div>
           </section>
         </FadeIn>
         {/* Architecture */}
@@ -222,36 +180,9 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
           </section>
         </FadeIn>
 
-        {/* Related Projects */}
+        {/* Related */}
         <FadeIn delay={100}>
-          <section className="border border-border bg-bg-primary">
-            <div className="flex items-center gap-2 px-4 h-8 text-xs font-mono uppercase tracking-wider border-b border-border bg-bg">
-              <span className="inline-block w-2 h-2 bg-accent" />
-              <span className="text-text">RELATED PROJECTS</span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
-              {relatedProjects.map((related) => (
-                <Link
-                  key={related.id}
-                  href={`/projects/${related.id}`}
-                  className="group block p-6 border-b sm:border-r border-border last:border-r-0 hover:bg-bg transition-colors"
-                >
-                  <div className="text-xs font-mono text-text-secondary mb-2">
-                    {related.id} / PROJECT
-                  </div>
-                  <div
-                    className="text-text group-hover:text-accent transition-colors mb-2"
-                    style={{ fontSize: "13px" }}
-                  >
-                    {related.title}
-                  </div>
-                  <div className="text-xs text-text-secondary">
-                    {related.category}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+          <RelatedLinks refs={project.related} title="RELATED" />
         </FadeIn>
       </div>
     </PageShell>

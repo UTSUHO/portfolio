@@ -8,15 +8,19 @@ interface DataRowProps {
   category?: string
   year?: string
   href?: string
+  marker?: React.ReactNode
   children?: React.ReactNode
 }
 
-export default function DataRow({ index, title, category, year, href, children }: DataRowProps) {
+export default function DataRow({ index, title, category, year, href, marker, children }: DataRowProps) {
   const row = (
     <div
       className="group flex items-center gap-4 px-4 h-12 text-xs font-mono border-b border-border transition-all duration-150 hover:pl-6 cursor-pointer"
     >
       <span className="w-8 text-text-secondary">{index}</span>
+      {marker && (
+        <span className="flex items-center justify-center w-5 shrink-0">{marker}</span>
+      )}
       <span className="flex-1 truncate text-text" style={{ fontSize: '13px', fontFamily: '"Inter", system-ui, sans-serif' }}>
         {title}
       </span>

@@ -16,6 +16,7 @@ interface NoteReaderProps {
   frontmatter: NoteFrontmatter
   headings: Heading[]
   children: ReactNode
+  related?: ReactNode
   prev: NoteEntry | null
   next: NoteEntry | null
 }
@@ -25,6 +26,7 @@ export default function NoteReader({
   frontmatter,
   headings,
   children,
+  related,
   prev,
   next
 }: NoteReaderProps) {
@@ -59,6 +61,8 @@ export default function NoteReader({
         </header>
 
         <div className="max-w-[780px]">{children}</div>
+
+        {related}
 
         <BottomNoteNav prev={prev} next={next} />
       </div>

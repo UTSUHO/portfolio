@@ -1,3 +1,5 @@
+import { RelatedRef } from '../related'
+
 export type ProjectTag = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
 export const PROJECT_TAG_MAP = [
@@ -37,5 +39,5 @@ export interface Project {
   techStack: { header: string; content: string }[]
   challenges: string[]
   outcome: string
-  relatedIds: string[]
+  related: RelatedRef[]
 }

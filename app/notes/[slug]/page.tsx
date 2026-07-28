@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { notes, getAdjacentNotes, getNoteBySlug } from '@/lib/data'
 import { getNoteContent } from '@/lib/markdown'
+import RelatedLinks from '../../components/related-links'
 import PageShell from '../../components/page-shell'
 import NoteReader from '../_components/note-reader'
 import NoteMarkdown from '../_components/note-markdown'
@@ -46,6 +47,7 @@ export default async function NoteDetail({ params }: NoteDetailProps) {
           meta={meta}
           frontmatter={frontmatter}
           headings={headings}
+          related={<RelatedLinks refs={meta.related} title="RELATED" className="mb-6" />}
           prev={prev}
           next={next}
         >

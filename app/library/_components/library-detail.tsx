@@ -6,11 +6,10 @@ import LibraryMetaTable from './library-meta-table'
 import TechnicalHeroVisual from './technical-hero-visual'
 import TocPanel from '../../components/toc-panel'
 import BottomArchiveNav from './bottom-archive-nav'
-import LibraryCard from './library-card'
+import RelatedLinks from '../../components/related-links'
 
 interface LibraryDetailProps {
   entry: LibraryEntry
-  related: LibraryEntry[]
   prev: LibraryEntry | null
   next: LibraryEntry | null
   visualSlides?: LibraryVisualSlide[]
@@ -18,7 +17,6 @@ interface LibraryDetailProps {
 
 export default function LibraryDetail({
   entry,
-  related,
   prev,
   next,
   visualSlides
@@ -149,19 +147,7 @@ export default function LibraryDetail({
             ))}
           </div>
 
-          {/* Related Archives */}
-          {related.length > 0 && (
-            <Panel
-              title="RELATED ARCHIVES"
-              count={`${related.length} ITEMS`}
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
-                {related.map((relatedEntry) => (
-                  <LibraryCard key={relatedEntry.slug} entry={relatedEntry} />
-                ))}
-              </div>
-            </Panel>
-          )}
+          <RelatedLinks refs={entry.related} title="RELATED ARCHIVES" className="mb-6" />
 
           <BottomArchiveNav prev={prev} next={next} />
         </div>

@@ -1,3 +1,5 @@
+import { RelatedRef } from '../related'
+
 export type NoteCategory =
   | 'Tech'
   | 'Life'
@@ -18,4 +20,5 @@ export interface NoteEntry {
   readingTime: string
   coverImage: string
   language?: 'zh' | 'en' | 'mixed'
+  related: RelatedRef[]
 }
