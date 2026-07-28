@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { LibraryEntry, libraryEntries } from '@/lib/data'
-import { LibraryVisualSlide } from '@/lib/markdown'
 import Panel from '../../components/panel'
 import LibraryMetaTable from './library-meta-table'
 import TechnicalHeroVisual from './technical-hero-visual'
@@ -12,14 +11,12 @@ interface LibraryDetailProps {
   entry: LibraryEntry
   prev: LibraryEntry | null
   next: LibraryEntry | null
-  visualSlides?: LibraryVisualSlide[]
 }
 
 export default function LibraryDetail({
   entry,
   prev,
-  next,
-  visualSlides
+  next
 }: LibraryDetailProps) {
   const tocItems = entry.sections.map((section) => ({
     id: section.id,
@@ -93,7 +90,7 @@ export default function LibraryDetail({
 
             {/* Technical Hero Visual */}
             <div className="p-4">
-              <TechnicalHeroVisual slides={visualSlides} />
+              <TechnicalHeroVisual slides={entry.heroSlides} />
             </div>
           </div>
 

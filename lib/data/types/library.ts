@@ -24,6 +24,10 @@ export type LibraryCategory =
   | 'Games'
   | 'Essays'
 
+export type LibraryHeroSlide =
+  | { type: 'image'; src: string; thumbnail?: string; alt?: string; caption?: string }
+  | { type: 'mermaid'; definition: string; thumbnail?: string; caption?: string }
+
 export type LibrarySection = {
   id: string
   number: string
@@ -53,6 +57,7 @@ export type LibraryEntry = {
   tags: string[]
   thumbnail?: string
   heroVisual?: string
+  heroSlides?: LibraryHeroSlide[]
   gallery?: string[]
   links?: { repository?: string; demo?: string; article?: string }
   keyFacts?: { label: string; value: string }[]

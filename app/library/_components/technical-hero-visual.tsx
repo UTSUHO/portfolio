@@ -1,20 +1,39 @@
+'use client'
+
 import HeroCarousel, { Slide } from '../../components/hero-carousel'
-import { LibraryVisualSlide } from '@/lib/markdown'
+import { LibraryHeroSlide } from '@/lib/data'
+import MermaidChart from '../../projects/_components/mermaid-chart'
 
 interface TechnicalHeroVisualProps {
-  slides?: LibraryVisualSlide[]
+  slides?: LibraryHeroSlide[]
 }
 
 export default function TechnicalHeroVisual({ slides = [] }: TechnicalHeroVisualProps) {
-  const heroSlides: Slide[] = slides.map((slide) => ({
-    label: slide.label,
-    content: (
-      <div
-        className="w-full h-full flex items-center justify-center [&_img]:max-w-full [&_img]:max-h-full [&_img]:object-contain [&_svg]:w-full [&_svg]:h-full"
-        dangerouslySetInnerHTML={{ __html: slide.html }}
-      />
-    )
-  }))
+  const heroSlides: Slide[] = slides.map((slide, index) => {
+    if (slide.type === 'image') {
+      return {
+        label: slide.caption || `IMG_${String(index + 1).padStart(2, '0')}`,
+        thumbnail: slide.thumbnail ?? slide.src,
+        content: (
+          <img
+            src={slide.src}
+            alt={slide.alt || slide.caption || ''}
+            className="w-full h-full object-contain"
+          />
+        )
+      }
+    }
+
+    return {
+      label: slide.caption || `DIAG_${String(index + 1).padStart(2, '0')}`,
+      thumbnail: slide.thumbnail,
+      content: (
+        <div className="w-full h-full overflow-auto p-2">
+          <MermaidChart chart={slide.definition} />
+        </div>
+      )
+    }
+  })
 
   if (heroSlides.length === 0) {
     return (

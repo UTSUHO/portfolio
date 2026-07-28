@@ -4,7 +4,6 @@ import {
   getLibraryEntryBySlug,
   getAdjacentLibraryEntries
 } from '@/lib/data'
-import { getLibraryVisualSlides } from '@/lib/markdown'
 import PageShell from '../../components/page-shell'
 import LibraryDetail from '../_components/library-detail'
 
@@ -37,17 +36,11 @@ export default async function LibraryDetailPage({
   }
 
   const { prev, next } = getAdjacentLibraryEntries(slug)
-  const visualSlides = await getLibraryVisualSlides(slug)
 
   return (
     <PageShell>
       <div className="max-w-screen-2xl mx-auto">
-        <LibraryDetail
-          entry={entry}
-          prev={prev}
-          next={next}
-          visualSlides={visualSlides ?? undefined}
-        />
+        <LibraryDetail entry={entry} prev={prev} next={next} />
       </div>
     </PageShell>
   )

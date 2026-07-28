@@ -2,13 +2,15 @@ import {
   LibraryEntry,
   LibraryCategory,
   LibraryStatus,
-  LibrarySection
+  LibrarySection,
+  LibraryHeroSlide
 } from './types'
 export type {
   LibraryEntry,
   LibraryCategory,
   LibraryStatus,
-  LibrarySection
+  LibrarySection,
+  LibraryHeroSlide
 } from './types'
 
 export const libraryCategories: LibraryCategory[] = [
@@ -48,6 +50,9 @@ export const libraryEntries: LibraryEntry[] = [
     tags: ["INTEREST"],
     thumbnail: "/images/works/TH-ikaruga.jpeg",
     heroVisual: "/images/works/TH-ikaruga.jpeg",
+    heroSlides: [
+      { type: "image", src: "/images/works/TH-ikaruga.jpeg", alt: "Madarazakura title screen" }
+    ],
     sections: [
       {
         id: "overview",
@@ -109,6 +114,9 @@ export const libraryEntries: LibraryEntry[] = [
     tags: ["INTEREST"],
     thumbnail: "/images/works/Fengyi-Chen-Dust-Jacket.png",
     heroVisual: "/images/works/Fengyi-Chen-Dust-Jacket.png",
+    heroSlides: [
+      { type: "image", src: "/images/works/Fengyi-Chen-Dust-Jacket.png", alt: "1984 dust jacket design" }
+    ],
     sections: [
       {
         id: "overview",
@@ -170,6 +178,9 @@ export const libraryEntries: LibraryEntry[] = [
     tags: ["INTEREST"],
     thumbnail: "/images/works/TH-M1.png",
     heroVisual: "/images/works/TH-M1.png",
+    heroSlides: [
+      { type: "image", src: "/images/works/TH-M1.png", alt: "Touhou M-1 comedy series" }
+    ],
     sections: [
       {
         id: "overview",
@@ -231,6 +242,9 @@ export const libraryEntries: LibraryEntry[] = [
     tags: ["INTEREST","GAMEDESIGN"],
     thumbnail: "/images/contents/humankind.jpg",
     heroVisual: "/images/contents/humankind.jpg",
+    heroSlides: [
+      { type: "image", src: "/images/contents/humankind.jpg", alt: "Humankind analysis" }
+    ],
     sections: [
       {
         id: "overview",
@@ -292,6 +306,9 @@ export const libraryEntries: LibraryEntry[] = [
     tags: ["INTEREST","FULLSTACK"],
     thumbnail: "/images/works/Api-Disruptor.png",
     heroVisual: "/images/works/Api-Disruptor.png",
+    heroSlides: [
+      { type: "image", src: "/images/works/Api-Disruptor.png", alt: "API-Disruptor tool" }
+    ],
     sections: [
       {
         id: "overview",
@@ -353,6 +370,9 @@ export const libraryEntries: LibraryEntry[] = [
     tags: ["INTEREST","GAMEDESIGN"],
     thumbnail: "/images/contents/airElement.png",
     heroVisual: "/images/contents/airElement.png",
+    heroSlides: [
+      { type: "image", src: "/images/contents/airElement.png", alt: "Mead of Poetry board game" }
+    ],
     sections: [
       {
         id: "overview",

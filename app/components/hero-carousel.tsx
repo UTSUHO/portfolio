@@ -12,6 +12,7 @@ import {
 
 export type Slide = {
   label: string
+  thumbnail?: string
   content: React.ReactNode
 }
 
@@ -87,10 +88,18 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
                 : 'border-border opacity-60 hover:opacity-100'
             }`}
           >
-            <div className="w-full h-full bg-bg flex items-center justify-center p-1">
-              <span className="text-[8px] font-mono uppercase tracking-wider text-text-secondary text-center leading-tight">
-                {slide.label}
-              </span>
+            <div className="w-full h-full bg-bg flex items-center justify-center p-1 overflow-hidden">
+              {slide.thumbnail ? (
+                <img
+                  src={slide.thumbnail}
+                  alt={slide.label}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-[8px] font-mono uppercase tracking-wider text-text-secondary text-center leading-tight">
+                  {slide.label}
+                </span>
+              )}
             </div>
           </button>
         ))}
