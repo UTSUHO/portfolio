@@ -30,9 +30,9 @@ Pi Coding Agent 通常需要读取项目文件、执行命令、安装依赖并�
 
 Pix 将问题拆分为三个相互独立的部分：
 
-* **宿主入口**：保留 Windows 下的低成本调用体验。
-* **高性能工作区**：将项目投影到 WSL ext4 文件系统，避免 Agent 直接在 NTFS 上进行密集文件操作。
-* **可控执行环境**：根据项目策略选择 WSL 直接执行或 Docker 容器执行。
+- **宿主入口**：保留 Windows 下的低成本调用体验。
+- **高性能工作区**：将项目投影到 WSL ext4 文件系统，避免 Agent 直接在 NTFS 上进行密集文件操作。
+- **可控执行环境**：根据项目策略选择 WSL 直接执行或 Docker 容器执行。
 
 这种设计使运行性能、环境一致性与隔离强度可以分别配置，而不再绑定于单一执行方式。
 
@@ -79,11 +79,11 @@ WSL ext4 Replica
 
 同步会话支持：
 
-* 双向安全同步
-* 冲突自动决议
-* 单向复制
-* 会话暂停、保留或终止
-* 项目级排除规则
+- 双向安全同步
+- 冲突自动决议
+- 单向复制
+- 会话暂停、保留或终止
+- 项目级排除规则
 
 当 Mutagen 不存在或启动失败时，系统会自动退化为基于 `rsync` 或 `cp` 的单次工作区投影，避免同步组件故障阻断 Agent 启动。
 
@@ -97,11 +97,11 @@ Pix 在 WSL 文件系统中维护唯一的 Pi Runtime：
 
 该目录用于持久化：
 
-* 模型与 Provider 配置
-* Authentication 信息
-* Agent Sessions
-* Prompts、Skills 与 Themes
-* Extensions 配置
+- 模型与 Provider 配置
+- Authentication 信息
+- Agent Sessions
+- Prompts、Skills 与 Themes
+- Extensions 配置
 
 WSL Direct 模式和 Docker Sandbox 模式均通过 `PI_CODING_AGENT_DIR` 指向同一 Runtime，并在容器中保持相同的绝对路径。
 
@@ -123,13 +123,13 @@ Pix 提供两种运行策略。
 
 容器启动时：
 
-* 将 WSL 工作区挂载到 `/workspace`
-* 将统一 Pi Runtime 挂载到容器内相同路径
-* 设置容器工作目录
-* 按白名单注入 API Key 与代理环境变量
-* 根据配置设置网络模式
-* 支持只读或读写工作区
-* Agent 退出后自动销毁容器
+- 将 WSL 工作区挂载到 `/workspace`
+- 将统一 Pi Runtime 挂载到容器内相同路径
+- 设置容器工作目录
+- 按白名单注入 API Key 与代理环境变量
+- 根据配置设置网络模式
+- 支持只读或读写工作区
+- Agent 退出后自动销毁容器
 
 项目可以在 `.pix.json` 中声明默认执行策略，使不同代码库拥有不同的隔离级别。
 
@@ -161,11 +161,11 @@ Built-in Defaults
 
 项目同时提供环境诊断与迁移命令：
 
-* `pix status`：展示执行策略、WSL Distribution、工作区类型、Runtime 路径以及 Pi 和 Docker 状态。
-* `pix doctor`：诊断 WSL、Docker、NTFS 路径、镜像、挂载和版本一致性问题。
-* `pix migrate`：将旧 Windows Pi Runtime 迁移到 WSL。
-* `pix install-shell-env`：让 WSL 中直接执行的 `pi` 与 Pix 共用同一 Runtime。
-* `pix --dry-run`：输出最终执行命令，便于调试启动链路。
+- `pix status`：展示执行策略、WSL Distribution、工作区类型、Runtime 路径以及 Pi 和 Docker 状态。
+- `pix doctor`：诊断 WSL、Docker、NTFS 路径、镜像、挂载和版本一致性问题。
+- `pix migrate`：将旧 Windows Pi Runtime 迁移到 WSL。
+- `pix install-shell-env`：让 WSL 中直接执行的 `pi` 与 Pix 共用同一 Runtime。
+- `pix --dry-run`：输出最终执行命令，便于调试启动链路。
 
 ## ARCHITECTURE
 

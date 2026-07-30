@@ -1,20 +1,15 @@
-import LineSequenceScene from "./_components/line-sequence-scene";
-import TabNav from "./components/tab-nav";
-import Section from "./_components/section";
-import SubSection from "./_components/sub-section";
-import WebGLSlot from "./_components/webgl-slot";
-import ExperienceSection from "./_components/experience-section";
-import ProjectLog from "./_components/project-log";
-import LatestNotesPanel from "./_components/latest-notes-panel";
-import LatestLibraryPanel from "./_components/latest-library-panel";
-import Link from "next/link";
-import {
-  experienceProfiles,
-  libraryEntries,
-  notes,
-} from "@/lib/data";
-import { projects } from "@/lib/data/projects.server";
-import { ArrowRight } from "lucide-react";
+import LineSequenceScene from './_components/line-sequence-scene'
+import TabNav from './components/tab-nav'
+import Section from './_components/section'
+import SubSection from './_components/sub-section'
+import WebGLSlot from './_components/webgl-slot'
+import ExperienceSection from './_components/experience-section'
+import ProjectLog from './_components/project-log'
+import LatestNotesPanel from './_components/latest-notes-panel'
+import LatestLibraryPanel from './_components/latest-library-panel'
+import Link from 'next/link'
+import { experienceProfiles, libraryEntries, notes, projects } from '@/lib/data'
+import { ArrowRight } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -35,15 +30,15 @@ export default function Home() {
             <div className="p-6 flex-1">
               <div
                 className="text-white text-xl mt-8 mb-8 ml-4"
-                style={{ mixBlendMode: "difference" }}
+                style={{ mixBlendMode: 'difference' }}
               >
                 //&nbsp;&nbsp;&nbsp;IDENTITY
               </div>
               <h1
                 className="font-bold leading-none mb-8 text-left text-text"
                 style={{
-                  fontSize: "96px",
-                  fontFamily: '"Space Grotesk", system-ui, sans-serif',
+                  fontSize: '96px',
+                  fontFamily: '"Space Grotesk", system-ui, sans-serif'
                 }}
               >
                 Rei Utsuho
@@ -76,7 +71,7 @@ export default function Home() {
               <div className="mt-8 mb-8">
                 <div
                   className="text-white text-xl mb-8 ml-4"
-                  style={{ mixBlendMode: "difference" }}
+                  style={{ mixBlendMode: 'difference' }}
                 >
                   //&nbsp;&nbsp;&nbsp;RESEARCH FIELD
                 </div>
@@ -96,7 +91,7 @@ export default function Home() {
               <div>
                 <div
                   className="text-white text-xl mt-8 mb-8 ml-4"
-                  style={{ mixBlendMode: "difference" }}
+                  style={{ mixBlendMode: 'difference' }}
                 >
                   //&nbsp;&nbsp;&nbsp;TECH STACK
                 </div>
@@ -113,7 +108,7 @@ export default function Home() {
                   <span>PYTHON</span>
                   <span>GRAPH RAG</span>
                   <span>BENCHMARK OPS</span>
-                </div>{" "}
+                </div>{' '}
               </div>
             </div>
           </div>
@@ -178,7 +173,7 @@ export default function Home() {
             backgroundColor="bg-accent"
             textColor="text"
             borderColor="border"
-            headerStyle={{ borderColor: "rgba(0, 0, 0, 0.3)" }}
+            headerStyle={{ borderColor: 'rgba(0, 0, 0, 0.3)' }}
           >
             <ProjectLog projects={projects} />
           </SubSection>
@@ -189,7 +184,7 @@ export default function Home() {
         id="library"
         backgroundColor="#13181D"
         className="snap-start flex flex-col"
-        style={{ height: "calc(100vh - 32px)" }}
+        style={{ height: 'calc(100vh - 32px)' }}
       >
         <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
           <SubSection
@@ -229,5 +224,5 @@ export default function Home() {
         </div>
       </Section>
     </div>
-  );
+  )
 }

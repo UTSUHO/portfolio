@@ -24,9 +24,7 @@ export function PillarsSection({ section }: PillarsSectionProps) {
             <div className="text-xs font-mono text-accent mb-2">
               {item.number || String(idx + 1).padStart(2, '0')} / {item.code}
             </div>
-            <h3 className="text-sm font-medium text-text mb-2">
-              {item.title}
-            </h3>
+            <h3 className="text-sm font-medium text-text mb-2">{item.title}</h3>
             {item.body && (
               <p className="text-sm text-text-secondary leading-relaxed">
                 {item.body}

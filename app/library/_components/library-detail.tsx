@@ -19,7 +19,7 @@ export default function LibraryDetail({
   prev,
   next
 }: LibraryDetailProps) {
-  const tocItems = entry.sections.map((section) => ({
+  const tocItems = entry.sections.map(section => ({
     id: section.id,
     number: section.number,
     title: section.title
@@ -85,7 +85,8 @@ export default function LibraryDetail({
             {/* Intro and Metadata */}
             <div className="p-6 border-b lg:border-b-0 lg:border-r border-border">
               <div className="text-xs font-mono text-accent mb-6">
-                {entry.number} / {String(libraryEntries.length).padStart(2, '0')}
+                {entry.number} /{' '}
+                {String(libraryEntries.length).padStart(2, '0')}
               </div>
               <h1 className="font-display text-4xl lg:text-5xl font-medium text-text uppercase leading-tight break-words mb-6">
                 {entry.title}
@@ -106,18 +107,20 @@ export default function LibraryDetail({
           {/* Section Dossier */}
           <LibrarySectionDossier sections={entry.sections} />
 
-          <RelatedLinks refs={entry.related} title="RELATED ARCHIVES" className="mb-6" />
+          <RelatedLinks
+            refs={entry.related}
+            title="RELATED ARCHIVES"
+            className="mb-6"
+          />
 
           <BottomArchiveNav prev={prev} next={next} />
         </div>
 
         {/* Sticky sidebar: TAGS + TOC */}
-        <aside
-          className="order-first lg:order-none lg:sticky lg:top-[calc(var(--height-status)+24px)] lg:max-h-[calc(100vh-var(--height-status)-48px)] lg:overflow-y-auto space-y-4"
-        >
+        <aside className="order-first lg:order-none lg:sticky lg:top-[calc(var(--height-status)+24px)] lg:max-h-[calc(100vh-var(--height-status)-48px)] lg:overflow-y-auto space-y-4">
           <Panel title="TAGS">
             <div className="flex flex-wrap gap-2 p-4">
-              {entry.tags.map((tag) => (
+              {entry.tags.map(tag => (
                 <span
                   key={tag}
                   className="text-[10px] font-mono uppercase tracking-wider border border-border px-2 py-1 text-text-secondary"

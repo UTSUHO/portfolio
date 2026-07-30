@@ -25,8 +25,19 @@ export type LibraryCategory =
   | 'Essays'
 
 export type LibraryHeroSlide =
-  | { type: 'image'; src: string; thumbnail?: string; alt?: string; caption?: string }
-  | { type: 'mermaid'; definition: string; thumbnail?: string; caption?: string }
+  | {
+      type: 'image'
+      src: string
+      thumbnail?: string
+      alt?: string
+      caption?: string
+    }
+  | {
+      type: 'mermaid'
+      definition: string
+      thumbnail?: string
+      caption?: string
+    }
 
 export type LibrarySectionVariant =
   | 'prose'

@@ -279,13 +279,13 @@ Internal Tools Catalog
 Pseudo:
 
 ```ts
-const entry = libraryEntries.find((item) => item.slug === params.slug);
+const entry = libraryEntries.find(item => item.slug === params.slug)
 
-if (!entry) notFound();
+if (!entry) notFound()
 
-const related = libraryEntries.filter((item) =>
+const related = libraryEntries.filter(item =>
   entry.relatedSlugs?.includes(item.slug)
-);
+)
 ```
 
 ## Entry 数据结构示例
@@ -293,12 +293,12 @@ const related = libraryEntries.filter((item) =>
 ```ts
 interface LibraryEntry {
   // ...其他字段
-  link?: string;        // 可选：项目主页 / 文档 / 演示链接
+  link?: string // 可选：项目主页 / 文档 / 演示链接
   links?: {
-    repository?: string;
-    demo?: string;
-    article?: string;
-  };
+    repository?: string
+    demo?: string
+    article?: string
+  }
   // ...
 }
 ```

@@ -1,12 +1,15 @@
 import 'server-only'
-import { getProjectById } from './projects.server'
+import { getProjectById } from './projects'
 import { getLibraryEntryBySlug } from './library'
 import { getNoteBySlug } from './notes'
 import { ContentType, RelatedRef } from './related'
 
 export type RelatedItem =
   | { type: 'project'; data: NonNullable<ReturnType<typeof getProjectById>> }
-  | { type: 'library'; data: NonNullable<ReturnType<typeof getLibraryEntryBySlug>> }
+  | {
+      type: 'library'
+      data: NonNullable<ReturnType<typeof getLibraryEntryBySlug>>
+    }
   | { type: 'note'; data: NonNullable<ReturnType<typeof getNoteBySlug>> }
 
 export function resolveRelated(refs: RelatedRef[]): RelatedItem[] {

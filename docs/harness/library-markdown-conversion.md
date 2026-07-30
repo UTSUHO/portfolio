@@ -4,8 +4,8 @@ This document describes how project archives (`docs/data/PROJECT_ARCHIVE/*.MD`) 
 
 ## Source Layout
 
-| Type | Archive source | Markdown source | Hardcoded data module |
-| ---- | -------------- | --------------- | --------------------- |
+| Type    | Archive source                        | Markdown source             | Hardcoded data module |
+| ------- | ------------------------------------- | --------------------------- | --------------------- |
 | library | `docs/data/PROJECT_ARCHIVE/{NAME}.MD` | `content/library/{slug}.md` | `lib/data/library.ts` |
 
 The detail page (`/library/[slug]`) reads from `lib/data/library.ts`. The Markdown file is the canonical archive mirror and must stay in sync with the TypeScript entry.
@@ -14,14 +14,14 @@ The detail page (`/library/[slug]`) reads from `lib/data/library.ts`. The Markdo
 
 Every library entry uses six canonical sections. Source headings are mapped to these ids:
 
-| Canonical id | Acceptable source headings |
-| ------------ | -------------------------- |
-| `overview` | PROJECT OVERVIEW, 项目概述, Overview |
-| `scenario` | DESIGN MOTIVATION, 设计动机, Problem, Background |
-| `solution` | SOLUTION, 解决方案, Approach |
-| `architecture` | ARCHITECTURE, 架构, System Design, Architecture |
-| `challenges` | ENGINEERING HIGHLIGHTS, 工程挑战, Challenges, Trade-offs |
-| `outcome` | PROJECT VALUE, 项目价值, Outcome, Results |
+| Canonical id   | Acceptable source headings                               |
+| -------------- | -------------------------------------------------------- |
+| `overview`     | PROJECT OVERVIEW, 项目概述, Overview                     |
+| `scenario`     | DESIGN MOTIVATION, 设计动机, Problem, Background         |
+| `solution`     | SOLUTION, 解决方案, Approach                             |
+| `architecture` | ARCHITECTURE, 架构, System Design, Architecture          |
+| `challenges`   | ENGINEERING HIGHLIGHTS, 工程挑战, Challenges, Trade-offs |
+| `outcome`      | PROJECT VALUE, 项目价值, Outcome, Results                |
 
 ## Content Extraction Rules
 
@@ -68,11 +68,11 @@ Key takeaways from the Pix conversion:
 
 ## Common Mistakes
 
-| Mistake | Why it fails |
-| ------- | ------------ |
-| Using `\n` inside `section.body` | The detail page renders `body` as plain text, so `\n` appears as visible characters. |
-| Putting list items inside `body` | Lists in `body` are not rendered as `<ul>`; use `section.bullets`. |
-| Concatenating bullets with `join('\n')` | Produces the same visible `\n` pollution. Use an array. |
+| Mistake                                          | Why it fails                                                                                |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| Using `\n` inside `section.body`                 | The detail page renders `body` as plain text, so `\n` appears as visible characters.        |
+| Putting list items inside `body`                 | Lists in `body` are not rendered as `<ul>`; use `section.bullets`.                          |
+| Concatenating bullets with `join('\n')`          | Produces the same visible `\n` pollution. Use an array.                                     |
 | Forgetting to update `content/library/{slug}.md` | The Markdown source is the archive mirror; it must stay aligned with `lib/data/library.ts`. |
 
 ## How It Is Rendered

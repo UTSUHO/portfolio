@@ -1,7 +1,10 @@
 export * from './data/types'
 
 export {
-  PROJECT_TAG_MAP
+  PROJECT_TAG_MAP,
+  projects,
+  getProjectById,
+  getAdjacentProjects
 } from './data/projects'
 
 export {
@@ -26,10 +29,6 @@ export {
   getLibraryEntriesByStatus
 } from './data/library'
 
-export {
-  experience,
-  skills,
-  experienceProfiles
-} from './data/resume'
+export { experience, skills, experienceProfiles } from './data/resume'
 
 export { slugify } from './data/types'

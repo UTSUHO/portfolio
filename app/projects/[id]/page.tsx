@@ -1,35 +1,35 @@
-import { notFound } from "next/navigation";
-import { getProjectById, projects } from "@/lib/data/projects.server";
-import PageShell from "../../components/page-shell";
-import ProjectPlaceholderWebGL from "../_components/project-placeholder-webgl";
-import ArchitectureDiagram from "../_components/architecture-diagram";
-import FadeIn from "../../components/fade-in";
-import RelatedLinks from "../../components/related-links";
+import { notFound } from 'next/navigation'
+import { getProjectById, projects } from '@/lib/data'
+import PageShell from '../../components/page-shell'
+import ProjectPlaceholderWebGL from '../_components/project-placeholder-webgl'
+import ArchitectureDiagram from '../_components/architecture-diagram'
+import FadeIn from '../../components/fade-in'
+import RelatedLinks from '../../components/related-links'
 
 interface ProjectDetailProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({ id: project.id }));
+  return projects.map(project => ({ id: project.id }))
 }
 
-export const dynamicParams = false;
+export const dynamicParams = false
 
 export async function generateMetadata({ params }: ProjectDetailProps) {
-  const { id } = await params;
-  const project = getProjectById(id);
+  const { id } = await params
+  const project = getProjectById(id)
   return {
-    title: project ? `${project.title} - Rei Utsuho` : "Project - Rei Utsuho",
-  };
+    title: project ? `${project.title} - Rei Utsuho` : 'Project - Rei Utsuho'
+  }
 }
 
 export default async function ProjectDetail({ params }: ProjectDetailProps) {
-  const { id } = await params;
-  const project = getProjectById(id);
+  const { id } = await params
+  const project = getProjectById(id)
 
   if (!project) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -47,7 +47,7 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
               </h1>
               <p
                 className="text-sm text-text-secondary leading-relaxed mb-8"
-                style={{ fontSize: "13px" }}
+                style={{ fontSize: '13px' }}
               >
                 {project.subtitle}
               </p>
@@ -186,5 +186,5 @@ export default async function ProjectDetail({ params }: ProjectDetailProps) {
         </FadeIn>
       </div>
     </PageShell>
-  );
+  )
 }

@@ -6,13 +6,18 @@ This document describes the unified `related` field format used across **project
 
 Each type has a dedicated source location. External or archived Markdown files (e.g. `docs/data/PROJECT_ARCHIVE/*.MD`) are first converted into the corresponding source file, then the hardcoded data modules are updated incrementally.
 
-| Type | Source file | Hardcoded data module |
-| ---- | ----------- | --------------------- |
-| project | `content/projects/{id}.md` | loaded by `lib/data/projects.server.ts` |
-| library | `content/library/{slug}.md` | reflected in `lib/data/library.ts` |
-| note | `content/notes/{slug}.md` | reflected in `lib/data/notes.ts` |
+| Type    | Source file               | Hardcoded data module | Conversion harness                                             |
+| ------- | ------------------------- | --------------------- | -------------------------------------------------------------- |
+| project | `content/projects/{id}.md` | `lib/data/projects.ts` | `docs/harness/project-markdown-conversion.md`                  |
+| library | `content/library/{slug}.md` | `lib/data/library.ts` | `docs/harness/library-markdown-conversion.md`                  |
+| note    | `content/notes/{slug}.md` | `lib/data/notes.ts`   | (notes keep full Markdown rendering; no conversion harness yet) |
 
-Projects are read directly from Markdown frontmatter. Library and note entries are also backed by Markdown source files, but their active data is hardcoded in TypeScript; always update both the Markdown source and the TypeScript entry together.
+Projects, library, and notes now all read from hardcoded TypeScript modules. The Markdown files in `content/` remain archive mirrors. Always update the TypeScript entry and the Markdown source together.
+
+When a conversion is requested, the user must explicitly specify the target type (`project` or `library`). The agent must then follow the corresponding harness:
+
+- **project** → `docs/harness/project-markdown-conversion.md`
+- **library** → `docs/harness/library-markdown-conversion.md`
 
 ## Overview
 
