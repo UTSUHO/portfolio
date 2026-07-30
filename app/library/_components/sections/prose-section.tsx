@@ -9,9 +9,11 @@ export function ProseSection({ section }: ProseSectionProps) {
   return (
     <div className="space-y-4">
       {section.body && (
-        <p className="max-w-[74ch] leading-[1.7] text-sm text-text-secondary">
-          {section.body}
-        </p>
+        <div className="leading-[1.7] text-sm text-text-secondary space-y-4 whitespace-pre-wrap">
+          {section.body.split('\n\n').map((paragraph, idx) => (
+            <p key={idx}>{paragraph}</p>
+          ))}
+        </div>
       )}
 
       {section.bullets && section.bullets.length > 0 && (

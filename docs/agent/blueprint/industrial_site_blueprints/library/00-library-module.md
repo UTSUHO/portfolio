@@ -100,15 +100,9 @@ Library entry 至少包括：
 8. 缩略图
 9. 详情页链接
 
-详情页额外包括：
+可选字段：
 
-1. 背景 Context
-2. 架构 Architecture
-3. 关键决策 Key Decisions
-4. 实现 Implementation
-5. 技术栈 Stack
-6. 结果 Outcomes
-7. 关联归档 Related Archives
+- `link?: string` — 项目主页 / 公开文档 / 演示地址；存在时会在详情页元信息表中渲染为 `LINK` 行，点击在新标签页打开。
 
 ## Agent 开发提示
 

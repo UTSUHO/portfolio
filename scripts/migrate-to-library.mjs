@@ -146,7 +146,7 @@ const entries = nonWorkProjects.map((p, i) => {
 
   let num = 1;
   pushSection('overview', num++, 'Overview', d.overview);
-  pushSection('problem', num++, 'Problem', d.problem);
+  pushSection('scenario', num++, 'Scenario', d.scenario);
   pushSection('solution', num++, 'Solution', d.solution);
   if (
     d.architecture &&
@@ -175,13 +175,16 @@ const entries = nonWorkProjects.map((p, i) => {
 
   const related = mapRelated(d.related, d.id);
 
+  // summary should be a distinct one-line pitch, not a copy of overview.body
+  const summary = d.summary || (Array.isArray(d.overview) ? d.overview[0] : d.overview);
+
   return {
     id: `lib-${d.id}`,
     slug,
     number: String(i + 1).padStart(2, '0'),
     title: d.title,
     subtitle: d.subtitle,
-    summary: d.overview,
+    summary,
     date: d.year,
     year: Number(d.year) || 0,
     type: 'library',

@@ -69,6 +69,7 @@ ROLE          Fullstack Engineer
 DURATION      2025.03 — 2025.05
 YEAR          2025
 STATUS        ■ ARCHIVED
+LINK          yourname.dev/meshnet ↗     <- 可选，entry.link 存在时渲染
 REPOSITORY    github.com/yourname/meshnet ↗
 DEMO          meshnet.yourname.dev ↗
 ```
@@ -78,6 +79,7 @@ DEMO          meshnet.yourname.dev ↗
 - `BACK TO LIBRARY` 是返回链接。
 - `03 / 24` 中当前编号橙红。
 - metadata 用 `MetaTable`，不要写成普通段落。
+- `LINK` 字段为可选；若 entry 包含 `link`（字符串），则在 `LibraryMetaTable` 中渲染为一行可点击外链，点击在新标签页打开。
 - 外链末尾使用小箭头或 external icon。
 
 ### 2. TechnicalHeroVisual
@@ -285,6 +287,25 @@ const related = libraryEntries.filter((item) =>
   entry.relatedSlugs?.includes(item.slug)
 );
 ```
+
+## Entry 数据结构示例
+
+```ts
+interface LibraryEntry {
+  // ...其他字段
+  link?: string;        // 可选：项目主页 / 文档 / 演示链接
+  links?: {
+    repository?: string;
+    demo?: string;
+    article?: string;
+  };
+  // ...
+}
+```
+
+- `link` 为可选字符串，若存在则在 `LibraryMetaTable` 中渲染为 `LINK` 行。
+- 渲染时会自动补全 `https://` 协议前缀。
+- 点击 `LINK` 行将在新标签页打开对应地址。
 
 ## 响应式
 

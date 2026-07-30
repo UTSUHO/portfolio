@@ -28,11 +28,12 @@ Every library entry uses six canonical sections. Source headings are mapped to t
 Map archive content to `LibrarySection` fields declared in `lib/data/types/library.ts`:
 
 1. **First paragraph under a heading** → `section.body`. Keep it to one or two sentences; do not include lists, diagrams, or flow text.
-2. **Unordered / ordered lists** → `section.bullets` (string array). Strip leading `-`, `*`, `1.` and any inline bold markers if they duplicate the bullet label.
-3. **Text pipelines using `→` or arrows** → `section.diagram`. A short pipeline can be a single-line string; longer diagrams can use template literals with real line breaks.
-4. **Mermaid blocks** → `heroSlides[].definition` (type `mermaid`) when they illustrate the whole entry; otherwise `section.diagram`.
-5. **Labeled key/value pairs** (e.g. repeated `Label: Value`) → `section.table`.
-6. **Fenced code blocks** (non-Mermaid) → `section.codeBlock`.
+2. **Entry summary** (`entry.summary`) → a one-line elevator pitch, independent from any section body. It should be shorter and more focused than `section.body` and must not be copied from the `overview` section verbatim.
+3. **Unordered / ordered lists** → `section.bullets` (string array). Strip leading `-`, `*`, `1.` and any inline bold markers if they duplicate the bullet label.
+4. **Text pipelines using `→` or arrows** → `section.diagram`. A short pipeline can be a single-line string; longer diagrams can use template literals with real line breaks.
+5. **Mermaid blocks** → `heroSlides[].definition` (type `mermaid`) when they illustrate the whole entry; otherwise `section.diagram`.
+6. **Labeled key/value pairs** (e.g. repeated `Label: Value`) → `section.table`.
+7. **Fenced code blocks** (non-Mermaid) → `section.codeBlock`.
 
 ## Newline & Escaping Rules
 
@@ -101,6 +102,7 @@ When converting a new archive into a library entry:
 
 - [ ] Map each heading to the correct canonical section id.
 - [ ] Keep `section.body` to one or two sentences.
+- [ ] Write `entry.summary` as a separate one-line pitch; do not reuse `overview.body`.
 - [ ] Move lists into `section.bullets` as arrays.
 - [ ] Move arrow flows into `section.diagram`.
 - [ ] Move Mermaid blocks into `heroSlides` or `section.diagram`.

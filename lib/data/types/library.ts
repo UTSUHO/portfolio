@@ -92,6 +92,7 @@ export type LibraryEntry = {
   summary: string
   date: string
   year: number
+  link?: string
   type: LibraryType
   category: LibraryCategory
   status: LibraryStatus

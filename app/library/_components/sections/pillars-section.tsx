@@ -10,7 +10,7 @@ export function PillarsSection({ section }: PillarsSectionProps) {
   return (
     <div className="space-y-6">
       {section.body && (
-        <p className="max-w-[74ch] leading-[1.7] text-sm text-text-secondary">
+        <p className="leading-[1.7] text-sm text-text-secondary">
           {section.body}
         </p>
       )}

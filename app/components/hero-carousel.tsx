@@ -59,7 +59,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
         opts={{ align: 'start', loop: visibleSlides.length > 1 }}
         className="w-full"
       >
-        <div className="relative aspect-[4/3] border border-border bg-bg mb-4 overflow-hidden">
+        <div className="relative aspect-[16/9] border border-border bg-bg mb-4 overflow-hidden">
           <CarouselContent className="ml-0 h-full">
             {visibleSlides.map((slide) => (
               <CarouselItem key={slide.label} className="pl-0 h-full">

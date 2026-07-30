@@ -60,6 +60,14 @@ export default function LibraryDetail({
     })
   }
 
+  if (entry.link) {
+    metaEntries.push({
+      label: 'LINK',
+      value: entry.link.replace(/^https?:\/\//, ''),
+      href: entry.link.startsWith('http') ? entry.link : `https://${entry.link}`
+    })
+  }
+
   return (
     <div className="space-y-6">
       <Link
