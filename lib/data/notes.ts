@@ -83,7 +83,9 @@ export const notes: NoteEntry[] = [
     tags: ['WebGL', 'Three.js', 'Shaders', 'Performance'],
     readingTime: '7 min read',
     coverImage: '/images/contents/airElement.png',
-    related: [],
+    related: [
+      { type: 'project', key: '11' }
+    ],
     language: 'mixed'
   },
   {

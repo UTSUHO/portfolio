@@ -113,9 +113,23 @@ function renderRelated(related) {
 function renderSections(sections) {
   if (sections.length === 0) return '[]';
   return `[\n${sections
-    .map(
-      s => `      {\n        id: ${quote(s.id)},\n        number: ${quote(s.number)},\n        title: ${quote(s.title)},\n        body: ${quote(s.body)}\n      }`
-    )
+    .map((s) => {
+      let out = `      {\n        id: ${quote(s.id)},\n        number: ${quote(s.number)},\n        title: ${quote(s.title)},\n        body: ${quote(s.body)}`;
+      if (Array.isArray(s.bullets) && s.bullets.length > 0) {
+        out += `,\n        bullets: [\n${s.bullets.map((b) => `          ${quote(b)}`).join(',\n')}\n        ]`;
+      }
+      if (s.diagram) {
+        out += `,\n        diagram: ${quote(s.diagram)}`;
+      }
+      if (Array.isArray(s.table) && s.table.length > 0) {
+        out += `,\n        table: [\n${s.table.map((r) => `          { label: ${quote(r.label)}, value: ${quote(r.value)} }`).join(',\n')}\n        ]`;
+      }
+      if (s.codeBlock) {
+        out += `,\n        codeBlock: ${quote(s.codeBlock)}`;
+      }
+      out += '\n      }';
+      return out;
+    })
     .join(',\n')}\n    ]`;
 }
 
@@ -125,7 +139,7 @@ const entries = nonWorkProjects.map((p, i) => {
   const sections = [];
   const pushSection = (id, num, title, body, extra = {}) => {
     const text = Array.isArray(body) ? body.join(' ') : String(body ?? '');
-    if (text.trim().length > 0) {
+    if (text.trim().length > 0 || (extra.bullets?.length > 0) || extra.diagram) {
       sections.push({ id, number: String(num).padStart(2, '0'), title, body: text, ...extra });
     }
   };
@@ -139,24 +153,23 @@ const entries = nonWorkProjects.map((p, i) => {
     (d.architecture.title ||
       (Array.isArray(d.architecture.blocks) && d.architecture.blocks.length > 0))
   ) {
-    let body = d.architecture.title || '';
-    if (Array.isArray(d.architecture.blocks)) {
-      body +=
-        '\\n\\n' +
-        d.architecture.blocks.map(b => `${b.label}: ${b.value}`).join('\\n');
-    }
-    if (Array.isArray(d.architecture.flow)) {
-      body += '\\n\\nFlow: ' + d.architecture.flow.join(' → ');
-    }
-    pushSection('architecture', num++, 'Architecture', body.trim());
+    const body = d.architecture.title || '';
+    const bullets = Array.isArray(d.architecture.blocks)
+      ? d.architecture.blocks.map((b) => `${b.label}: ${b.value}`)
+      : [];
+    const diagram = Array.isArray(d.architecture.flow)
+      ? `Flow: ${d.architecture.flow.join(' → ')}`
+      : undefined;
+    pushSection('architecture', num++, 'Architecture', body, { bullets, diagram });
   }
   pushSection(
     'challenges',
     num++,
     'Challenges',
-    Array.isArray(d.challenges)
-      ? d.challenges.map(c => `• ${c}`).join('\\n')
-      : ''
+    'Key challenges encountered during the project.',
+    {
+      bullets: Array.isArray(d.challenges) ? d.challenges : []
+    }
   );
   pushSection('outcome', num++, 'Outcome', d.outcome);
 
@@ -296,17 +309,17 @@ for (const p of nonWorkProjects) {
       md +=
         d.architecture.blocks
           .map(b => `- **${b.label}**: ${b.value}`)
-          .join('\\n') + '\\n\\n';
+          .join('\n') + '\n\n';
     }
     if (Array.isArray(d.architecture.flow)) {
-      md += `Flow: ${d.architecture.flow.join(' → ')}\\n\\n`;
+      md += `\`\`\`text\nFlow: ${d.architecture.flow.join(' → ')}\n\`\`\`\n\n`;
     }
   }
   if (Array.isArray(d.challenges) && d.challenges.length > 0) {
     md += `## Challenges\n\n`;
-    md += d.challenges.map(c => `- ${c}`).join('\\n') + '\\n\\n';
+    md += d.challenges.map(c => `- ${c}`).join('\n') + '\n\n';
   }
-  if (d.outcome) md += `## Outcome\n\n${d.outcome}\\n\\n`;
+  if (d.outcome) md += `## Outcome\n\n${d.outcome}\n\n`;
 
   fs.writeFileSync(path.join(LIBRARY_DIR, `${slug}.md`), md.trim() + '\\n');
 }

@@ -2,6 +2,18 @@
 
 This document describes the unified `related` field format used across **projects**, **library**, and **notes**. It allows any entry to reference any other entry, regardless of type.
 
+## Source Layout
+
+Each type has a dedicated source location. External or archived Markdown files (e.g. `docs/data/PROJECT_ARCHIVE/*.MD`) are first converted into the corresponding source file, then the hardcoded data modules are updated incrementally.
+
+| Type | Source file | Hardcoded data module |
+| ---- | ----------- | --------------------- |
+| project | `content/projects/{id}.md` | loaded by `lib/data/projects.server.ts` |
+| library | `content/library/{slug}.md` | reflected in `lib/data/library.ts` |
+| note | `content/notes/{slug}.md` | reflected in `lib/data/notes.ts` |
+
+Projects are read directly from Markdown frontmatter. Library and note entries are also backed by Markdown source files, but their active data is hardcoded in TypeScript; always update both the Markdown source and the TypeScript entry together.
+
 ## Overview
 
 Previously, references were type-locked:
@@ -47,14 +59,13 @@ Add the `related` field to the YAML frontmatter:
 
 ```yaml
 ---
-id: "01"
-title: "东方斑樱汉化 Madarazakura"
+id: "11"
+title: "CAD 模型面片标注工具"
 # ... other fields ...
 related:
-  - "project:03"
-  - "project:11"
-  - "library:games-collection"
-  - "note:portfolio-interface-v2"
+  - "project:12"
+  - "library:api-disruptor"
+  - "note:building-with-webgl"
 ---
 ```
 
@@ -64,14 +75,13 @@ Library entries are currently hardcoded in TypeScript. Use the object form:
 
 ```ts
 {
-  id: 'lib-01',
-  slug: 'realtime-collaborative-whiteboard',
+  id: 'lib-05',
+  slug: 'api-disruptor',
   // ... other fields ...
   related: [
-    { type: 'library', key: 'distributed-mesh-network-system' },
-    { type: 'library', key: 'internal-tools-catalog' },
     { type: 'project', key: '11' },
-    { type: 'note', key: 'distributed-systems-consistency' }
+    { type: 'library', key: 'codequeen' },
+    { type: 'library', key: 'touhou-m1-comedy-series' }
   ]
 }
 ```
@@ -82,15 +92,29 @@ Notes are also hardcoded in TypeScript. Use the object form:
 
 ```ts
 {
-  slug: 'portfolio-interface-v2',
-  title: 'Portfolio Interface v2.0 Deployed',
+  slug: 'building-with-webgl',
+  title: 'Building with WebGL: What I Learned',
   // ... other fields ...
   related: [
-    { type: 'project', key: '05' },
-    { type: 'library', key: 'design-system-documentation' }
+    { type: 'project', key: '11' }
   ]
 }
 ```
+
+## Cross-Type Reference Harness
+
+The harness uses the real converted entries in the repo. It exercises all three content types in one reference cycle:
+
+- Project source: `content/projects/11.md`
+  - related: `project:12`, `library:api-disruptor`, `note:building-with-webgl`
+- Library source: `content/library/api-disruptor.md`
+  - TypeScript entry: `lib/data/library.ts` (`api-disruptor`)
+  - related: `{ type: 'project', key: '11' }`, `{ type: 'library', key: 'codequeen' }`, `{ type: 'library', key: 'touhou-m1-comedy-series' }`
+- Note source: `content/notes/building-with-webgl.md`
+  - TypeScript entry: `lib/data/notes.ts` (`building-with-webgl`)
+  - related: `{ type: 'project', key: '11' }`
+
+Use this harness as the primary validation case whenever changing the `related` parser, resolver, or rendering components.
 
 ## ID / Key Mapping
 
@@ -129,6 +153,8 @@ Because invalid references are filtered silently, always visually verify that th
 
 When adding or updating references:
 
+- [ ] Convert the external Markdown file to the correct source location (`content/projects`, `content/library`, or `content/notes`).
+- [ ] For library/note entries, also update the hardcoded entry in `lib/data/library.ts` or `lib/data/notes.ts`.
 - [ ] The field name is `related`.
 - [ ] Each item uses one of `project`, `library`, or `note` as the type.
 - [ ] The key matches the target entry's `id` (projects) or `slug` (library/notes).

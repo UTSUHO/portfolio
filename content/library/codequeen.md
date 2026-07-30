@@ -6,7 +6,7 @@ title: CODE:QUEEN 代号σ
 
 CODE:QUEEN is a single-player fantasy SRPG currently in development. The game combines grid-based tactical combat with a narrative system where player choices reshape the mythology of the world.
 
-## Problem
+## Scenario
 
 Traditional SRPGs often separate story and combat into distinct modes. I wanted every tactical decision to also carry narrative weight, so the battlefield becomes a stage for character drama.
 
@@ -18,8 +18,19 @@ Built a "Fate Weave" system that links unit abilities to story threads. Using ce
 
 Engine Architecture
 
-- **Core**: Unity ECS-lite turn scheduler\n- **Combat**: Grid action pipeline with prediction\n- **Narrative**: Fate Weave state graph\n- **Data**: ScriptableObject-driven unit/ability database\n\nFlow: Turn Input → Action Validation → Simulation → Resolution → State Update\n\n## Challenges
+- **Core**: Unity ECS-lite turn scheduler
+- **Combat**: Grid action pipeline with prediction
+- **Narrative**: Fate Weave state graph
+- **Data**: ScriptableObject-driven unit/ability database
 
-- Designing a combat-narrative coupling that feels emergent rather than scripted.\n- Maintaining deterministic simulation for save/load and replay debugging.\n- Solo development pipeline across design, code, and UI.\n\n## Outcome
+Flow: Turn Input → Action Validation → Simulation → Resolution → State Update
 
-Core battle system and turn scheduler are functional; narrative state graph prototype is in active iteration. Targeting a vertical slice demo.\n\n\n
+## Challenges
+
+- Designing a combat-narrative coupling that feels emergent rather than scripted.
+- Maintaining deterministic simulation for save/load and replay debugging.
+- Solo development pipeline across design, code, and UI.
+
+## Outcome
+
+Core battle system and turn scheduler are functional; narrative state graph prototype is in active iteration. Targeting a vertical slice demo.
