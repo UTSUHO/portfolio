@@ -28,15 +28,59 @@ export type LibraryHeroSlide =
   | { type: 'image'; src: string; thumbnail?: string; alt?: string; caption?: string }
   | { type: 'mermaid'; definition: string; thumbnail?: string; caption?: string }
 
+export type LibrarySectionVariant =
+  | 'prose'
+  | 'pillars'
+  | 'architecture'
+  | 'constraints'
+  | 'outcome'
+
+export type LibrarySectionItem = {
+  id?: string
+  number?: string
+  code?: string
+  title: string
+  body?: string
+  meta?: string
+  diagram?: string
+}
+
+export type LibrarySectionFlow = {
+  nodes: string[]
+  branches: string[]
+  sharedRuntime: string
+}
+
+export type LibrarySectionOutcome = {
+  slogan: string[]
+  summary: string
+  intent: { code: string; body: string }[]
+  capabilities: { number: string; code: string; body: string }[]
+  integration: {
+    sources: string[]
+    entry: string
+    harness: string[]
+    targets: string[]
+    outputs: string[]
+    destination: string
+  }
+}
+
 export type LibrarySection = {
   id: string
   number: string
   title: string
-  body: string
+  label?: string
+  variant?: LibrarySectionVariant
+  body?: string
   bullets?: string[]
   diagram?: string
   table?: { label: string; value: string }[]
   codeBlock?: string
+  items?: LibrarySectionItem[]
+  modules?: LibrarySectionItem[]
+  flow?: LibrarySectionFlow
+  outcome?: LibrarySectionOutcome
 }
 
 export type LibraryEntry = {

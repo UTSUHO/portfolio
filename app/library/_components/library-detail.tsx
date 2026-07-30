@@ -6,6 +6,7 @@ import TechnicalHeroVisual from './technical-hero-visual'
 import TocPanel from '../../components/toc-panel'
 import BottomArchiveNav from './bottom-archive-nav'
 import RelatedLinks from '../../components/related-links'
+import { LibrarySectionDossier } from './sections/library-section-dossier'
 
 interface LibraryDetailProps {
   entry: LibraryEntry
@@ -94,55 +95,8 @@ export default function LibraryDetail({
             </div>
           </div>
 
-          {/* Section Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-0 border border-border bg-bg-primary">
-            {entry.sections.map((section) => (
-              <div
-                key={section.id}
-                id={section.id}
-                className="p-4 border-b md:border-r border-border"
-              >
-                <div className="text-xs font-mono text-accent mb-3">
-                  {section.number} / {section.title}
-                </div>
-                <p className="text-sm text-text-secondary leading-relaxed mb-4">
-                  {section.body}
-                </p>
-
-                {section.diagram && (
-                  <pre className="text-[10px] font-mono text-text-secondary bg-bg p-3 border border-border mb-4 whitespace-pre-wrap leading-relaxed">
-                    {section.diagram}
-                  </pre>
-                )}
-
-                {section.bullets && (
-                  <ul className="space-y-2 mb-4">
-                    {section.bullets.map((bullet, idx) => (
-                      <li key={idx} className="flex gap-2 text-sm text-text">
-                        <span className="text-accent mt-1">■</span>
-                        <span className="text-text-secondary">{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {section.table && (
-                  <LibraryMetaTable
-                    entries={section.table.map((row) => ({
-                      label: row.label,
-                      value: row.value
-                    }))}
-                  />
-                )}
-
-                {section.codeBlock && (
-                  <pre className="text-[10px] font-mono text-text-secondary bg-bg p-3 border border-border whitespace-pre-wrap leading-relaxed">
-                    {section.codeBlock}
-                  </pre>
-                )}
-              </div>
-            ))}
-          </div>
+          {/* Section Dossier */}
+          <LibrarySectionDossier sections={entry.sections} />
 
           <RelatedLinks refs={entry.related} title="RELATED ARCHIVES" className="mb-6" />
 
