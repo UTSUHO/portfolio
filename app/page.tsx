@@ -2,8 +2,8 @@ import LineSequenceScene from './_components/line-sequence-scene'
 import TabNav from './components/tab-nav'
 import Section from './_components/section'
 import SubSection from './_components/sub-section'
-import WebGLSlot from './_components/webgl-slot'
 import ExperienceSection from './_components/experience-section'
+import WorkShowcase from './_components/showcase/work-showcase'
 import ProjectLog from './_components/project-log'
 import LatestNotesPanel from './_components/latest-notes-panel'
 import LatestLibraryPanel from './_components/latest-library-panel'
@@ -138,17 +138,7 @@ export default function Home() {
         name="WORK_SHOWCASE"
       >
         <div className="flex-1 min-h-0 pb-8 pl-8 pr-8">
-          <div className="flex-1 min-h-full grid grid-cols-1 lg:grid-cols-3 border border-subtle">
-            <WebGLSlot
-              index={0}
-              className="border-b lg:border-b-0 lg:border-r border-subtle"
-            />
-            <WebGLSlot
-              index={1}
-              className="border-b lg:border-b-0 lg:border-r border-subtle"
-            />
-            <WebGLSlot index={2} />
-          </div>
+          <WorkShowcase />
         </div>
       </Section>
       {/* section3 */}
