@@ -29,7 +29,7 @@ const branchStart = {
   y: BRANCH_Y,
 };
 const branchNodes = [
-  { x: 200, y: BRANCH_Y, label: "WS-GATEWAY" },
+  { x: 200, y: BRANCH_Y, label: "MIDDLEWARE" },
   { x: 280, y: BRANCH_Y, label: "CONTAINER" },
   { x: 360, y: BRANCH_Y, label: "AGENT" },
 ];
