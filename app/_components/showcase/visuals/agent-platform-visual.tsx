@@ -7,11 +7,11 @@ import type { EasingFunction } from "animejs";
 import styles from "../showcase.module.css";
 import useSvgFlowAnimation, { type FlowNode } from "../use-svg-flow-animation";
 
-const wsRows = ["SESSIONS", "SKILL_DEV", "MARKET", "TEMPLATES", "VNC_RDP"];
+const wsRows = ["SESSIONS", "SKILLS", "MCP", "FILE_MANAGEMENT", "VNC_RDP"];
 
 const flowNodes = [
-  { x: 40, label: "GATEWAY", n: "01" },
-  { x: 120, label: "K8S-GATEWAY", n: "02" },
+  { x: 40, label: "FRONTEND-APP", n: "01" },
+  { x: 120, label: "K8S-GATEWAYS", n: "02" },
   { x: 200, label: "BACKEND-SERVER", n: "03" },
   { x: 280, label: "REDIS", n: "04" },
   { x: 360, label: "DATABASE", n: "05" },
@@ -29,8 +29,8 @@ const branchStart = {
   y: BRANCH_Y,
 };
 const branchNodes = [
-  { x: 200, y: BRANCH_Y, label: "MIDDLEWARE" },
-  { x: 280, y: BRANCH_Y, label: "CONTAINER" },
+  { x: 200, y: BRANCH_Y, label: "CONTAINER" },
+  { x: 280, y: BRANCH_Y, label: "MIDDLEWARE" },
   { x: 360, y: BRANCH_Y, label: "AGENT" },
 ];
 
@@ -193,46 +193,65 @@ export default function AgentPlatformVisual() {
       />
       <line x1={24} y1={58} x2={134} y2={58} className={styles["line-faint"]} />
       <text x={30} y={53} fontSize={7} className={styles["text-strong"]}>
-        AGENT WORKSPACE
+        CONTAINER ADAPTER
       </text>
-      {wsRows.map((row, i) => {
-        const y = 64 + i * 22;
-        const selected = i === 1;
-        return (
-          <g key={row}>
-            {selected && (
-              <rect
-                x={27}
-                y={y + 1}
-                width={104}
-                height={18}
-                className={styles["fill-base"]}
-                stroke="none"
-              />
-            )}
+      {[
+        { name: "WS_OPENCLAW", y: 66 },
+        { name: "HTTP_API", y: 98 },
+        { name: "SSE_QWENPAW", y: 130, active: true },
+      ].map((slot) => (
+        <g key={slot.name}>
+          <rect
+            x={30}
+            y={slot.y}
+            width={98}
+            height={26}
+            fill="none"
+            className={slot.active ? styles.accent : styles["line-faint"]}
+          />
+          {slot.active && (
             <rect
-              x={33}
-              y={y + 7}
-              width={5}
-              height={5}
-              fill="none"
-              className={
-                selected ? styles["line-strong"] : styles["line-faint"]
-              }
+              x={30}
+              y={slot.y}
+              width={98}
+              height={26}
+              stroke="none"
+              className={styles["accent-soft"]}
             />
-            <text
-              x={44}
-              y={y + 12}
-              fontSize={6.5}
-              className={
-                selected ? styles["text-strong"] : styles["text-label"]
-              }
-            >
-              {row}
-            </text>
-          </g>
-        );
-      })}
+          )}
+          <text
+            x={38}
+            y={slot.y + 16}
+            fontSize={6.5}
+            className={
+              slot.active ? styles["text-accent"] : styles["text-label"]
+            }
+          >
+            {slot.name}
+          </text>
+          <circle
+            cx={120}
+            cy={slot.y + 13}
+            r={2}
+            stroke="none"
+            className={
+              slot.active
+                ? `${styles["accent-fill"]} ${styles.pulse}`
+                : styles["fill-base"]
+            }
+          />
+        </g>
+      ))}
+      <text
+        x={79}
+        y={198}
+        fontSize={7}
+        textAnchor="middle"
+        className={`${styles["text-accent"]} ${styles["fade-label"]}`}
+        style={{ ["--draw-delay" as string]: "800ms" }}
+      >
+        PAW = ACTIVE
+      </text>
 
       <path
         d="M134 110 L164 110"
@@ -266,7 +285,7 @@ export default function AgentPlatformVisual() {
         textAnchor="middle"
         className={styles["text-label"]}
       >
-        WS GATEWAY
+        MIDDLEWARE
       </text>
 
       <path
@@ -285,7 +304,7 @@ export default function AgentPlatformVisual() {
       <rect
         x={258}
         y={40}
-        width={118}
+        width={110}
         height={140}
         fill="none"
         className={styles["line-base"]}
@@ -293,70 +312,51 @@ export default function AgentPlatformVisual() {
       <line
         x1={258}
         y1={58}
-        x2={376}
+        x2={368}
         y2={58}
         className={styles["line-faint"]}
       />
       <text x={264} y={53} fontSize={7} className={styles["text-strong"]}>
-        RUNTIME CONTAINER
+        AGENT WORKSPACE
       </text>
-      {[
-        { name: "WS_CHAT", y: 66 },
-        { name: "HTTP_API", y: 98 },
-        { name: "SSE_PAW", y: 130, active: true },
-      ].map((slot) => (
-        <g key={slot.name}>
-          <rect
-            x={266}
-            y={slot.y}
-            width={102}
-            height={26}
-            fill="none"
-            className={slot.active ? styles.accent : styles["line-faint"]}
-          />
-          {slot.active && (
+      {wsRows.map((row, i) => {
+        const y = 64 + i * 22;
+        const selected = i === 1;
+        return (
+          <g key={row}>
+            {selected && (
+              <rect
+                x={261}
+                y={y + 1}
+                width={104}
+                height={18}
+                className={styles["fill-base"]}
+                stroke="none"
+              />
+            )}
             <rect
-              x={266}
-              y={slot.y}
-              width={102}
-              height={26}
-              stroke="none"
-              className={styles["accent-soft"]}
+              x={267}
+              y={y + 7}
+              width={5}
+              height={5}
+              fill="none"
+              className={
+                selected ? styles["line-strong"] : styles["line-faint"]
+              }
             />
-          )}
-          <text
-            x={274}
-            y={slot.y + 16}
-            fontSize={6.5}
-            className={
-              slot.active ? styles["text-accent"] : styles["text-label"]
-            }
-          >
-            {slot.name}
-          </text>
-          <circle
-            cx={358}
-            cy={slot.y + 13}
-            r={2}
-            stroke="none"
-            className={
-              slot.active
-                ? `${styles["accent-fill"]} ${styles.pulse}`
-                : styles["fill-base"]
-            }
-          />
-        </g>
-      ))}
-      <text
-        x={317}
-        y={198}
-        fontSize={7}
-        textAnchor="middle"
-        className={`${styles["text-accent"]} ${styles["fade-label"]}`}
-        style={{ ["--draw-delay" as string]: "800ms" }}
-      >
-        PAW = ACTIVE
-      </text>
+            <text
+              x={278}
+              y={y + 12}
+              fontSize={6.5}
+              className={
+                selected ? styles["text-strong"] : styles["text-label"]
+              }
+            >
+              {row}
+            </text>
+          </g>
+        );
+      })}
 
       <line
         x1={24}
@@ -437,7 +437,7 @@ export default function AgentPlatformVisual() {
           </text>
           <text
             x={node.x}
-            y={266}
+            y={268}
             fontSize={6}
             textAnchor="middle"
             className={styles["text-label"]}
@@ -471,7 +471,7 @@ export default function AgentPlatformVisual() {
           />
           <text
             x={node.x}
-            y={node.y + 9}
+            y={node.y + 12}
             fontSize={5.5}
             textAnchor="middle"
             className={styles["text-label"]}

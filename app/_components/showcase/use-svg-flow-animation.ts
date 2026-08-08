@@ -234,7 +234,7 @@ function getPointOnPolyline(
       }
 
       const pathT = computePathProgress(path, t)
-      const localOffset = lerp(-path.waveWidth, path.pathLength, pathT)
+      const localOffset = lerp(-path.waveWidth, 0, pathT)
       const { point, angle } = getPointOnPolyline(path.points, pathT)
       const degrees = angle * (180 / Math.PI)
       const transform = `translate(${point.x}, ${point.y}) rotate(${degrees}) translate(${localOffset}, 0)`

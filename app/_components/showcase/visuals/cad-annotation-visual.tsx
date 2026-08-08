@@ -17,8 +17,9 @@ const pipelineNodes = [
   { x: 309, label: 'ANNOTATION' }
 ]
 
-const LOOP_DURATION = 2.4
-const ACTIVE_HOLD = 0.6
+const LOOP_DURATION = 2.2
+const ACTIVE_HOLD = 0.5
+const FADE_DURATION = 0.4
 const nodeEase: EasingFunction = easings.eases.out(3)
 
 function setNodeAccent(node: SVGGElement | null, intensity: number) {
@@ -74,9 +75,10 @@ export default function CadAnnotationVisual() {
       enabled: true
     },
     duration: LOOP_DURATION,
+    fadeDuration: FADE_DURATION,
     activeHold: ACTIVE_HOLD,
-    repeatDelay: 0.8,
-    startDelay: 0.45,
+    repeatDelay: 0.7,
+    startDelay: 0.35,
     ease: nodeEase,
     loop: true
   })
