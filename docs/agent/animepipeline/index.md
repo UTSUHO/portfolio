@@ -38,7 +38,7 @@ const nodes: FlowNode[] = [
 useSvgFlowAnimation({
   containerRef,   // React.RefObject<HTMLElement | SVGElement | null>
   nodes,          // FlowNode[]
-  wave: {         // 可选
+  wave: {         // 主线波浪，可选
     elementRef: gradientRef, // React.RefObject<SVGGradientElement | null>
     from: 40,     // 路径起点 x 坐标
     to: 360,      // 路径终点 x 坐标
@@ -46,7 +46,26 @@ useSvgFlowAnimation({
     peakRatio: 0.45, // 峰值视觉中心在 gradient 中的比例，默认 0.45
     enabled: true
   },
-  duration: 2.2,        // 单次循环时长（秒）
+  branches: [      // 分支路径，可选
+    {
+      id: 'down',
+      from: { x: 120, y: 252 },  // fork 点（主线 AUTH）
+      to: { x: 380, y: 280 },    // 分支终点
+      pathPoints: [              // 折线路径；提供后形成连续动画
+        { x: 120, y: 252 },
+        { x: 168.5, y: 280 },    // 30° 斜线终点
+        { x: 380, y: 280 }
+      ],
+      wave: {
+        elementRef: branchGradientRef,
+        width: 120,
+        enabled: true
+      },
+      forkAt: 0.25              // 主线 progress 达到 0.25（AUTH）时分支开始波动
+    }
+  ],
+  duration: 2.2,        // 正向脉冲时长（秒）
+  fadeDuration: 0.4,    // 返回熄灭时长（秒），默认等于 duration
   activeHold: 0.5,      // 单个节点激活保持时长（秒）；未启用 wave 时使用
   repeatDelay: 0.7,     // 循环间隔（秒）
   startDelay: 0.35,     // 首次进入视口后的延迟（秒）
@@ -54,6 +73,15 @@ useSvgFlowAnimation({
   loop: true,
   threshold: 0.25       // IntersectionObserver 阈值
 })
+```
+
+节点可通过 `pathId` 指定所属路径，未指定则归属主线：
+
+```ts
+const nodes: FlowNode[] = [
+  { progress: 0, onUpdate: ... },               // 主线
+  { progress: 0.5, pathId: 'down', onUpdate: ... } // 名为 'down' 的分支
+]
 ```
 
 ## 节点强度计算
@@ -96,19 +124,79 @@ SVG 中需要准备一条 `stroke="url(#your-gradient)"` 的 path，且该 gradi
 
 通过 `gradientTransform` 平移，波峰右边缘会从路径起点进入，左边缘会从路径终点离开；右边缘先抵达节点，左边缘后离开，形成“脉冲”扫过效果。
 
-## 调用示例：Agent 平台 MESSAGE FLOW
+## 分支路径
+
+当 pipeline 需要在某个节点分叉时，可传入 `branches`。
+
+每个分支由 `FlowBranch` 描述：
+
+- `id`：路径标识，供 `FlowNode.pathId` 引用
+- `from` / `to`：分支起点和终点坐标（起点通常与主线某个节点重合）
+- `wave`：该分支独立的 gradient wave
+- `forkAt`：主线 timeline progress 达到多少时分支开始波动（0-1）
+
+分支 timeline 与主线共享。设主线当前 progress 为 `t`，分支 progress 为：
+
+```ts
+const branchT = t < forkAt ? 0 : (t - forkAt) / (1 - forkAt)
+```
+
+分支波峰同样遵循“右边缘进入、左边缘离开”。如果分支提供 `pathPoints`，hook 会把它当作一条连续折线处理：根据 `branchT` 找到当前所在线段，将 gradient 平移到该点并旋转到线段方向，从而形成沿折线连续流动的单一动画；否则使用 `from`/`to` 的直线行为。
+
+```ts
+const angle = Math.atan2(to.y - from.y, to.x - from.x)
+const localOffset = lerp(-wave.width, pathLength, branchT)
+const transform = `translate(${from.x}, ${from.y}) rotate(${angle * 180 / Math.PI}) translate(${localOffset}, 0)`
+```
+
+SVG 中需要为每个分支准备一条 `stroke="url(#branch-gradient)"` 的 path 和对应的 `linearGradient`。如果希望呈现类似 git branch log 的视觉效果——即从主线某节点用 30° 斜线连接到与主线平行的分支线——可把整条折线作为动画路径：
+
+```svg
+<!-- 折线动画路径 -->
+<linearGradient id="branch-flow-wave" x1={0} y1={0} x2={120} y2={0} gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stopColor="rgba(255,255,255,0.12)" />
+  <stop offset="45%" stopColor="rgba(248,69,50,1)" />
+  <stop offset="100%" stopColor="rgba(255,255,255,0.12)" />
+</linearGradient>
+
+<path d="M120 252 L168.5 280 L380 280" stroke="url(#branch-flow-wave)" strokeWidth={1.5} strokeLinecap="round" />
+```
+
+分支节点的 `progress` 是沿分支路径的相对位置（0 在 `from`，1 在 `to`）。
+
+## 调用示例：Agent 平台 MESSAGE FLOW（含 30° 连续分支）
 
 ```tsx
 const svgRef = useRef<SVGSVGElement>(null)
 const gradientRef = useRef<SVGLinearGradientElement>(null)
+const branchGradientRef = useRef<SVGLinearGradientElement>(null)
 const nodeRefs = useRef<(SVGCircleElement | null)[]>([])
 const coreRefs = useRef<(SVGCircleElement | null)[]>([])
+const branchNodeRefs = useRef<(SVGCircleElement | null)[]>([])
+const branchCoreRefs = useRef<(SVGCircleElement | null)[]>([])
 
 const startX = 40
 const endX = 360
 const pathWidth = endX - startX
 
-const nodes = flowNodes.map((node, i) => ({
+const forkX = 120       // AUTH 节点
+const forkY = 252       // 主线 Y
+const branchY = 280     // 分支 Y
+const branchStart = {
+  x: forkX + (branchY - forkY) / Math.tan((30 * Math.PI) / 180),
+  y: branchY
+}
+const branchEnd = { x: 380, y: branchY }
+const branchPathPoints = [
+  { x: forkX, y: forkY },
+  branchStart,
+  branchEnd
+]
+
+const diagLength = Math.hypot(branchStart.x - forkX, branchStart.y - forkY)
+const branchPathLength = diagLength + (branchEnd.x - branchStart.x)
+
+const mainNodes = flowNodes.map((node, i) => ({
   progress: (node.x - startX) / pathWidth,
   onUpdate: (intensity: number) => {
     const circle = nodeRefs.current[i]
@@ -128,11 +216,50 @@ const nodes = flowNodes.map((node, i) => ({
   }
 }))
 
+// 分支节点与主线 STREAM / TOOL_CALL / CLOSE 在 x 方向上下对齐
+const branchFlowNodes = [
+  { x: 200, y: branchY, label: 'BRANCH_01' },
+  { x: 280, y: branchY, label: 'BRANCH_02' },
+  { x: 360, y: branchY, label: 'BRANCH_03' }
+]
+
+const branchNodes = branchFlowNodes.map((node, i) => ({
+  progress: (diagLength + (node.x - branchStart.x)) / branchPathLength,
+  pathId: 'down',
+  onUpdate: (intensity: number) => {
+    const circle = branchNodeRefs.current[i]
+    const core = branchCoreRefs.current[i]
+    if (!circle) return
+
+    const active = intensity > 0.5
+    circle.setAttribute('class', active ? styles.accent : styles['line-base'])
+    circle.setAttribute('r', String(lerp(3, 4.5, intensity)))
+
+    if (core) {
+      core.setAttribute(
+        'class',
+        active ? `${styles['accent-fill']} ${styles.pulse}` : styles['fill-base']
+      )
+    }
+  }
+}))
+
 useSvgFlowAnimation({
   containerRef: svgRef,
-  nodes,
+  nodes: [...mainNodes, ...branchNodes],
   wave: { elementRef: gradientRef, from: startX, to: endX, width: pathWidth * 0.45, enabled: true },
+  branches: [
+    {
+      id: 'down',
+      from: { x: forkX, y: forkY },
+      to: branchEnd,
+      pathPoints: branchPathPoints,
+      wave: { elementRef: branchGradientRef, width: branchPathLength * 0.45, enabled: true },
+      forkAt: (forkX - startX) / pathWidth
+    }
+  ],
   duration: 2.2,
+  fadeDuration: 0.4,
   activeHold: 0.5,
   ease: easings.eases.out(3)
 })
@@ -146,7 +273,8 @@ useSvgFlowAnimation({
 
 ### 非水平路径
 
-当前波浪只支持水平平移。如需沿任意 SVG path 移动标记，保留旧的 `use-pipeline-animation.ts`（基于 `getPointAtLength` 的 marker 方式），或后续扩展 `useSvgFlowAnimation` 支持 `pathRef` + marker。
+- **分支路径**：`useSvgFlowAnimation` 的 `branches` 支持任意直线段。hook 内部会计算路径角度并旋转 gradient，因此可用于斜向或垂直分支。
+- **任意曲线路径**：如需沿复杂 SVG path（折线、曲线）移动标记，保留旧的 `use-pipeline-animation.ts`（基于 `getPointAtLength` 的 marker 方式），或后续扩展 `useSvgFlowAnimation` 支持 `pathRef` + marker。
 
 ### 调试 easing
 

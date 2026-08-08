@@ -5,6 +5,8 @@ import type { EasingFunction } from 'animejs'
 export interface FlowNode {
   /** 节点在 0-1 流程上的位置 */
   progress: number
+  /** 节点所属路径，undefined 表示主线 */
+  pathId?: string
   /** 节点激活时的回调，intensity 0-1 */
   onUpdate?: (intensity: number) => void
   /** 节点进入激活态（intensity > 0.5） */
@@ -28,15 +30,38 @@ export interface FlowWave {
   enabled?: boolean
 }
 
+export interface FlowBranch {
+  /** 分支 ID，供 FlowNode.pathId 引用 */
+  id: string
+  /** 分支起点（同时也是 fork 点） */
+  from: { x: number; y: number }
+  /** 分支终点 */
+  to: { x: number; y: number }
+  /** 折线路径点；如果提供，会覆盖 from/to 的直线行为，形成连续折线动画 */
+  pathPoints?: { x: number; y: number }[]
+  /** 分支波浪配置 */
+  wave: {
+    elementRef: React.RefObject<SVGGradientElement | null>
+    width: number
+    enabled?: boolean
+  }
+  /** 在主 timeline 上从哪一进度点开始分叉（0-1） */
+  forkAt: number
+}
+
 export interface UseSvgFlowAnimationOptions {
   /** 触发观察的容器 */
   containerRef: React.RefObject<HTMLElement | SVGElement | null>
   /** 流程节点 */
   nodes: FlowNode[]
-  /** 波浪配置 */
+  /** 主线波浪配置 */
   wave?: FlowWave
-  /** 单次循环时长（秒） */
+  /** 分支路径配置 */
+  branches?: FlowBranch[]
+  /** 正向脉冲时长（秒） */
   duration?: number
+  /** 返回熄灭时长（秒）；默认等于 duration */
+  fadeDuration?: number
   /** 单个节点激活保持时长（秒）；未启用 wave 时使用 */
   activeHold?: number
   /** 循环间隔（秒） */
@@ -55,6 +80,10 @@ function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t
 }
 
+function clamp(n: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, n))
+}
+
 /**
  * 将差值归一化到 [-0.5, 0.5]，支持循环边界跨越。
  * 位于 progress=0 或 progress=1 的边界节点不会向对侧折叠，
@@ -67,12 +96,21 @@ function cyclicDelta(t: number, center: number, atStart = false, atEnd = false):
   return delta
 }
 
+interface ResolvedPath {
+  id?: string
+  element: SVGGradientElement
+  points: { x: number; y: number }[]
+  pathLength: number
+  waveWidth: number
+  forkAt: number
+}
+
 /**
  * 可复用的 SVG pipeline 流动动画控制系统。
  *
  * 核心能力：
  * - 统一 timeline 驱动 progress 0 -> 1
- * - 可选 SVG gradient 波浪平移
+ * - 可选 SVG gradient 波浪平移（支持多路径/分支旋转）
  * - 节点按 progress 窗口触发，支持循环跨越
  * - 暴露 intensity（0-1）给每个节点做自定义表现
  */
@@ -80,7 +118,9 @@ export function useSvgFlowAnimation({
   containerRef,
   nodes,
   wave,
+  branches,
   duration = 2.2,
+  fadeDuration,
   activeHold = 0.5,
   repeatDelay = 0.7,
   startDelay = 0.35,
@@ -93,30 +133,122 @@ export function useSvgFlowAnimation({
   const activeStatesRef = useRef<boolean[]>(nodes.map(() => false))
   const directionRef = useRef<1 | -1>(1)
   const waveRef = useRef(wave)
+  const branchesRef = useRef(branches)
   waveRef.current = wave
+  branchesRef.current = branches
+
+  const resolvePaths = useCallback((): ResolvedPath[] => {
+    const currentWave = waveRef.current
+    const currentBranches = branchesRef.current
+    const paths: ResolvedPath[] = []
+
+    if (currentWave?.enabled && currentWave.elementRef.current) {
+      const wavePoints = [
+        { x: currentWave.from, y: 0 },
+        { x: currentWave.to, y: 0 }
+      ]
+      paths.push({
+        id: undefined,
+        element: currentWave.elementRef.current,
+        points: wavePoints,
+        pathLength: currentWave.to - currentWave.from,
+        waveWidth: currentWave.width,
+        forkAt: 0
+      })
+    }
+
+    currentBranches?.forEach(branch => {
+      if (!branch.wave.enabled || !branch.wave.elementRef.current) return
+      const points = branch.pathPoints ?? [branch.from, branch.to]
+      const pathLength = points.reduce(
+        (sum, p, i) => (i === 0 ? 0 : sum + Math.hypot(p.x - points[i - 1].x, p.y - points[i - 1].y)),
+        0
+      )
+      paths.push({
+        id: branch.id,
+        element: branch.wave.elementRef.current,
+        points,
+        pathLength,
+        waveWidth: branch.wave.width,
+        forkAt: branch.forkAt
+      })
+    })
+
+    return paths
+  }, [])
 
   const resetNodes = useCallback(() => {
     activeStatesRef.current = nodes.map(() => false)
     nodes.forEach(node => node.onUpdate?.(0))
   }, [nodes])
 
-  const updateNodes = useCallback((t: number) => {
-    const wave = waveRef.current
-    const element = wave?.elementRef.current
+  const computePathProgress = (path: ResolvedPath, t: number): number => {
+    if (path.forkAt <= 0) return t
+    return clamp((t - path.forkAt) / (1 - path.forkAt), 0, 1)
+  }
 
-    // 1. 波浪平移：返回阶段把渐变峰值移出可见区域，隐藏红色波峰
-    if (wave?.enabled && element) {
-      if (directionRef.current === -1) {
-        element.setAttribute('gradientTransform', `translate(-9999, 0)`)
-      } else {
-        // 让波峰右边缘从 from 进入，左边缘从 to 离开
-        const waveOffset = lerp(wave.from - wave.width, wave.to, t)
-        element.setAttribute('gradientTransform', `translate(${waveOffset}, 0)`)
+function getPointOnPolyline(
+  points: { x: number; y: number }[],
+  t: number
+): { point: { x: number; y: number }; angle: number } {
+  if (points.length < 2) return { point: points[0] ?? { x: 0, y: 0 }, angle: 0 }
+
+  const totalLength = points.reduce(
+    (sum, p, i) => (i === 0 ? 0 : sum + Math.hypot(p.x - points[i - 1].x, p.y - points[i - 1].y)),
+    0
+  )
+  if (totalLength === 0) return { point: points[0], angle: 0 }
+
+  const target = clamp(t * totalLength, 0, totalLength)
+  let accumulated = 0
+
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1]
+    const curr = points[i]
+    const segLength = Math.hypot(curr.x - prev.x, curr.y - prev.y)
+
+    if (accumulated + segLength >= target || i === points.length - 1) {
+      const segT = segLength === 0 ? 0 : (target - accumulated) / segLength
+      return {
+        point: {
+          x: prev.x + (curr.x - prev.x) * segT,
+          y: prev.y + (curr.y - prev.y) * segT
+        },
+        angle: Math.atan2(curr.y - prev.y, curr.x - prev.x)
       }
     }
 
-    // 2. 节点状态：只在正向 0->1 时激活，返回阶段 1->0 全部熄灭
-    if (directionRef.current === -1 || t < 0 || t > 1) {
+    accumulated += segLength
+  }
+
+  const last = points[points.length - 1]
+  const prev = points[points.length - 2] ?? last
+  return { point: last, angle: Math.atan2(last.y - prev.y, last.x - prev.x) }
+}
+
+  const updatePaths = useCallback((paths: ResolvedPath[], t: number, direction: 1 | -1) => {
+    paths.forEach(path => {
+      if (direction === -1) {
+        path.element.setAttribute('gradientTransform', `translate(-9999, 0)`)
+        return
+      }
+
+      const pathT = computePathProgress(path, t)
+      const localOffset = lerp(-path.waveWidth, path.pathLength, pathT)
+      const { point, angle } = getPointOnPolyline(path.points, pathT)
+      const degrees = angle * (180 / Math.PI)
+      const transform = `translate(${point.x}, ${point.y}) rotate(${degrees}) translate(${localOffset}, 0)`
+      path.element.setAttribute('gradientTransform', transform)
+    })
+  }, [])
+
+  const updateNodes = useCallback((t: number) => {
+    const direction = directionRef.current
+    const paths = resolvePaths()
+
+    updatePaths(paths, t, direction)
+
+    if (direction === -1 || t < 0 || t > 1) {
       nodes.forEach((node, i) => {
         if (activeStatesRef.current[i]) {
           activeStatesRef.current[i] = false
@@ -127,20 +259,27 @@ export function useSvgFlowAnimation({
       return
     }
 
-    const waveEnabled = wave?.enabled && (wave.width ?? 0) > 0 && wave.to > wave.from
-    const pathWidth = waveEnabled ? wave.to - wave.from : 1
-    const totalTravel = waveEnabled ? pathWidth + wave.width : 1
-    const halfWindow = waveEnabled ? wave.width / (2 * totalTravel) : activeHold / duration
-
     nodes.forEach((node, i) => {
+      const path = paths.find(p => p.id === node.pathId) ?? paths.find(p => p.id === undefined)
+      if (!path) {
+        node.onUpdate?.(0)
+        return
+      }
+
+      const pathT = path.id === undefined ? t : computePathProgress(path, t)
+      const hasWave = path.waveWidth > 0 && path.pathLength > 0
+      const totalTravel = hasWave ? path.pathLength + path.waveWidth : 1
+      const halfWindow = hasWave
+        ? path.waveWidth / (2 * totalTravel)
+        : activeHold / duration
+
       const atStart = node.progress <= 0
       const atEnd = node.progress >= 1
-      // 右边缘抵达节点时开始激活，左边缘离开时结束激活
-      const center = waveEnabled
-        ? (node.progress * pathWidth + wave.width / 2) / totalTravel
+      const center = hasWave
+        ? (node.progress * path.pathLength + path.waveWidth / 2) / totalTravel
         : node.progress
 
-      const absDelta = Math.abs(cyclicDelta(t, center, atStart, atEnd))
+      const absDelta = Math.abs(cyclicDelta(pathT, center, atStart, atEnd))
 
       let intensity = 0
       if (absDelta <= halfWindow) {
@@ -158,7 +297,7 @@ export function useSvgFlowAnimation({
 
       node.onUpdate?.(intensity)
     })
-  }, [nodes, duration, activeHold, ease])
+  }, [nodes, duration, activeHold, ease, resolvePaths, updatePaths])
 
   useEffect(() => {
     const container = containerRef.current
@@ -185,7 +324,7 @@ export function useSvgFlowAnimation({
     if (loop) {
       timeline.to(proxy, {
         progress: 0,
-        duration,
+        duration: fadeDuration ?? duration,
         ease: 'none',
         onStart: () => { directionRef.current = -1 },
         onUpdate: () => updateNodes(proxy.progress)
@@ -216,7 +355,7 @@ export function useSvgFlowAnimation({
       observer.disconnect()
       timeline.kill()
     }
-  }, [containerRef, nodes, duration, activeHold, repeatDelay, startDelay, ease, loop, threshold, resetNodes, updateNodes])
+  }, [containerRef, nodes, duration, fadeDuration, activeHold, repeatDelay, startDelay, ease, loop, threshold, resetNodes, updateNodes])
 
   return timelineRef
 }
