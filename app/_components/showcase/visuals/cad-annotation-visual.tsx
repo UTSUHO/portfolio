@@ -4,7 +4,7 @@ import { useRef, useMemo } from "react";
 import { easings } from "animejs";
 import type { EasingFunction } from "animejs";
 import styles from "../showcase.module.css";
-import { squareMarker, docMarker, hexMarker } from "../cad-marker";
+import { squareMarker, docMarker, hexMarker, gltfMarker, viewerMarker, annotMarker, reconMarker, faceMapMarker } from "../cad-marker";
 import useSvgFlowAnimation, { type FlowNode } from "../use-svg-flow-animation";
 
 const PIPELINE_Y = 264;
@@ -37,17 +37,17 @@ const pipelineNodes = [
   { x: 300, label: "RECON", short: "RECON" },
 ];
 
-// Top branches: OCCT -> GLB -> VIEWER  and  OCCT -> FACE MAP -> VIEWER (parallel, stacked vertically)
+// Top branches: OCCT -> GLTF -> VIEWER  and  OCCT -> FACE MAP -> VIEWER (parallel, stacked vertically)
 const topForkX = 95;
 const topMergeX = 170;
 const topBranchNodes = [
-  { x: TOP_BRANCH_NODE_X, y: GLB_Y, label: "GLB", labelAbove: false },
+  { x: TOP_BRANCH_NODE_X, y: GLB_Y, label: "GLTF", labelAbove: false },
   { x: TOP_BRANCH_NODE_X, y: FACE_MAP_Y, label: "FACE MAP", labelAbove: false },
 ];
 const glbBranchPathPoints = [
   { x: topForkX, y: PIPELINE_Y },          // OCCT
   { x: GLB_ELBOW_X, y: GLB_Y },            // elbow (diagonal from OCCT)
-  { x: TOP_BRANCH_NODE_X, y: GLB_Y },      // GLB
+  { x: TOP_BRANCH_NODE_X, y: GLB_Y },      // GLTF
   { x: GLB_ELBOW2_X, y: GLB_Y },           // elbow (diagonal to VIEWER)
   { x: topMergeX, y: PIPELINE_Y },         // VIEWER
 ];
@@ -157,7 +157,7 @@ export default function CadAnnotationVisual() {
       })),
       {
         progress: pathLength(glbBranchPathPoints.slice(0, 3)) / glbBranchPathLength,
-        pathId: "glb",
+        pathId: "GLTF",
         onUpdate: (intensity: number) => {
           setNodeAccent(topNodeRefs.current[0], intensity);
         },
@@ -199,7 +199,7 @@ export default function CadAnnotationVisual() {
     },
     branches: [
       {
-        id: "glb",
+        id: "GLTF",
         from: { x: topForkX, y: PIPELINE_Y },
         to: { x: topMergeX, y: PIPELINE_Y },
         pathPoints: glbBranchPathPoints,
@@ -296,7 +296,7 @@ export default function CadAnnotationVisual() {
         </linearGradient>
 
         <linearGradient
-          id="cad-flow-wave-glb"
+          id="cad-flow-wave-GLTF"
           ref={glbGradientRef}
           x1={0}
           y1={0}
@@ -567,7 +567,7 @@ export default function CadAnnotationVisual() {
         strokeLinecap="round"
       />
 
-      {/* Top branches: GLB and FACE MAP parallel */}
+      {/* Top branches: GLTF and FACE MAP parallel */}
       <path
         d={`M${glbBranchPathPoints.map((p) => `${p.x} ${p.y}`).join(" L")}`}
         fill="none"
@@ -576,7 +576,7 @@ export default function CadAnnotationVisual() {
       <path
         d={`M${glbBranchPathPoints.map((p) => `${p.x} ${p.y}`).join(" L")}`}
         fill="none"
-        stroke="url(#cad-flow-wave-glb)"
+        stroke="url(#cad-flow-wave-GLTF)"
         strokeWidth={1.5}
         strokeLinecap="round"
       />
@@ -647,7 +647,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1400ms" }}
       >
-        {squareMarker(170, PIPELINE_Y, "VIEWER", 20, { fontSize: 6 })}
+        {viewerMarker(170, PIPELINE_Y, "VIEWER", 20, { fontSize: 6 })}
       </g>
 
       <g
@@ -657,7 +657,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1500ms" }}
       >
-        {squareMarker(235, PIPELINE_Y, "ANNOT", 20, { fontSize: 6 })}
+        {annotMarker(235, PIPELINE_Y, "ANNOT", 20, { fontSize: 6 })}
       </g>
 
       <g
@@ -667,7 +667,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1600ms" }}
       >
-        {docMarker(300, PIPELINE_Y, "RECON", { fontSize: 6 })}
+        {reconMarker(300, PIPELINE_Y, "RECON", 20, { fontSize: 6 })}
       </g>
 
       {/* Top branch nodes */}
@@ -680,9 +680,9 @@ export default function CadAnnotationVisual() {
           className={`${styles["node-marker"]} ${styles["fade-label"]}`}
           style={{ ["--draw-delay" as string]: `${1250 + i * 100}ms` }}
         >
-          {node.label === "GLB"
-            ? squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })
-            : squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })}
+          {node.label === "GLTF"
+            ? gltfMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 26 })
+            : faceMapMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 26 })}
         </g>
       ))}
 
@@ -697,8 +697,8 @@ export default function CadAnnotationVisual() {
           style={{ ["--draw-delay" as string]: `${1550 + i * 100}ms` }}
         >
           {node.label === "ML ADAPTER"
-            ? squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })
-            : squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })}
+            ? squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 26 })
+            : squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 26 })}
         </g>
       ))}
     </svg>
