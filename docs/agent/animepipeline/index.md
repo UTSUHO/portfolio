@@ -61,7 +61,8 @@ useSvgFlowAnimation({
         width: 120,
         enabled: true
       },
-      forkAt: 0.25              // 主线 progress 达到 0.25（AUTH）时分支开始波动
+      forkAt: 0.25,             // 主线 progress 达到 0.25（AUTH）时分支开始波动
+      joinAt: 0.75              // 可选：主线 progress 达到 0.75 时分支结束；省略时默认到 1
     }
   ],
   duration: 2.2,        // 正向脉冲时长（秒）
@@ -134,11 +135,16 @@ SVG 中需要准备一条 `stroke="url(#your-gradient)"` 的 path，且该 gradi
 - `from` / `to`：分支起点和终点坐标（起点通常与主线某个节点重合）
 - `wave`：该分支独立的 gradient wave
 - `forkAt`：主线 timeline progress 达到多少时分支开始波动（0-1）
+- `joinAt`（可选）：主线 timeline progress 达到多少时分支结束（0-1）。提供时分支 timeline 映射 `[forkAt, joinAt] → [0,1]`，适用于分支需要汇入主线或某个节点的场景；省略时默认映射 `[forkAt, 1]`。
 
-分支 timeline 与主线共享。设主线当前 progress 为 `t`，分支 progress 为：
+分支 timeline 与主线共享。设主线当前 progress 为 `t`：
 
 ```ts
+// 未提供 joinAt（默认）
 const branchT = t < forkAt ? 0 : (t - forkAt) / (1 - forkAt)
+
+// 提供 joinAt
+const branchT = t < forkAt ? 0 : t > joinAt ? 1 : (t - forkAt) / (joinAt - forkAt)
 ```
 
 分支波峰同样遵循“右边缘进入、左边缘离开”。如果分支提供 `pathPoints`，hook 会把它当作一条连续折线处理：根据 `branchT` 找到当前所在线段，将 gradient 平移到该点并旋转到线段方向，从而形成沿折线连续流动的单一动画；否则使用 `from`/`to` 的直线行为。
@@ -264,6 +270,85 @@ useSvgFlowAnimation({
   ease: easings.eases.out(3)
 })
 ```
+
+## 调用示例：CAD B-REP Annotation Workflow（分叉-汇合）
+
+当分支需要从主线某节点分出、经过若干并行节点、再汇入主线另一节点时，使用 `joinAt`：
+
+```ts
+const PIPELINE_Y = 264
+const TOP_BRANCH_Y = 220
+const BOTTOM_BRANCH_Y = 270
+const startX = 40
+const endX = 360
+const pathWidth = endX - startX
+
+const topBranchPathPoints = [
+  { x: 120, y: PIPELINE_Y },   // OCCT
+  { x: 160, y: TOP_BRANCH_Y }, // GLB
+  { x: 240, y: TOP_BRANCH_Y }, // FACE MAP
+  { x: 200, y: PIPELINE_Y },   // VIEWER
+]
+
+const topBranchPathLength = topBranchPathPoints.reduce(
+  (sum, p, i) => i === 0 ? 0 : sum + Math.hypot(p.x - topBranchPathPoints[i - 1].x, p.y - topBranchPathPoints[i - 1].y),
+  0
+)
+
+useSvgFlowAnimation({
+  containerRef: svgRef,
+  nodes: [
+    // 主线节点
+    { progress: 0, onUpdate: ... },      // STEP
+    { progress: 0.25, onUpdate: ... },   // OCCT
+    { progress: 0.5, onUpdate: ... },    // VIEWER
+    { progress: 0.6875, onUpdate: ... }, // ANNOT
+    { progress: 0.875, onUpdate: ... },  // RECON
+    // 上分支节点
+    { progress: 59.47 / topBranchPathLength, pathId: 'top', onUpdate: ... },  // GLB
+    { progress: 139.47 / topBranchPathLength, pathId: 'top', onUpdate: ... }, // FACE MAP
+    // 下分支节点
+    { progress: 0.423, pathId: 'bottom', onUpdate: ... }, // ML ADAPTER
+    { progress: 1, pathId: 'bottom', onUpdate: ... },     // EXTERNAL
+  ],
+  wave: {
+    elementRef: gradientRef,
+    from: startX,
+    to: endX,
+    width: pathWidth * 0.45,
+    enabled: true,
+  },
+  branches: [
+    {
+      id: 'top',
+      from: { x: 120, y: PIPELINE_Y },
+      to: { x: 200, y: PIPELINE_Y },
+      pathPoints: topBranchPathPoints,
+      wave: { elementRef: topGradientRef, width: topBranchPathLength * 0.45, enabled: true },
+      forkAt: 0.25, // OCCT
+      joinAt: 0.5,  // VIEWER
+    },
+    {
+      id: 'bottom',
+      from: { x: 320, y: PIPELINE_Y },
+      to: { x: 370, y: BOTTOM_BRANCH_Y },
+      pathPoints: [
+        { x: 320, y: PIPELINE_Y },
+        { x: 330, y: BOTTOM_BRANCH_Y }, // 30° 斜线终点
+        { x: 370, y: BOTTOM_BRANCH_Y },
+      ],
+      wave: { elementRef: bottomGradientRef, width: 51.95 * 0.45, enabled: true },
+      forkAt: 0.875, // RECON
+    }
+  ],
+  duration: 2.2,
+  fadeDuration: 0.4,
+  activeHold: 0.5,
+  ease: easings.eases.out(3),
+})
+```
+
+上分支从 OCCT 分出，经过 GLB 与 FACE MAP，在 VIEWER 处汇入主线；`joinAt: 0.5` 保证分支波与主线波同时到达 VIEWER。下分支从 RECON 分出，单向延伸到 ML ADAPTER 与 EXTERNAL。
 
 ## 扩展建议
 

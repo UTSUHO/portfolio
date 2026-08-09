@@ -47,6 +47,10 @@ export interface FlowBranch {
   }
   /** 在主 timeline 上从哪一进度点开始分叉（0-1） */
   forkAt: number
+  /** 在主 timeline 上从哪一进度点汇入主线/结束（0-1）。
+   *  提供时分支动画映射 [forkAt, joinAt] → [0,1]；
+   *  省略时保持原有 [forkAt, 1] 行为。 */
+  joinAt?: number
 }
 
 export interface UseSvgFlowAnimationOptions {
@@ -103,6 +107,7 @@ interface ResolvedPath {
   pathLength: number
   waveWidth: number
   forkAt: number
+  joinAt?: number
 }
 
 /**
@@ -170,7 +175,8 @@ export function useSvgFlowAnimation({
         points,
         pathLength,
         waveWidth: branch.wave.width,
-        forkAt: branch.forkAt
+        forkAt: branch.forkAt,
+        joinAt: branch.joinAt
       })
     })
 
@@ -184,7 +190,12 @@ export function useSvgFlowAnimation({
 
   const computePathProgress = (path: ResolvedPath, t: number): number => {
     if (path.forkAt <= 0) return t
-    return clamp((t - path.forkAt) / (1 - path.forkAt), 0, 1)
+    const end = path.joinAt ?? 1
+    // 允许 forkAt 接近 1 时仍能完整播放；若 end 接近 forkAt，用微小 epsilon 避免除 0
+    const safeEnd = end > path.forkAt ? end : 1
+    const denom = safeEnd - path.forkAt
+    if (denom <= 0.001) return t >= path.forkAt ? 1 : 0
+    return clamp((t - path.forkAt) / denom, 0, 1)
   }
 
 function getPointOnPolyline(
