@@ -4,6 +4,7 @@ import { useRef, useMemo } from "react";
 import { easings } from "animejs";
 import type { EasingFunction } from "animejs";
 import styles from "../showcase.module.css";
+import { squareMarker, docMarker, hexMarker } from "../cad-marker";
 import useSvgFlowAnimation, { type FlowNode } from "../use-svg-flow-animation";
 
 const PIPELINE_Y = 264;
@@ -133,229 +134,6 @@ function setNodeAccent(node: SVGGElement | null, intensity: number) {
       active ? styles["text-accent"] : styles["text-strong"]
     );
   }
-}
-
-function nodeLabel(
-  cx: number,
-  cy: number,
-  label: string,
-  fontSize = 6,
-  labelAbove = false,
-  labelOffset = 16
-) {
-  const textY = labelAbove ? cy - labelOffset : cy + labelOffset;
-  return (
-    <text
-      x={cx}
-      y={textY}
-      fontSize={fontSize}
-      textAnchor="middle"
-      className={styles["text-strong"]}
-    >
-      {label}
-    </text>
-  );
-}
-
-/** STEP File — original CAD input document */
-function stepIcon(cx: number, cy: number, label: string, fontSize = 6) {
-  return (
-    <g>
-      <rect x={cx - 12} y={cy - 14} width={24} height={28} stroke="none" className={styles["fill-panel"]} />
-      <path
-        d={`M${cx - 9} ${cy - 12} H${cx + 4} L${cx + 9} ${cy - 7} V${cy + 12} H${cx - 9} Z`}
-        fill="none"
-        className={styles["line-base"]}
-      />
-      <path d={`M${cx + 4} ${cy - 12} V${cy - 7} H${cx + 9}`} fill="none" className={styles["line-faint"]} />
-      <line x1={cx - 6} y1={cy - 3} x2={cx + 6} y2={cy - 3} className={styles["line-faint"]} />
-      <line x1={cx - 6} y1={cy + 2} x2={cx + 6} y2={cy + 2} className={styles["line-faint"]} />
-      <line x1={cx - 6} y1={cy + 7} x2={cx + 3} y2={cy + 7} className={styles["line-faint"]} />
-      {nodeLabel(cx, cy, label, fontSize)}
-    </g>
-  );
-}
-
-/** OCCT — Open CASCADE processing hexagon */
-function occtIcon(cx: number, cy: number, label: string, fontSize = 6) {
-  return (
-    <g>
-      <polygon
-        points={`${cx},${cy - 13} ${cx + 11.5},${cy - 6.5} ${cx + 11.5},${cy + 6.5} ${cx},${cy + 13} ${cx - 11.5},${cy + 6.5} ${cx - 11.5},${cy - 6.5}`}
-        stroke="none"
-        className={styles["fill-panel"]}
-      />
-      <polygon
-        points={`${cx},${cy - 11} ${cx + 9.5},${cy - 5.5} ${cx + 9.5},${cy + 5.5} ${cx},${cy + 11} ${cx - 9.5},${cy + 5.5} ${cx - 9.5},${cy - 5.5}`}
-        fill="none"
-        className={styles["line-base"]}
-      />
-      <circle cx={cx} cy={cy} r={4.5} fill="none" className={styles["line-faint"]} />
-      <circle cx={cx} cy={cy} r={2} fill="none" className={styles["line-faint"]} />
-      <line x1={cx} y1={cy - 4.5} x2={cx} y2={cy - 2} className={styles["line-faint"]} />
-      <line x1={cx + 3.9} y1={cy - 2.25} x2={cx + 1.73} y2={cy - 1} className={styles["line-faint"]} />
-      <line x1={cx + 3.9} y1={cy + 2.25} x2={cx + 1.73} y2={cy + 1} className={styles["line-faint"]} />
-      <line x1={cx} y1={cy + 4.5} x2={cx} y2={cy + 2} className={styles["line-faint"]} />
-      <line x1={cx - 3.9} y1={cy + 2.25} x2={cx - 1.73} y2={cy + 1} className={styles["line-faint"]} />
-      <line x1={cx - 3.9} y1={cy - 2.25} x2={cx - 1.73} y2={cy - 1} className={styles["line-faint"]} />
-      {nodeLabel(cx, cy, label, fontSize)}
-    </g>
-  );
-}
-
-/** Web Viewer — monitor/screen */
-function viewerIcon(cx: number, cy: number, label: string, fontSize = 6) {
-  return (
-    <g>
-      <rect x={cx - 13} y={cy - 12} width={26} height={22} stroke="none" className={styles["fill-panel"]} />
-      <rect x={cx - 11} y={cy - 10} width={22} height={16} fill="none" className={styles["line-base"]} />
-      <line x1={cx - 11} y1={cy - 6} x2={cx + 11} y2={cy - 6} className={styles["line-faint"]} />
-      <line x1={cx - 2} y1={cy + 6} x2={cx + 2} y2={cy + 6} className={styles["line-base"]} />
-      <line x1={cx} y1={cy + 6} x2={cx} y2={cy + 11} className={styles["line-base"]} />
-      <line x1={cx - 5} y1={cy + 11} x2={cx + 5} y2={cy + 11} className={styles["line-base"]} />
-      <circle cx={cx + 6} cy={cy - 8} r={1} stroke="none" className={styles["line-strong"]} />
-      <rect x={cx - 8} y={cy - 3} width={6} height={5} fill="none" className={styles["line-faint"]} />
-      {nodeLabel(cx, cy, label, fontSize)}
-    </g>
-  );
-}
-
-/** Annotation — pen/tag marking a face */
-function annotIcon(cx: number, cy: number, label: string, fontSize = 6) {
-  return (
-    <g>
-      <rect x={cx - 12} y={cy - 12} width={24} height={24} stroke="none" className={styles["fill-panel"]} />
-      <path
-        d={`M${cx - 8} ${cy - 4} L${cx - 2} ${cy - 10} L${cx + 8} ${cy} L${cx + 8} ${cy + 8} L${cx} ${cy + 8} Z`}
-        fill="none"
-        className={styles["line-base"]}
-      />
-      <circle cx={cx + 4} cy={cy + 2} r={1.5} stroke="none" className={styles["line-strong"]} />
-      <line x1={cx - 8} y1={cy - 4} x2={cx} y2={cy + 4} className={styles["line-faint"]} />
-      {nodeLabel(cx, cy, label, fontSize)}
-    </g>
-  );
-}
-
-/** STEP Face Reconstruction — fork/merge style icon based on user reference */
-function reconIcon(cx: number, cy: number, label: string, fontSize = 6) {
-  return (
-    <g>
-      <rect x={cx - 13} y={cy - 14} width={26} height={28} stroke="none" className={styles["fill-panel"]} />
-      {/* bottom three circles */}
-      <circle cx={cx - 7} cy={cy + 6} r={2.5} fill="none" className={styles["line-base"]} />
-      <circle cx={cx} cy={cy + 6} r={2.5} fill="none" className={styles["line-base"]} />
-      <circle cx={cx + 7} cy={cy + 6} r={2.5} fill="none" className={styles["line-base"]} />
-      {/* curved connector lines */}
-      <path
-        d={`M${cx - 7} ${cy + 3.5} Q${cx - 5} ${cy - 2} ${cx} ${cy - 5}`}
-        fill="none"
-        className={styles["line-faint"]}
-      />
-      <path
-        d={`M${cx + 7} ${cy + 3.5} Q${cx + 5} ${cy - 2} ${cx} ${cy - 5}`}
-        fill="none"
-        className={styles["line-faint"]}
-      />
-      <line x1={cx} y1={cy + 3.5} x2={cx} y2={cy - 5} className={styles["line-base"]} />
-      {/* upward arrow */}
-      <line x1={cx} y1={cy - 5} x2={cx} y2={cy - 11} className={styles["line-strong"]} />
-      <polyline points={`${cx - 3},${cy - 8} ${cx},${cy - 12} ${cx + 3},${cy - 8}`} fill="none" className={styles["line-strong"]} />
-      {nodeLabel(cx, cy, label, fontSize)}
-    </g>
-  );
-}
-
-/** GLB — three stacked cubes (glTF-style) */
-function glbIcon(cx: number, cy: number, label: string, fontSize = 6, labelAbove = false) {
-  return (
-    <g>
-      <rect x={cx - 11} y={cy - 11} width={22} height={22} stroke="none" className={styles["fill-panel"]} />
-      {/* top cube */}
-      <path
-        d={`M${cx - 4} ${cy - 9} L${cx + 4} ${cy - 9} L${cx + 4} ${cy - 3} L${cx - 4} ${cy - 3} Z`}
-        fill="none"
-        className={styles["line-base"]}
-      />
-      <path d={`M${cx - 4} ${cy - 9} L${cx - 2} ${cy - 11} H${cx + 6} L${cx + 4} ${cy - 9}`} fill="none" className={styles["line-base"]} />
-      <path d={`M${cx + 4} ${cy - 9} L${cx + 6} ${cy - 11} V${cy - 5} L${cx + 4} ${cy - 3}`} fill="none" className={styles["line-base"]} />
-      {/* bottom-left cube */}
-      <path
-        d={`M${cx - 8} ${cy - 1} L${cx} ${cy - 1} L${cx} ${cy + 5} L${cx - 8} ${cy + 5} Z`}
-        fill="none"
-        className={styles["line-base"]}
-      />
-      <path d={`M${cx - 8} ${cy - 1} L${cx - 6} ${cy - 3} H${cx + 2} L${cx} ${cy - 1}`} fill="none" className={styles["line-base"]} />
-      <path d={`M${cx} ${cy - 1} L${cx + 2} ${cy - 3} V${cy + 3} L${cx} ${cy + 5}`} fill="none" className={styles["line-base"]} />
-      {/* bottom-right cube */}
-      <path
-        d={`M${cx} ${cy - 1} L${cx + 8} ${cy - 1} L${cx + 8} ${cy + 5} L${cx} ${cy + 5} Z`}
-        fill="none"
-        className={styles["line-base"]}
-      />
-      <path d={`M${cx} ${cy - 1} L${cx + 2} ${cy - 3} H${cx + 10} L${cx + 8} ${cy - 1}`} fill="none" className={styles["line-base"]} />
-      <path d={`M${cx + 8} ${cy - 1} L${cx + 10} ${cy - 3} V${cy + 3} L${cx + 8} ${cy + 5}`} fill="none" className={styles["line-base"]} />
-      {nodeLabel(cx, cy, label, fontSize, labelAbove, 12)}
-    </g>
-  );
-}
-
-/** Face Mapping — mesh grid with identity link */
-function faceMapIcon(cx: number, cy: number, label: string, fontSize = 6, labelAbove = false) {
-  return (
-    <g>
-      <rect x={cx - 11} y={cy - 11} width={22} height={22} stroke="none" className={styles["fill-panel"]} />
-      <rect x={cx - 9} y={cy - 9} width={18} height={18} fill="none" className={styles["line-base"]} />
-      <line x1={cx - 3} y1={cy - 9} x2={cx - 3} y2={cy + 9} className={styles["line-faint"]} />
-      <line x1={cx + 3} y1={cy - 9} x2={cx + 3} y2={cy + 9} className={styles["line-faint"]} />
-      <line x1={cx - 9} y1={cy - 3} x2={cx + 9} y2={cy - 3} className={styles["line-faint"]} />
-      <line x1={cx - 9} y1={cy + 3} x2={cx + 9} y2={cy + 3} className={styles["line-faint"]} />
-      <circle cx={cx} cy={cy} r={1.5} stroke="none" className={styles["line-strong"]} />
-      {nodeLabel(cx, cy, label, fontSize, labelAbove, 12)}
-    </g>
-  );
-}
-
-/** ML Training Adapter — more visible neural network */
-function mlIcon(cx: number, cy: number, label: string, fontSize = 6, labelAbove = false) {
-  return (
-    <g>
-      <rect x={cx - 11} y={cy - 11} width={22} height={22} stroke="none" className={styles["fill-panel"]} />
-      {/* input layer */}
-      <circle cx={cx - 6} cy={cy - 5} r={2.2} fill="none" className={styles["line-base"]} />
-      <circle cx={cx - 6} cy={cy + 5} r={2.2} fill="none" className={styles["line-base"]} />
-      {/* hidden layer */}
-      <circle cx={cx} cy={cy - 5} r={2.2} fill="none" className={styles["line-base"]} />
-      <circle cx={cx} cy={cy + 5} r={2.2} fill="none" className={styles["line-base"]} />
-      {/* output layer */}
-      <circle cx={cx + 6} cy={cy} r={2.2} fill="none" className={styles["line-base"]} />
-      {/* connections */}
-      <line x1={cx - 3.8} y1={cy - 5} x2={cx - 2.2} y2={cy - 5} className={styles["line-faint"]} />
-      <line x1={cx - 3.8} y1={cy + 5} x2={cx - 2.2} y2={cy + 5} className={styles["line-faint"]} />
-      <line x1={cx + 2.2} y1={cy - 5} x2={cx + 3.8} y2={cy - 1} className={styles["line-faint"]} />
-      <line x1={cx + 2.2} y1={cy + 5} x2={cx + 3.8} y2={cy + 1} className={styles["line-faint"]} />
-      {nodeLabel(cx, cy, label, fontSize, labelAbove, 12)}
-    </g>
-  );
-}
-
-/** External Conversion — bold export arrow out of a box */
-function externalIcon(cx: number, cy: number, label: string, fontSize = 6, labelAbove = false) {
-  return (
-    <g>
-      <rect x={cx - 11} y={cy - 11} width={22} height={22} stroke="none" className={styles["fill-panel"]} />
-      {/* box body */}
-      <rect x={cx - 8} y={cy - 7} width={10} height={14} fill="none" className={styles["line-base"]} />
-      <line x1={cx - 5} y1={cy - 4} x2={cx - 1} y2={cy - 4} className={styles["line-faint"]} />
-      <line x1={cx - 5} y1={cy - 1} x2={cx - 1} y2={cy - 1} className={styles["line-faint"]} />
-      <line x1={cx - 5} y1={cy + 2} x2={cx - 1} y2={cy + 2} className={styles["line-faint"]} />
-      {/* arrow shaft */}
-      <line x1={cx + 2} y1={cy} x2={cx + 9} y2={cy} className={styles["line-strong"]} strokeWidth={2} />
-      {/* arrow head */}
-      <polyline points={`${cx + 6},${cy - 3} ${cx + 10},${cy} ${cx + 6},${cy + 3}`} fill="none" className={styles["line-strong"]} strokeWidth={2} />
-      {nodeLabel(cx, cy, label, fontSize, labelAbove, 12)}
-    </g>
-  );
 }
 
 export default function CadAnnotationVisual() {
@@ -849,7 +627,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1200ms" }}
       >
-        {stepIcon(40, PIPELINE_Y, "STEP", 6)}
+        {docMarker(40, PIPELINE_Y, "STEP", { fontSize: 6 })}
       </g>
 
       <g
@@ -859,7 +637,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1300ms" }}
       >
-        {occtIcon(95, PIPELINE_Y, "OCCT", 6)}
+        {hexMarker(95, PIPELINE_Y, "OCCT", { fontSize: 6 })}
       </g>
 
       <g
@@ -869,7 +647,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1400ms" }}
       >
-        {viewerIcon(170, PIPELINE_Y, "VIEWER", 6)}
+        {squareMarker(170, PIPELINE_Y, "VIEWER", 20, { fontSize: 6 })}
       </g>
 
       <g
@@ -879,7 +657,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1500ms" }}
       >
-        {annotIcon(235, PIPELINE_Y, "ANNOT", 6)}
+        {squareMarker(235, PIPELINE_Y, "ANNOT", 20, { fontSize: 6 })}
       </g>
 
       <g
@@ -889,7 +667,7 @@ export default function CadAnnotationVisual() {
         className={`${styles["node-marker"]} ${styles["fade-label"]}`}
         style={{ ["--draw-delay" as string]: "1600ms" }}
       >
-        {reconIcon(300, PIPELINE_Y, "RECON", 6)}
+        {docMarker(300, PIPELINE_Y, "RECON", { fontSize: 6 })}
       </g>
 
       {/* Top branch nodes */}
@@ -903,8 +681,8 @@ export default function CadAnnotationVisual() {
           style={{ ["--draw-delay" as string]: `${1250 + i * 100}ms` }}
         >
           {node.label === "GLB"
-            ? glbIcon(node.x, node.y, node.label, 5.5, node.labelAbove)
-            : faceMapIcon(node.x, node.y, node.label, 5.5, node.labelAbove)}
+            ? squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })
+            : squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })}
         </g>
       ))}
 
@@ -919,8 +697,8 @@ export default function CadAnnotationVisual() {
           style={{ ["--draw-delay" as string]: `${1550 + i * 100}ms` }}
         >
           {node.label === "ML ADAPTER"
-            ? mlIcon(node.x, node.y, node.label, 5.5, node.labelAbove)
-            : externalIcon(node.x, node.y, node.label, 5.5, node.labelAbove)}
+            ? squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })
+            : squareMarker(node.x, node.y, node.label, 18, { fontSize: 5.5, labelAbove: node.labelAbove, labelOffset: 12 })}
         </g>
       ))}
     </svg>
