@@ -352,7 +352,7 @@ export default function CadAnnotationVisual() {
         </linearGradient>
       </defs>
 
-      <text x={24} y={24} fontSize={7} className={styles["text-label"]}>
+      <text x={24} y={24} fontSize={7} className={styles["text-strong"]}>
         GEOM // B-REP VIEWER
       </text>
       <text
@@ -360,7 +360,7 @@ export default function CadAnnotationVisual() {
         y={24}
         fontSize={7}
         textAnchor="end"
-        className={styles["text-label"]}
+        className={styles["text-strong"]}
       >
         MODE: FACE_PICK
       </text>
@@ -537,7 +537,7 @@ export default function CadAnnotationVisual() {
         y2={216}
         className={styles["line-faint"]}
       />
-      <text x={24} y={240} fontSize={7} className={styles["text-label"]}>
+      <text x={24} y={240} fontSize={7} className={styles["text-strong"]}>
         PIPELINE
       </text>
 

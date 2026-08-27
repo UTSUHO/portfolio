@@ -68,11 +68,17 @@
 
 .text-label,
 .text-strong,
-.text-accent {
+.text-accent,
+.text-title {
   font-family: "Space Grotesk", ui-monospace, monospace;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   user-select: none;
+}
+
+.text-title {
+  font-family: "Arial Narrow", "Roboto Condensed", "Space Grotesk", ui-monospace, monospace;
+  letter-spacing: 0.12em;
 }
 
 .text-label {

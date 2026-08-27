@@ -180,7 +180,7 @@ export default function AgentPlatformVisual() {
         </linearGradient>
       </defs>
 
-      <text x={24} y={24} fontSize={7} className={styles["text-label"]}>
+      <text x={24} y={24} fontSize={7} className={styles["text-strong"]}>
         SYS // RUNTIME TOPOLOGY
       </text>
 
@@ -365,7 +365,7 @@ export default function AgentPlatformVisual() {
         y2={216}
         className={styles["line-faint"]}
       />
-      <text x={24} y={232} fontSize={7} className={styles["text-label"]}>
+      <text x={24} y={232} fontSize={7} className={styles["text-strong"]}>
         MESSAGE FLOW
       </text>
 
