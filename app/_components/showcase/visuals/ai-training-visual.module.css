@@ -40,7 +40,7 @@
 .visual-panel {
   min-height: 0;
   border: 1px solid var(--line);
-  background: var(--panel);
+  /* background: var(--panel); */
   overflow: hidden;
   position: relative;
 }
