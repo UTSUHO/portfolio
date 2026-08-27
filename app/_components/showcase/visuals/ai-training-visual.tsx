@@ -233,14 +233,24 @@ function ControlPlane() {
       {inputPaths.map((path, index) => (
         <g key={path}>
           <path d={path} className={styles["motion-path"]} />
-          <circle r="4.8" className={styles["route-marker"]} filter="url(#pulse-glow)">
-            <animateMotion
-              dur="4.8s"
-              begin={`${index * -1.15}s`}
-              repeatCount="indefinite"
-              path={path}
-            />
-          </circle>
+          <g filter="url(#pulse-glow)">
+            <circle r="5" className={styles["route-marker-ring"]}>
+              <animateMotion
+                dur="4.8s"
+                begin={`${index * -1.15}s`}
+                repeatCount="indefinite"
+                path={path}
+              />
+            </circle>
+            <circle r="2" className={styles["route-marker-core"]}>
+              <animateMotion
+                dur="4.8s"
+                begin={`${index * -1.15}s`}
+                repeatCount="indefinite"
+                path={path}
+              />
+            </circle>
+          </g>
         </g>
       ))}
 
@@ -252,14 +262,24 @@ function ControlPlane() {
 
       <path d="M452 116H523" className={styles["motion-path"]} />
       <path d="M523 116 560 78M523 116h37M523 116l37 38" className={styles["assignment-path"]} />
-      <circle r="5.5" className={styles["route-marker"]} filter="url(#pulse-glow)">
-        <animateMotion
-          dur="1.35s"
-          begin="0.85s"
-          repeatCount="indefinite"
-          path="M452 116H523L560 116"
-        />
-      </circle>
+      <g filter="url(#pulse-glow)">
+        <circle r="5.5" className={styles["route-marker-ring"]}>
+          <animateMotion
+            dur="1.35s"
+            begin="0.85s"
+            repeatCount="indefinite"
+            path="M452 116H523L560 116"
+          />
+        </circle>
+        <circle r="2.2" className={styles["route-marker-core"]}>
+          <animateMotion
+            dur="1.35s"
+            begin="0.85s"
+            repeatCount="indefinite"
+            path="M452 116H523L560 116"
+          />
+        </circle>
+      </g>
 
       <path d="M570 63h-10v106h10" className={styles["cluster-bracket"]} />
       {Array.from({ length: 12 }, (_, index) => {
