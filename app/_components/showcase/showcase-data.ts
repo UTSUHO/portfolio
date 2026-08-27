@@ -30,7 +30,7 @@ export const showcaseProjects: ShowcaseProject[] = [
     index: '03',
     title: 'AI TRAINING PLATFORM',
     description:
-      '基于开源框架的 AI 训推平台,Vite 重构构建体系并集成至甲方业务系统,启动时间 180s 降至 20s。',
+      '开源 AI 训推平台：控制平面完成 JOB QUEUE → SCHEDULER → GPU CLUSTER 的任务调度，服务层经历 RAY SERVE → VLLM ENGINE 的演进。在有限开发资源与多迭代交付约束下，通过 Vite 重构构建体系将启动时间从 180s 降至 20s，并集成至甲方业务系统。',
     tech: ['VUE.JS', 'VITE', 'NODE.JS', 'AI INFRA'],
     category: 'AI INFRA',
     href: '/projects/10'

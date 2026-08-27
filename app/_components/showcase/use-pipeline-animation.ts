@@ -26,6 +26,8 @@ export interface UsePipelineAnimationOptions {
   repeatDelay?: number
   /** 首次进入视口前的延迟（秒） */
   startDelay?: number
+  /** 是否启用动画；false 时不创建 timeline（用于 active=false 或 reduced-motion） */
+  enabled?: boolean
 }
 
 /**
@@ -40,13 +42,16 @@ export function usePipelineAnimation({
   duration = 2.4,
   loop = true,
   repeatDelay = 0.6,
-  startDelay = 0.3
+  startDelay = 0.3,
+  enabled = true
 }: UsePipelineAnimationOptions) {
   const timelineRef = useRef<gsap.core.Timeline | null>(null)
   const hasPlayedRef = useRef(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
+    if (!enabled) return
+
     const container = containerRef.current
     const path = pathRef.current
     const marker = markerRef.current
@@ -151,7 +156,7 @@ export function usePipelineAnimation({
         }
       })
     }
-  }, [containerRef, pathRef, markerRef, nodes, duration, loop, repeatDelay, startDelay])
+  }, [containerRef, pathRef, markerRef, nodes, duration, loop, repeatDelay, startDelay, enabled])
 }
 
 export default usePipelineAnimation

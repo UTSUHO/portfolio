@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import styles from "./ai-training-visual.module.css";
+import styles from "./page.module.css";
 
 const trainRows = [
   { name: "GPU-01", value: 72 },
   { name: "GPU-02", value: 64 },
-  // { name: "GPU-03", value: 58 },
+  { name: "GPU-03", value: 58 },
 ];
 
 const inferenceRows = [
   { name: "GPU-01", value: 44 },
   { name: "GPU-02", value: 36 },
-  // { name: "GPU-03", value: 28 },
+  { name: "GPU-03", value: 28 },
 ];
 
 const inputPaths = [
@@ -151,18 +151,8 @@ function SchedulerGlyph() {
   const spokes = useMemo(() => [0, 60, 120, 180, 240, 300], []);
   return (
     <g className={styles["scheduler-glyph"]}>
-      <circle
-        cx="392"
-        cy="116"
-        r="60"
-        className={`${styles["scheduler-ring"]} ${styles["ring-a"]}`}
-      />
-      <circle
-        cx="392"
-        cy="116"
-        r="50"
-        className={`${styles["scheduler-ring"]} ${styles["ring-b"]}`}
-      />
+      <circle cx="392" cy="116" r="60" className={`${styles["scheduler-ring"]} ${styles["ring-a"]}`} />
+      <circle cx="392" cy="116" r="50" className={`${styles["scheduler-ring"]} ${styles["ring-b"]}`} />
       <circle cx="392" cy="116" r="14" />
       {spokes.map((angle) => {
         const rad = (angle * Math.PI) / 180;
@@ -294,45 +284,53 @@ function ControlPlane() {
   );
 }
 
-export default function AiTrainingVisual({
-  className = "",
-  active = true,
-}: {
-  className?: string;
-  active?: boolean;
-}) {
+export default function AiTrainingShowcasePage() {
   return (
-    <div
-      className={`${styles.visual} ${className}`}
-      data-active={active}
-      aria-hidden="true"
-    >
-      <div className={styles["showcase-canvas"]}>
-        <section className={`${styles["visual-panel"]} ${styles["cluster-panel"]}`}>
-          <header className={styles["panel-header"]}>
-            <span>AI TRAINING</span>
-            <i>{"//"}</i>
-            <h2>GPU CLUSTER</h2>
-          </header>
-
-          <div className={styles["cluster-content"]}>
-            <div className={styles["utilization-column"]}>
-              <UtilizationBand title="TRAIN" rows={trainRows} />
-              <UtilizationBand title="INFERENCE" rows={inferenceRows} />
-            </div>
-            <K8sArchitecture />
+    <main className={styles["demo-page"]}>
+      <div className={styles["demo-shell"]}>
+        <header className={styles["demo-header"]}>
+          <div>
+            <span className={styles.eyebrow}>SHOWCASE VISUAL / LIVE DEMO</span>
+            <h1>AI TRAINING PLATFORM</h1>
           </div>
-        </section>
+          <div className={styles["live-indicator"]}>
+            <i />
+            <span>MOTION ACTIVE</span>
+          </div>
+        </header>
 
-        <section className={`${styles["visual-panel"]} ${styles["control-panel"]}`}>
-          <header className={`${styles["panel-header"]} ${styles.compact}`}>
-            <span>AI TRAINING</span>
-            <i>{"//"}</i>
-            <h2>CONTROL PLANE</h2>
-          </header>
-          <ControlPlane />
-        </section>
+        <div className={styles["showcase-canvas"]}>
+          <section className={`${styles["visual-panel"]} ${styles["cluster-panel"]}`}>
+            <header className={styles["panel-header"]}>
+              <span>03</span>
+              <i>{"//"}</i>
+              <h2>GPU CLUSTER</h2>
+            </header>
+
+            <div className={styles["cluster-content"]}>
+              <div className={styles["utilization-column"]}>
+                <UtilizationBand title="TRAIN" rows={trainRows} />
+                <UtilizationBand title="INFERENCE" rows={inferenceRows} />
+              </div>
+              <K8sArchitecture />
+            </div>
+          </section>
+
+          <section className={`${styles["visual-panel"]} ${styles["control-panel"]}`}>
+            <header className={`${styles["panel-header"]} ${styles.compact}`}>
+              <span>02</span>
+              <i>{"//"}</i>
+              <h2>CONTROL PLANE</h2>
+            </header>
+            <ControlPlane />
+          </section>
+        </div>
+
+        <footer className={styles["demo-footer"]}>
+          <span>JOB FAN-IN / SCHEDULING / GPU DISPATCH</span>
+          <span>800 × 760 VISUAL SYSTEM</span>
+        </footer>
       </div>
-    </div>
+    </main>
   );
 }
