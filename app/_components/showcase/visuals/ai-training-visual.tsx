@@ -55,16 +55,20 @@ function UtilizationBand({
   );
 }
 
+// Round trig results to fixed precision so server and client render
+// identical attribute values (Math.cos/Math.sin last-bit differs across engines).
+const round = (value: number) => Math.round(value * 1000) / 1000;
+
 function KubeGlyph() {
   return (
     <svg viewBox="0 0 74 74" aria-hidden="true" className={styles["kube-glyph"]}>
       <circle cx="37" cy="37" r="10" />
       {[0, 60, 120, 180, 240, 300].map((angle) => {
         const rad = (angle * Math.PI) / 180;
-        const x1 = 37 + Math.cos(rad) * 10;
-        const y1 = 37 + Math.sin(rad) * 10;
-        const x2 = 37 + Math.cos(rad) * 25;
-        const y2 = 37 + Math.sin(rad) * 25;
+        const x1 = round(37 + Math.cos(rad) * 10);
+        const y1 = round(37 + Math.sin(rad) * 10);
+        const x2 = round(37 + Math.cos(rad) * 25);
+        const y2 = round(37 + Math.sin(rad) * 25);
         return (
           <g key={angle}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} />
@@ -166,10 +170,10 @@ function SchedulerGlyph() {
       <circle cx="392" cy="116" r="14" />
       {spokes.map((angle) => {
         const rad = (angle * Math.PI) / 180;
-        const x1 = 392 + Math.cos(rad) * 14;
-        const y1 = 116 + Math.sin(rad) * 14;
-        const x2 = 392 + Math.cos(rad) * 34;
-        const y2 = 116 + Math.sin(rad) * 34;
+        const x1 = round(392 + Math.cos(rad) * 14);
+        const y1 = round(116 + Math.sin(rad) * 14);
+        const x2 = round(392 + Math.cos(rad) * 34);
+        const y2 = round(116 + Math.sin(rad) * 34);
         return (
           <g key={angle}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} />
